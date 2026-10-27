@@ -5,53 +5,57 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
+import { fonts, forms } from "../variables/variables.stylex";
 import { formStyles } from "./form-styles";
+
+const checkboxTotalWidth = `calc(${forms.checkboxWidth} + ${forms.radioLabelSpacing})`;
+const checkboxLeft = `calc(-1 * (${forms.checkboxWidth} + ${forms.radioLabelSpacing}))`;
 
 const styles = stylex.create({
   root: {
     display: "inline-flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
   },
   label: {
     position: "relative",
-    marginLeft: "var(--checkbox-total-width)",
+    marginLeft: checkboxTotalWidth,
     lineHeight: "13px",
     "::before": {
       content: '""',
       display: "inline-block",
       position: "absolute",
       top: 0,
-      left: "var(--checkbox-left)",
-      width: "var(--checkbox-width)",
-      height: "var(--checkbox-width)",
-      border: "var(--radio-border)",
-      backgroundColor: "var(--radio-bg)",
+      left: checkboxLeft,
+      width: forms.checkboxWidth,
+      height: forms.checkboxWidth,
+      border: forms.radioBorder,
+      backgroundColor: forms.radioBg,
       boxShadow: "none",
     },
     "::after": {
       content: '""',
       display: "block",
       position: "absolute",
-      top: "var(--checkmark-top)",
-      left: "var(--checkmark-left)",
-      width: "var(--checkmark-width)",
-      height: "var(--checkmark-width)",
+      top: forms.checkmarkTop,
+      left: forms.checkmarkLeft,
+      width: forms.checkmarkWidth,
+      height: forms.checkmarkWidth,
     },
     ":not([data-disabled]):not(:active):hover::before": {
-      boxShadow: "var(--radio-inner-shadow-hover)",
+      boxShadow: forms.radioInnerShadowHover,
     },
     ":not([data-disabled]):active::before": {
-      background: "var(--radio-bg-active)",
+      background: forms.radioBgActive,
     },
     ":is([data-checked])::after": {
       left: -17,
       backgroundImage: "var(--xp-checkbox-icon)",
     },
     ":is([data-disabled])::before": {
-      border: "var(--radio-border-disabled)",
+      border: forms.radioBorderDisabled,
       backgroundColor: "#ffffff",
     },
     ":is([data-disabled][data-checked])::after": {
@@ -62,12 +66,12 @@ const styles = stylex.create({
     outline: "1px dotted #000000",
   },
   description: {
-    marginLeft: "var(--checkbox-total-width)",
+    marginLeft: checkboxTotalWidth,
     marginTop: 2,
     color: "#4a4a4a",
   },
   error: {
-    marginLeft: "var(--checkbox-total-width)",
+    marginLeft: checkboxTotalWidth,
     marginTop: 2,
     color: "#a80000",
   },

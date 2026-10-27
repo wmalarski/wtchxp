@@ -2,6 +2,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
+import { fonts, spacing } from "../variables/variables.stylex";
 
 const styles = stylex.create({
   root: {
@@ -12,7 +13,7 @@ const styles = stylex.create({
     backgroundColor: "#ffffff",
     boxShadow: "none",
     boxSizing: "border-box",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
   },
   legend: {
@@ -22,12 +23,12 @@ const styles = stylex.create({
   row: {
     display: "flex",
     alignItems: "center",
-    gap: "var(--grouped-element-spacing)",
+    gap: spacing.groupedElement,
   },
   stacked: {
     display: "flex",
     flexDirection: "column",
-    gap: "var(--grouped-element-spacing)",
+    gap: spacing.groupedElement,
   },
 });
 

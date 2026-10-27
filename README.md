@@ -156,8 +156,9 @@ vp build     # dist/index.js, dist/styles.css and d.ts files
 ```
 
 The demo lives in `demo/main.tsx` and uses every component. `src/styles.css`
-imports the theme files; `src/styles/base.css` contains the structural rules
-that the theme files do not provide.
+imports the global skin files, `src/variables/variables.stylex.ts` defines the
+theme tokens, and `src/styles/base.css` contains the structural rules that the
+theme files do not provide.
 
 ## Credits
 

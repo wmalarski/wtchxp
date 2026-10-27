@@ -2,6 +2,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createContext, createSignal, omit, Show, useContext } from "solid-js";
 import { sx } from "../styles/sx";
+import { colors, fonts } from "../variables/variables.stylex";
 
 const TreeDepthContext = createContext(0);
 
@@ -11,8 +12,8 @@ const styles = stylex.create({
     margin: 0,
     padding: "2px 5px",
     border: "1px solid #7f9db9",
-    backgroundColor: "var(--button-highlight)",
-    fontFamily: "var(--sans-serif)",
+    backgroundColor: colors.buttonHighlight,
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     userSelect: "none",
   },
@@ -39,19 +40,19 @@ const styles = stylex.create({
       bottom: 0,
       left: -20,
       width: 8,
-      backgroundColor: "var(--button-highlight)",
+      backgroundColor: colors.buttonHighlight,
     },
   },
   leaf: {
     color: "#000000",
     textDecoration: "none",
     ":focus": {
-      backgroundColor: "var(--dialog-blue)",
-      color: "var(--button-highlight)",
+      backgroundColor: colors.dialogBlue,
+      color: colors.buttonHighlight,
     },
     ":is([aria-selected='true'])": {
-      backgroundColor: "var(--dialog-blue)",
-      color: "var(--button-highlight)",
+      backgroundColor: colors.dialogBlue,
+      color: colors.buttonHighlight,
     },
   },
   group: {

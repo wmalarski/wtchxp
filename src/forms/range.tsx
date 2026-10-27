@@ -2,6 +2,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
+import { spacing } from "../variables/variables.stylex";
 
 const horizontalTrackShadow =
   "1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 #9d9c99, -1px -1px 0 #9d9c99, 0 -1px 0 #9d9c99, -1px 1px 0 white, 1px -1px #9d9c99";
@@ -58,9 +59,9 @@ const styles = stylex.create({
   verticalRange: {
     width: 150,
     height: 4,
-    margin: "0 calc(var(--grouped-element-spacing) + var(--range-spacing)) 0 var(--range-spacing)",
+    margin: `0 calc(${spacing.groupedElement} + ${spacing.range}) 0 ${spacing.range}`,
     transformOrigin: "0",
-    transform: "rotate(270deg) translateX(calc(-50% + var(--element-spacing)))",
+    transform: `rotate(270deg) translateX(calc(-50% + ${spacing.element}))`,
     "--xp-range-track-border-left": "1px solid #f3f2ea",
     "--xp-range-track-border-right": "0",
     "--xp-range-track-shadow": verticalTrackShadow,

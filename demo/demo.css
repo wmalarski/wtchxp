@@ -6,7 +6,7 @@ body {
 body {
   margin: 0;
   background: #3a6ea5;
-  font-family: var(--sans-serif);
+  font-family: "Pixelated MS Sans Serif", Arial;
 }
 
 .desktop {
@@ -28,7 +28,7 @@ body {
 
 p {
   margin: 0;
-  font-family: var(--sans-serif);
+  font-family: "Pixelated MS Sans Serif", Arial;
   font-size: 11px;
   line-height: 1.6;
 }

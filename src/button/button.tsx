@@ -2,6 +2,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit } from "solid-js";
 import { sx } from "../styles/sx";
+import { colors, fonts } from "../variables/variables.stylex";
 
 const styles = stylex.create({
   root: {
@@ -9,19 +10,19 @@ const styles = stylex.create({
     minHeight: 23,
     padding: "0 12px",
     border: "1px solid #003c74",
-    backgroundColor: "var(--surface)",
+    backgroundColor: colors.surface,
     background: "linear-gradient(180deg, #ffffff 0%, #ecebe5 86%, #d8d0c4 100%)",
     boxShadow: "none",
     borderRadius: 3,
     boxSizing: "border-box",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
     cursor: "default",
     userSelect: "none",
     ":disabled": {
-      color: "var(--button-shadow)",
-      textShadow: "1px 1px 0 var(--button-highlight)",
+      color: colors.buttonShadow,
+      textShadow: `1px 1px 0 ${colors.buttonHighlight}`,
     },
     ":not(:disabled):hover": {
       boxShadow:

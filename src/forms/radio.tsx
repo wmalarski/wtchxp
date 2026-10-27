@@ -5,14 +5,19 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
+import { fonts, forms } from "../variables/variables.stylex";
 import { formStyles } from "./form-styles";
+
+const radioTotalWidth = `calc(${forms.radioWidth} + ${forms.radioLabelSpacing})`;
+const radioLeft = `calc(-1 * (${forms.radioWidth} + ${forms.radioLabelSpacing}))`;
+const radioDotLeft = `calc(-1 * (${forms.radioWidth} + ${forms.radioLabelSpacing}) + ${forms.radioWidth} / 2 - ${forms.radioDotWidth} / 2)`;
 
 const styles = stylex.create({
   group: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
   },
   groupLabel: {
@@ -25,40 +30,40 @@ const styles = stylex.create({
   },
   label: {
     position: "relative",
-    marginLeft: "var(--radio-total-width)",
+    marginLeft: radioTotalWidth,
     lineHeight: "16px",
     "::before": {
       content: '""',
       display: "inline-block",
       position: "absolute",
       top: 0,
-      left: "var(--radio-left)",
-      width: "var(--radio-width)",
-      height: "var(--radio-width)",
-      border: "var(--radio-border)",
+      left: radioLeft,
+      width: forms.radioWidth,
+      height: forms.radioWidth,
+      border: forms.radioBorder,
       borderRadius: "50%",
-      background: "var(--radio-bg)",
+      background: forms.radioBg,
     },
     "::after": {
       content: '""',
       display: "block",
       position: "absolute",
-      top: "var(--radio-dot-top)",
-      left: "var(--radio-dot-left)",
-      width: "var(--radio-dot-width)",
-      height: "var(--radio-dot-width)",
+      top: forms.radioDotTop,
+      left: radioDotLeft,
+      width: forms.radioDotWidth,
+      height: forms.radioDotWidth,
     },
     ":not([data-disabled]):not(:active):hover::before": {
-      boxShadow: "var(--radio-inner-shadow-hover)",
+      boxShadow: forms.radioInnerShadowHover,
     },
     ":not([data-disabled]):active::before": {
-      background: "var(--radio-bg-active)",
+      background: forms.radioBgActive,
     },
     ":is([data-checked])::after": {
       backgroundImage: "var(--xp-radio-icon)",
     },
     ":is([data-disabled])::before": {
-      border: "var(--radio-border-disabled)",
+      border: forms.radioBorderDisabled,
       backgroundColor: "#ffffff",
     },
     ":is([data-disabled][data-checked])::after": {
@@ -69,7 +74,7 @@ const styles = stylex.create({
     outline: "1px dotted #000000",
   },
   description: {
-    marginLeft: "var(--radio-total-width)",
+    marginLeft: radioTotalWidth,
     marginTop: 2,
     color: "#4a4a4a",
   },

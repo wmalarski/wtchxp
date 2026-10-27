@@ -1,8 +1,9 @@
 /*-------------------------------------------*\
     Base layer
-    Only tokens, fonts and truly global rules live
-    here. Component skin and layout now live in
-    StyleX, next to the components.
+    Theme tokens live in StyleX
+    (`src/variables/variables.stylex.ts`). Only
+    fonts and the few global rules that StyleX
+    cannot express stay here.
 \*-------------------------------------------*/
 
 @font-face {
@@ -25,50 +26,13 @@
   font-display: swap;
 }
 
-:root {
-  /* Spacing */
-  --element-spacing: 8px;
-  --grouped-button-spacing: 4px;
-  --grouped-element-spacing: 6px;
-  --checkbox-width: 13px;
-  --radio-label-spacing: 6px;
-  --range-track-height: 4px;
-  --range-spacing: 10px;
-
-  /* Form control geometry */
-  --radio-total-width-precalc: calc(var(--radio-width) + var(--radio-label-spacing));
-  --radio-total-width: calc(var(--radio-total-width-precalc));
-  --radio-left: calc(-1 * var(--radio-total-width-precalc));
-  --radio-dot-left: calc(
-    -1 * (var(--radio-total-width-precalc)) + var(--radio-width) / 2 - var(--radio-dot-width) / 2
-  );
-  --checkbox-total-width-precalc: calc(var(--checkbox-width) + var(--radio-label-spacing));
-  --checkbox-total-width: calc(var(--checkbox-total-width-precalc));
-  --checkbox-left: calc(-1 * (var(--checkbox-total-width-precalc)));
-  --checkmark-top: 1px;
-  --checkmark-left: 3px;
-
-  /* Borders */
-  --border-width: 1px;
-  --border-raised-outer: inset -1px -1px var(--window-frame), inset 1px 1px var(--button-highlight);
-  --border-raised-inner: inset -2px -2px var(--button-shadow), inset 2px 2px var(--button-face);
-  --border-sunken-outer: inset -1px -1px var(--button-highlight), inset 1px 1px var(--window-frame);
-  --border-sunken-inner: inset -2px -2px var(--button-face), inset 2px 2px var(--button-shadow);
-  --border-window-outer: inset -1px -1px var(--window-frame), inset 1px 1px var(--button-face);
-  --border-window-inner:
-    inset -2px -2px var(--button-shadow), inset 2px 2px var(--button-highlight);
-  --border-field:
-    inset -1px -1px var(--button-highlight), inset 1px 1px var(--button-shadow),
-    inset -2px -2px var(--button-face), inset 2px 2px var(--window-frame);
-  --border-status-bar-field: inset -1px -1px var(--button-face), inset 1px 1px var(--button-shadow);
-}
-
 /*
  * Native options do not inherit the select's font in every browser. This is
- * the one form rule that cannot be scoped to a component class.
+ * the one form rule that cannot be scoped to a component class. The font stack
+ * mirrors `fonts.sansSerif` in `src/variables/variables.stylex.ts`.
  */
 option {
-  font-family: var(--sans-serif);
+  font-family: "Pixelated MS Sans Serif", Arial;
   font-size: 11px;
   -webkit-font-smoothing: antialiased;
 }
@@ -76,8 +40,8 @@ option {
 /*
  * Adjacent rows cannot be expressed with StyleX until it supports sibling
  * selectors. Keep the tiny layout rule that makes two stacked FieldRows
- * separate.
+ * separate. The gap mirrors `spacing.groupedElement`.
  */
 [class^="field-row"] + [class^="field-row"] {
-  margin-top: var(--grouped-element-spacing);
+  margin-top: 6px;
 }

@@ -9,6 +9,7 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import { createContext, omit, useContext } from "solid-js";
 import { sx } from "../styles/sx";
+import { fonts, tabs } from "../variables/variables.stylex";
 
 const tabBackground = "linear-gradient(180deg, #ffffff 0%, #fafaf9 26%, #f0f0ea 95%, #ecebe5 100%)";
 
@@ -16,7 +17,7 @@ const TabListContext = createContext(false);
 
 const styles = stylex.create({
   root: {
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
   },
   list: {
@@ -42,7 +43,7 @@ const styles = stylex.create({
     color: "#222222",
     textDecoration: "none",
     boxSizing: "border-box",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
     cursor: "default",
@@ -74,7 +75,7 @@ const styles = stylex.create({
       left: -1,
       width: 0,
       height: 2,
-      borderLeft: "var(--tab-border)",
+      borderLeft: tabs.border,
     },
     ":focus": {
       outline: "1px dotted #222222",
@@ -94,8 +95,8 @@ const styles = stylex.create({
     clear: "both",
     marginBottom: 9,
     padding: 14,
-    background: "var(--tab-bg)",
-    border: "var(--tab-border)",
+    background: tabs.background,
+    border: tabs.border,
     boxShadow:
       "inset 1px 1px #fcfcfe, inset -1px -1px #fcfcfe, 1px 2px 2px 0 rgba(208, 206, 191, 0.75)",
   },

@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { omit } from "solid-js";
 import type { ButtonProps } from "../button/button";
 import { sx } from "../styles/sx";
+import { colors, fonts, spacing } from "../variables/variables.stylex";
 
 const titleBarBackground =
   "linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0066ff 88% 93%, #005bff 95%, #003dd7 96% 100%)";
@@ -16,14 +17,14 @@ const styles = stylex.create({
       "inset -1px -1px #00138c, inset 1px 1px #0831d9, inset -2px -2px #001ea0, inset 2px 2px #166aee, inset -3px -3px #003bda, inset 3px 3px #0855dd",
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    backgroundColor: "var(--surface)",
+    backgroundColor: colors.surface,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
   },
   body: {
     flexGrow: 1,
     minHeight: 0,
-    margin: "var(--element-spacing)",
+    margin: spacing.element,
   },
   titleBar: {
     display: "flex",
@@ -38,7 +39,7 @@ const styles = stylex.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 7,
     background: titleBarBackground,
-    color: "var(--button-highlight)",
+    color: colors.buttonHighlight,
     fontFamily: '"Trebuchet MS"',
     fontSize: 13,
     textShadow: "1px 1px #0f1089",
@@ -58,7 +59,7 @@ const styles = stylex.create({
     gap: 0,
     margin: "0 3px",
     padding: "2px 1px",
-    boxShadow: "inset 0 1px 2px var(--button-shadow)",
+    boxShadow: `inset 0 1px 2px ${colors.buttonShadow}`,
   },
   statusBarField: {
     flexGrow: 1,
@@ -67,7 +68,7 @@ const styles = stylex.create({
     borderLeft: "1px solid rgba(255, 255, 255, 0.75)",
     borderRight: "1px solid rgba(208, 206, 191, 0.75)",
     boxShadow: "none",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     WebkitFontSmoothing: "antialiased",
     ":first-of-type": {
       borderLeft: "none",

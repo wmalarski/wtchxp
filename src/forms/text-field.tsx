@@ -5,6 +5,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
+import { fonts } from "../variables/variables.stylex";
 import { formStyles } from "./form-styles";
 
 const styles = stylex.create({
@@ -12,7 +13,7 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
   },
   label: {

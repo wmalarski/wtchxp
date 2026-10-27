@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { colors, fonts } from "../variables/variables.stylex";
 
 /**
  * Shared form-control skin. StyleX owns the layout and theme; the only native
@@ -8,7 +9,7 @@ export const formStyles = stylex.create({
   label: {
     display: "inline-flex",
     alignItems: "center",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
   },
@@ -16,18 +17,18 @@ export const formStyles = stylex.create({
     height: 21,
     padding: "3px 4px",
     border: "1px solid #7f9db9",
-    backgroundColor: "var(--button-highlight)",
+    backgroundColor: colors.buttonHighlight,
     boxSizing: "border-box",
     borderRadius: 0,
     appearance: "none",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
     ":focus": {
       outline: "none",
     },
     "::selection": {
-      backgroundColor: "var(--dialog-blue)",
+      backgroundColor: colors.dialogBlue,
       color: "white",
     },
   },
@@ -35,36 +36,36 @@ export const formStyles = stylex.create({
     height: 23,
     padding: "3px 4px",
     border: "1px solid #7f9db9",
-    backgroundColor: "var(--button-highlight)",
+    backgroundColor: colors.buttonHighlight,
     boxSizing: "border-box",
     borderRadius: 0,
     appearance: "none",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
     ":focus": {
       outline: "none",
     },
     "::selection": {
-      backgroundColor: "var(--dialog-blue)",
+      backgroundColor: colors.dialogBlue,
       color: "white",
     },
   },
   textarea: {
     padding: "3px 4px",
     border: "1px solid #7f9db9",
-    backgroundColor: "var(--button-highlight)",
+    backgroundColor: colors.buttonHighlight,
     boxSizing: "border-box",
     borderRadius: 0,
     appearance: "none",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
     ":focus": {
       outline: "none",
     },
     "::selection": {
-      backgroundColor: "var(--dialog-blue)",
+      backgroundColor: colors.dialogBlue,
       color: "white",
     },
   },
@@ -73,7 +74,7 @@ export const formStyles = stylex.create({
     minHeight: 21,
     padding: "3px 32px 3px 4px",
     border: "1px solid #7f9db9",
-    backgroundColor: "var(--button-highlight)",
+    backgroundColor: colors.buttonHighlight,
     backgroundImage: "var(--xp-select-icon)",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top 2px right 2px",
@@ -81,7 +82,7 @@ export const formStyles = stylex.create({
     boxSizing: "border-box",
     borderRadius: 0,
     appearance: "none",
-    fontFamily: "var(--sans-serif)",
+    fontFamily: fonts.sansSerif,
     fontSize: 11,
     WebkitFontSmoothing: "antialiased",
     ":focus": {

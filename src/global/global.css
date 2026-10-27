@@ -6,7 +6,8 @@
   width: 17px;
 }
 ::-webkit-scrollbar-corner {
-  background: var(--button-face);
+  /* Mirrors `colors.buttonFace`; this pseudo-element cannot take a class. */
+  background: #dfdfdf;
 }
 ::-webkit-scrollbar-track:vertical {
   background-image: url("../icons/scroll-background.svg");
