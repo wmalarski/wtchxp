@@ -6,7 +6,7 @@ import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts, forms } from "../variables/variables.stylex";
-import { formStyles } from "./form-styles";
+import { formStyles } from "../styles/form-styles";
 
 const radioTotalWidth = `calc(${forms.radioWidth} + ${forms.radioLabelSpacing})`;
 const radioLeft = `calc(-1 * (${forms.radioWidth} + ${forms.radioLabelSpacing}))`;

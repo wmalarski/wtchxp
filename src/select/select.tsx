@@ -3,7 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { createUniqueId, omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts } from "../variables/variables.stylex";
-import { formStyles } from "./form-styles";
+import { formStyles } from "../styles/form-styles";
 
 const styles = stylex.create({
   root: {

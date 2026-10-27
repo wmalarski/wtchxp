@@ -6,7 +6,7 @@ import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts, forms } from "../variables/variables.stylex";
-import { formStyles } from "./form-styles";
+import { formStyles } from "../styles/form-styles";
 
 const checkboxTotalWidth = `calc(${forms.checkboxWidth} + ${forms.radioLabelSpacing})`;
 const checkboxLeft = `calc(-1 * (${forms.checkboxWidth} + ${forms.radioLabelSpacing}))`;
