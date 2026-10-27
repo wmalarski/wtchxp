@@ -1,7 +1,7 @@
 {
   "name": "wtchxp",
   "version": "0.0.0",
-  "description": "A starter for creating a TypeScript package.",
+  "description": "Windows XP themed components for SolidJS, built on Kobalte and XP.css.",
   "homepage": "https://github.com/author/library#readme",
   "bugs": {
     "url": "https://github.com/author/library/issues"
@@ -13,29 +13,66 @@
     "url": "git+https://github.com/author/library.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE-XP.CSS"
   ],
   "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "./dist/styles.js"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.mjs",
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/styles.css"
+    },
+    "./package.json": "./package.json",
+    "./styles": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/styles.js"
+    }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack",
-    "dev": "vp pack --watch",
+    "build": "vp build && tsc -p tsconfig.build.json && node scripts/postbuild.mjs",
+    "dev": "vp dev",
     "test": "vp test",
     "check": "vp check",
     "prepublishOnly": "vp run build",
     "prepare": "vp config"
   },
+  "dependencies": {
+    "@stylexjs/stylex": "^0.19.1"
+  },
   "devDependencies": {
+    "@kobalte/core": "2.0.0-alpha.4",
+    "@solidjs/testing-library": "1.0.0-rc.2",
+    "@solidjs/vite-plugin": "3.0.0-next.51",
+    "@solidjs/web": "2.0.0-rc.16",
+    "@stylexjs/unplugin": "^0.19.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@types/node": "^26.6.5",
+    "@vitest/browser-playwright": "5.0.5",
     "bumpp": "^12.3.0",
+    "playwright": "^1.64.1",
+    "solid-js": "2.0.0-rc.16",
     "typescript": "^7.0.2",
     "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "@kobalte/core": "^2.0.0-alpha.4",
+    "@solidjs/web": "^2.0.0-rc.16",
+    "solid-js": "^2.0.0-rc.16"
   },
   "devEngines": {
     "packageManager": {

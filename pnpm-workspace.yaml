@@ -3,6 +3,11 @@ catalog:
   vite-plus: 1.4.0
 overrides:
   vite@*: "catalog:"
+  # Keep the Solid 2 RC compiler in lockstep with solid-js/@solidjs/web rc.16.
+  "@solidjs/compiler": "2.0.0-rc.16"
+  "@solidjs/babel-plugin": "2.0.0-rc.16"
+patchedDependencies:
+  "@kobalte/core@2.0.0-alpha.4": patches/@kobalte__core@2.0.0-alpha.4.patch
 peerDependencyRules:
   allowAny:
     - vite

@@ -1,20 +1,40 @@
+import solid from "@solidjs/vite-plugin";
+import stylex from "@stylexjs/unplugin";
+import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
+  plugins: [stylex.vite(), solid()],
+  build: {
+    lib: {
+      entry: {
+        index: "src/index.ts",
+        styles: "src/styles-entry.ts",
+      },
+      formats: ["es"],
+      fileName: (_format, entryName) => `${entryName}.js`,
+      cssFileName: "styles",
+    },
+    rolldownOptions: {
+      external: [
+        /^solid-js(\/|$)/,
+        /^@solidjs\/web(\/|$)/,
+        /^@kobalte\/core(\/|$)/,
+        /^@stylexjs\/stylex(\/|$)/,
+      ],
+    },
+  },
   staged: {
     "*": "vp check --fix",
   },
-  pack: {
-    deps: {
-      // tsdown <0.23 compatibility: resolve external dependency subpaths.
-      // Remove to preserve subpath imports as written (the new default).
-      // https://tsdown.dev/options/dependencies#deps-resolvedepsubpath
-      resolveDepSubpath: true,
+  test: {
+    browser: {
+      enabled: true,
+      headless: true,
+      provider: playwright(),
+      instances: [{ browser: "chromium" }],
     },
-    dts: {
-      generator: "tsgo",
-    },
-    exports: true,
+    setupFiles: ["tests/setup.ts"],
   },
   lint: {
     options: {

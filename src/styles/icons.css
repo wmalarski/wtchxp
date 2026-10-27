@@ -1,0 +1,59 @@
+/*-------------------------------------------*\
+    Icon assets
+    StyleX cannot resolve bundler asset imports, so the icon URLs live
+    in CSS custom properties. The components consume them from StyleX.
+\*-------------------------------------------*/
+
+.checkbox-label {
+  --xp-checkbox-icon: url("../icons/checkmark.svg");
+  --xp-checkbox-icon-disabled: url("../icons/checkmark-disabled.svg");
+}
+
+.radio-label {
+  --xp-radio-icon: url("../icons/radio-dot.svg");
+  --xp-radio-icon-disabled: url("../icons/radio-dot-disabled.svg");
+}
+
+.xp-select {
+  --xp-select-icon: url("../icons/dropdown.svg");
+  --xp-select-icon-hover: url("../icons/dropdown-hover.svg");
+  --xp-select-icon-active: url("../icons/dropdown-active.svg");
+}
+
+.window-control[aria-label="Minimize"] {
+  --xp-control-icon: url("../icons/minimize.svg");
+  --xp-control-icon-hover: url("../icons/minimize-hover.svg");
+  --xp-control-icon-active: url("../icons/minimize-active.svg");
+}
+
+.window-control[aria-label="Maximize"] {
+  --xp-control-icon: url("../icons/maximize.svg");
+  --xp-control-icon-hover: url("../icons/maximize-hover.svg");
+  --xp-control-icon-active: url("../icons/maximize-active.svg");
+}
+
+.window-control[aria-label="Restore"] {
+  --xp-control-icon: url("../icons/restore.svg");
+  --xp-control-icon-hover: url("../icons/restore-hover.svg");
+  --xp-control-icon-active: url("../icons/restore-active.svg");
+}
+
+.window-control[aria-label="Help"] {
+  --xp-control-icon: url("../icons/help.svg");
+  --xp-control-icon-hover: url("../icons/help-hover.svg");
+  --xp-control-icon-active: url("../icons/help-active.svg");
+}
+
+.window-control[aria-label="Close"] {
+  --xp-control-icon: url("../icons/close.svg");
+  --xp-control-icon-hover: url("../icons/close-hover.svg");
+  --xp-control-icon-active: url("../icons/close-active.svg");
+}
+
+.xp-range {
+  --xp-range-thumb: url("../icons/indicator-horizontal.svg");
+}
+
+.xp-range.has-box-indicator {
+  --xp-range-thumb: url("../icons/indicator-rectangle-horizontal.svg");
+}

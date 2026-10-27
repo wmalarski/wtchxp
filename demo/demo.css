@@ -1,0 +1,34 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #3a6ea5;
+  font-family: var(--sans-serif);
+}
+
+.desktop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.stack > * + * {
+  margin-top: 12px;
+}
+
+.stack .field-row + .field-row {
+  margin-top: 6px;
+}
+
+p {
+  margin: 0;
+  font-family: var(--sans-serif);
+  font-size: 11px;
+  line-height: 1.6;
+}

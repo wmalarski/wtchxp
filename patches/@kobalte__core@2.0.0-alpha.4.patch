@@ -1,0 +1,150 @@
+diff --git a/dist/create-form-control-field/CWgmF0wZ.js b/dist/create-form-control-field/CWgmF0wZ.js
+index 49958036893ec752ab4c74b5953b062eee9027a5..a154a61ff89338230edabd26d476720069f37c76 100644
+--- a/dist/create-form-control-field/CWgmF0wZ.js
++++ b/dist/create-form-control-field/CWgmF0wZ.js
+@@ -1,4 +1,5 @@
+ import { isServer } from "@solidjs/web";
++import { untrack } from "solid-js";
+ import { access } from "@solid-primitives/utils";
+ import { createFormControlInput, useFormControl } from "@solid-primitives/a11y";
+ //#region src/form-control/create-form-control-field.tsx
+@@ -10,7 +11,7 @@ const FORM_CONTROL_FIELD_PROP_NAMES = [
+ ];
+ function createFormControlField(props = {}) {
+ 	const context = useFormControl();
+-	if (!isServer) context.registerField(access(props.id) ?? context.generateId("field"));
++	if (!isServer) context.registerField(untrack(() => access(props.id) ?? context.generateId("field")));
+ 	return createFormControlInput(props);
+ }
+ //#endregion
+diff --git a/dist/create-form-control-field/CWgmF0wZ.jsx b/dist/create-form-control-field/CWgmF0wZ.jsx
+index 49958036893ec752ab4c74b5953b062eee9027a5..a154a61ff89338230edabd26d476720069f37c76 100644
+--- a/dist/create-form-control-field/CWgmF0wZ.jsx
++++ b/dist/create-form-control-field/CWgmF0wZ.jsx
+@@ -1,4 +1,5 @@
+ import { isServer } from "@solidjs/web";
++import { untrack } from "solid-js";
+ import { access } from "@solid-primitives/utils";
+ import { createFormControlInput, useFormControl } from "@solid-primitives/a11y";
+ //#region src/form-control/create-form-control-field.tsx
+@@ -10,7 +11,7 @@ const FORM_CONTROL_FIELD_PROP_NAMES = [
+ ];
+ function createFormControlField(props = {}) {
+ 	const context = useFormControl();
+-	if (!isServer) context.registerField(access(props.id) ?? context.generateId("field"));
++	if (!isServer) context.registerField(untrack(() => access(props.id) ?? context.generateId("field")));
+ 	return createFormControlInput(props);
+ }
+ //#endregion
+diff --git a/dist/text-field/BmxkpPU8.jsx b/dist/text-field/BmxkpPU8.jsx
+index 6c077224f063975f60b7687ccf976a7b91b25251..56dfa980504b9f0e4e9fc2a87432e736eb8ead02 100644
+--- a/dist/text-field/BmxkpPU8.jsx
++++ b/dist/text-field/BmxkpPU8.jsx
+@@ -24,11 +24,11 @@ function TextFieldInput(props) {
+ function TextFieldInputBase(props) {
+ 	const formControlContext = useFormControlContext();
+ 	const context = useTextFieldContext();
+-	const mergedProps = merge({ id: context.generateId("input") }, props);
++	const mergedProps = merge({ id: untrack(() => context.generateId("input")) }, props);
+ 	const formControlFieldProps = omit(mergedProps, "onInput");
+ 	const others = omit(mergedProps, "ref", "onInput", ...FORM_CONTROL_FIELD_PROP_NAMES);
+ 	const { fieldProps } = createFormControlField(formControlFieldProps);
+-	return <Polymorphic as="input" id={fieldProps.id()} ref={[context.setInputRef, mergedProps.ref]} name={formControlContext.name()} value={context.value() ?? ""} required={formControlContext.isRequired()} disabled={formControlContext.isDisabled()} readonly={formControlContext.isReadOnly()} aria-label={fieldProps.ariaLabel()} aria-labelledby={fieldProps.ariaLabelledBy()} aria-describedby={fieldProps.ariaDescribedBy()} aria-invalid={formControlContext.validationState() === "invalid" ? "true" : void 0} aria-required={formControlContext.isRequired() ? "true" : void 0} aria-disabled={formControlContext.isDisabled() ? "true" : void 0} aria-readonly={formControlContext.isReadOnly() ? "true" : void 0} onInput={composeEventHandlers([mergedProps.onInput, context.onInput])} {...formControlContext.dataset()} {...others} />;
++	return <Polymorphic as="input" id={fieldProps.id()} ref={[context.setInputRef, untrack(() => mergedProps.ref)]} name={formControlContext.name()} value={context.value() ?? ""} required={formControlContext.isRequired()} disabled={formControlContext.isDisabled()} readonly={formControlContext.isReadOnly()} aria-label={fieldProps.ariaLabel()} aria-labelledby={fieldProps.ariaLabelledBy()} aria-describedby={fieldProps.ariaDescribedBy()} aria-invalid={formControlContext.validationState() === "invalid" ? "true" : void 0} aria-required={formControlContext.isRequired() ? "true" : void 0} aria-disabled={formControlContext.isDisabled() ? "true" : void 0} aria-readonly={formControlContext.isReadOnly() ? "true" : void 0} onInput={composeEventHandlers([mergedProps.onInput, context.onInput])} {...formControlContext.dataset()} {...others} />;
+ }
+ //#endregion
+ //#region src/text-field/text-field-root.tsx
+@@ -40,7 +40,7 @@ function TextFieldRoot(props) {
+ 	const defaultId = `textfield-${createUniqueId()}`;
+ 	const mergedProps = merge({ id: defaultId }, props);
+ 	const others = omit(mergedProps, "ref", "value", "defaultValue", "onChange", ...FORM_CONTROL_PROP_NAMES);
+-	const initialValue = mergedProps.value;
++	const initialValue = untrack(() => mergedProps.value);
+ 	const [value, setValue] = (0, primitives_exports.createControllableSignal)({
+ 		value: () => initialValue === void 0 ? void 0 : mergedProps.value ?? "",
+ 		defaultValue: () => mergedProps.defaultValue,
+@@ -79,7 +79,7 @@ function TextFieldRoot(props) {
+ 	};
+ 	return <FormControlContext value={formControlContext}>
+ 			<TextFieldContext value={context}>
+-				<Polymorphic as="div" ref={[setRef, mergedProps.ref]} role="group" id={access(mergedProps.id)} {...formControlContext.dataset()} {...others} />
++				<Polymorphic as="div" ref={[setRef, untrack(() => mergedProps.ref)]} role="group" id={access(mergedProps.id)} {...formControlContext.dataset()} {...others} />
+ 			</TextFieldContext>
+ 		</FormControlContext>;
+ }
+@@ -91,7 +91,7 @@ function TextFieldRoot(props) {
+ function TextFieldTextArea(props) {
+ 	const [ref, setRef] = createSignal(void 0, { ownedWrite: true });
+ 	const context = useTextFieldContext();
+-	const mergedProps = merge({ id: context.generateId("textarea") }, props);
++	const mergedProps = merge({ id: untrack(() => context.generateId("textarea")) }, props);
+ 	const others = omit(mergedProps, "ref", "autoResize", "submitOnEnter", "onKeyPress");
+ 	createEffect(() => ({
+ 		autoResize: mergedProps.autoResize,
+@@ -110,7 +110,7 @@ function TextFieldTextArea(props) {
+ 			}
+ 		}
+ 	};
+-	return <TextFieldInputBase as="textarea" aria-multiline={mergedProps.submitOnEnter ? "false" : void 0} onKeyPress={composeEventHandlers([mergedProps.onKeyPress, onKeyPress])} ref={[setRef, mergedProps.ref]} {...others} />;
++	return <TextFieldInputBase as="textarea" aria-multiline={mergedProps.submitOnEnter ? "false" : void 0} onKeyPress={composeEventHandlers([mergedProps.onKeyPress, onKeyPress])} ref={[setRef, untrack(() => mergedProps.ref)]} {...others} />;
+ }
+ /**
+ * Adjust the height of the textarea based on its text value.
+diff --git a/dist/text-field/ysI8H6Sg.js b/dist/text-field/ysI8H6Sg.js
+index de0585dbeedcbceab7f0e96e658afe5d6321a4b1..b47232bb186804c6d1c84229fbf87b46a28b8cc0 100644
+--- a/dist/text-field/ysI8H6Sg.js
++++ b/dist/text-field/ysI8H6Sg.js
+@@ -25,7 +25,7 @@ function TextFieldInput(props) {
+ function TextFieldInputBase(props) {
+ 	const formControlContext = useFormControlContext();
+ 	const context = useTextFieldContext();
+-	const mergedProps = merge({ id: context.generateId("input") }, props);
++	const mergedProps = merge({ id: untrack(() => context.generateId("input")) }, props);
+ 	const formControlFieldProps = omit(mergedProps, "onInput");
+ 	const others = omit(mergedProps, "ref", "onInput", ...FORM_CONTROL_FIELD_PROP_NAMES);
+ 	const { fieldProps } = createFormControlField(formControlFieldProps);
+@@ -34,7 +34,7 @@ function TextFieldInputBase(props) {
+ 		get id() {
+ 			return fieldProps.id();
+ 		},
+-		ref: [context.setInputRef, mergedProps.ref],
++		ref: [context.setInputRef, untrack(() => mergedProps.ref)],
+ 		get name() {
+ 			return formControlContext.name();
+ 		},
+@@ -88,7 +88,7 @@ function TextFieldRoot(props) {
+ 	const defaultId = `textfield-${createUniqueId()}`;
+ 	const mergedProps = merge({ id: defaultId }, props);
+ 	const others = omit(mergedProps, "ref", "value", "defaultValue", "onChange", ...FORM_CONTROL_PROP_NAMES);
+-	const initialValue = mergedProps.value;
++	const initialValue = untrack(() => mergedProps.value);
+ 	const [value, setValue] = (0, primitives_exports.createControllableSignal)({
+ 		value: () => initialValue === void 0 ? void 0 : mergedProps.value ?? "",
+ 		defaultValue: () => mergedProps.defaultValue,
+@@ -133,7 +133,7 @@ function TextFieldRoot(props) {
+ 				get children() {
+ 					return createComponent(Polymorphic, mergeProps({
+ 						as: "div",
+-						ref: [setRef, mergedProps.ref],
++						ref: [setRef, untrack(() => mergedProps.ref)],
+ 						role: "group",
+ 						get id() {
+ 							return access(mergedProps.id);
+@@ -154,7 +154,7 @@ function TextFieldRoot(props) {
+ function TextFieldTextArea(props) {
+ 	const [ref, setRef] = createSignal(void 0, { ownedWrite: true });
+ 	const context = useTextFieldContext();
+-	const mergedProps = merge({ id: context.generateId("textarea") }, props);
++	const mergedProps = merge({ id: untrack(() => context.generateId("textarea")) }, props);
+ 	const others = omit(mergedProps, "ref", "autoResize", "submitOnEnter", "onKeyPress");
+ 	createEffect(() => ({
+ 		autoResize: mergedProps.autoResize,
+@@ -181,7 +181,7 @@ function TextFieldTextArea(props) {
+ 		get onKeyPress() {
+ 			return composeEventHandlers([mergedProps.onKeyPress, onKeyPress]);
+ 		},
+-		ref: [setRef, mergedProps.ref]
++		ref: [setRef, untrack(() => mergedProps.ref)]
+ 	}, others));
+ }
+ /**
