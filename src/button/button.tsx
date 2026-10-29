@@ -2,7 +2,15 @@ import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, type Component } from "solid-js";
 import { sx } from "../styles/sx";
-import { colors, fonts } from "../variables/variables.stylex";
+import {
+  backgroundColors,
+  backgrounds,
+  fontSizes,
+  fonts,
+  radii,
+  shadows,
+  textColors,
+} from "../variables/variables.stylex";
 
 const styles = stylex.create({
   root: {
@@ -10,35 +18,33 @@ const styles = stylex.create({
     minHeight: 23,
     padding: "0 12px",
     border: "1px solid #003c74",
-    backgroundColor: colors.surface,
-    background: "linear-gradient(180deg, #ffffff 0%, #ecebe5 86%, #d8d0c4 100%)",
-    boxShadow: "none",
-    borderRadius: 3,
+    backgroundColor: backgroundColors.window,
+    background: backgrounds.button,
+    boxShadow: shadows.none,
+    borderRadius: radii.medium,
     boxSizing: "border-box",
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
     WebkitFontSmoothing: "antialiased",
     cursor: "default",
     userSelect: "none",
     ":disabled": {
-      color: colors.buttonShadow,
-      textShadow: `1px 1px 0 ${colors.buttonHighlight}`,
+      color: textColors.disabled,
+      textShadow: `1px 1px 0 ${textColors.inverse}`,
     },
     ":not(:disabled):hover": {
-      boxShadow:
-        "inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a",
+      boxShadow: shadows.buttonHover,
     },
     ":not(:disabled):active": {
-      boxShadow: "none",
-      background: "linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%)",
+      boxShadow: shadows.none,
+      background: backgrounds.buttonActive,
     },
     ":is([data-active])": {
-      boxShadow: "none",
-      background: "linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%)",
+      boxShadow: shadows.none,
+      background: backgrounds.buttonActive,
     },
     ":focus": {
-      boxShadow:
-        "inset -1px 1px #cee7ff, inset 1px 2px #98b8ea, inset -2px 2px #bcd4f6, inset 1px -1px #89ade4, inset 2px -2px #89ade4",
+      boxShadow: shadows.buttonFocus,
     },
     "::-moz-focus-inner": {
       border: 0,

@@ -2,24 +2,24 @@ import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
-import { spacing } from "../variables/variables.stylex";
-
-const horizontalTrackShadow =
-  "1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 #9d9c99, -1px -1px 0 #9d9c99, 0 -1px 0 #9d9c99, -1px 1px 0 white, 1px -1px #9d9c99";
-
-const verticalTrackShadow =
-  "-1px 0 0 white, -1px 1px 0 white, 0 1px 0 white, 1px 0 0 #9d9c99, 1px -1px 0 #9d9c99, 0 -1px 0 #9d9c99, 1px 1px 0 white, -1px -1px #9d9c99";
+import {
+  backgroundColors,
+  backgrounds,
+  radii,
+  shadows,
+  spacing,
+} from "../variables/variables.stylex";
 
 const trackStyles = {
   width: "100%",
   height: 2,
   boxSizing: "border-box",
-  backgroundColor: "#ecebe4",
+  backgroundColor: backgroundColors.rangeTrack,
   borderRight: "var(--xp-range-track-border-right, 1px solid #f3f2ea)",
   borderBottom: "var(--xp-range-track-border-bottom, 1px solid #f3f2ea)",
   borderLeft: "var(--xp-range-track-border-left, 0)",
-  borderRadius: 2,
-  boxShadow: `var(--xp-range-track-shadow, ${horizontalTrackShadow})`,
+  borderRadius: radii.small,
+  boxShadow: `var(--xp-range-track-shadow, ${shadows.rangeTrackHorizontal})`,
 } as const;
 
 const styles = stylex.create({
@@ -28,7 +28,7 @@ const styles = stylex.create({
     appearance: "none",
     WebkitAppearance: "none",
     MozAppearance: "none",
-    background: "none",
+    background: backgrounds.none,
     cursor: "default",
     ":focus": {
       outline: "none",
@@ -45,7 +45,7 @@ const styles = stylex.create({
       height: 21,
       width: 11,
       border: 0,
-      borderRadius: 0,
+      borderRadius: radii.none,
       background: "var(--xp-range-thumb)",
       transform: "var(--xp-range-thumb-transform-moz, translateY(2px))",
     },
@@ -64,7 +64,7 @@ const styles = stylex.create({
     transform: `rotate(270deg) translateX(calc(-50% + ${spacing.element}))`,
     "--xp-range-track-border-left": "1px solid #f3f2ea",
     "--xp-range-track-border-right": "0",
-    "--xp-range-track-shadow": verticalTrackShadow,
+    "--xp-range-track-shadow": shadows.rangeTrackVertical,
   },
   verticalRoot: {
     display: "inline-block",

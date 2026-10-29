@@ -2,6 +2,7 @@ import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, type Component } from "solid-js";
 import { sx } from "../styles/sx";
+import { backgroundColors, backgrounds, radii, shadows } from "../variables/variables.stylex";
 
 const sliding = stylex.keyframes({
   from: {
@@ -11,12 +12,6 @@ const sliding = stylex.keyframes({
     transform: "translateX(100%)",
   },
 });
-
-const determinateTrack =
-  "repeating-linear-gradient(to right, #fff 0px, #fff 2px, transparent 2px, transparent 10px), linear-gradient(to bottom, #acedad 0%, #7be47d 14%, #4cda50 28%, #2ed330 42%, #42d845 57%, #76e275 71%, #8fe791 85%, #ffffff 100%)";
-
-const indeterminateTrack =
-  "repeating-linear-gradient(to right, transparent 0px, transparent 8px, #fff 8px, #fff 10px, transparent 10px, transparent 18px, #fff 18px, #fff 20px, transparent 20px, transparent 28px, #fff 28px, #fff 100%), linear-gradient(to bottom, #acedad 0%, #7be47d 14%, #4cda50 28%, #2ed330 42%, #42d845 57%, #76e275 71%, #8fe791 85%, #ffffff 100%)";
 
 const styles = stylex.create({
   root: {
@@ -28,27 +23,27 @@ const styles = stylex.create({
     height: 14,
     padding: "1px 2px 1px 0",
     border: "1px solid #686868",
-    borderRadius: 4,
+    borderRadius: radii.large,
     overflow: "hidden",
-    backgroundColor: "#ffffff",
-    boxShadow: "inset 0 0 1px 0 #686868",
+    backgroundColor: backgroundColors.surface,
+    boxShadow: shadows.progressBar,
     ":not([data-indeterminate])::-webkit-progress-bar": {
-      backgroundColor: "transparent",
+      backgroundColor: backgroundColors.transparent,
     },
     ":not([data-indeterminate])::-webkit-progress-value": {
-      borderRadius: 2,
-      background: determinateTrack,
+      borderRadius: radii.small,
+      background: backgrounds.progress,
     },
     ":not([data-indeterminate])::-moz-progress-bar": {
-      borderRadius: 2,
-      background: determinateTrack,
+      borderRadius: radii.small,
+      background: backgrounds.progress,
     },
     ":is([data-indeterminate])": {
       position: "relative",
     },
     ":is([data-indeterminate])::-webkit-progress-bar": {
       width: "100%",
-      background: indeterminateTrack,
+      background: backgrounds.progressIndeterminate,
       animationName: sliding,
       animationDuration: "2s",
       animationTimingFunction: "linear",
@@ -62,8 +57,8 @@ const styles = stylex.create({
       left: 0,
       width: "100%",
       height: "100%",
-      backgroundColor: "#ffffff",
-      boxShadow: "inset 0 0 1px 0 #686868",
+      backgroundColor: backgroundColors.surface,
+      boxShadow: shadows.progressBar,
     },
     ":is([data-indeterminate])::after": {
       boxSizing: "border-box",
@@ -74,8 +69,8 @@ const styles = stylex.create({
       width: "100%",
       height: "calc(100% - 2px)",
       padding: "1px 2px",
-      borderRadius: 2,
-      background: indeterminateTrack,
+      borderRadius: radii.small,
+      background: backgrounds.progressIndeterminate,
       animationName: sliding,
       animationDuration: "2s",
       animationTimingFunction: "linear",
@@ -83,7 +78,7 @@ const styles = stylex.create({
     },
     ":is([data-indeterminate])::-moz-progress-bar": {
       width: "100%",
-      background: indeterminateTrack,
+      background: backgrounds.progressIndeterminate,
       animationName: sliding,
       animationDuration: "2s",
       animationTimingFunction: "linear",

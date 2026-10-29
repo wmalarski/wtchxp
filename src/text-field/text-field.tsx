@@ -5,7 +5,7 @@ import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
-import { fonts } from "../variables/variables.stylex";
+import { fontSizes, fonts, textColors } from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
 
 const styles = stylex.create({
@@ -14,7 +14,7 @@ const styles = stylex.create({
     flexDirection: "column",
     alignItems: "flex-start",
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
   },
   label: {
     marginBottom: 2,
@@ -25,11 +25,11 @@ const styles = stylex.create({
   },
   description: {
     marginTop: 2,
-    color: "#4a4a4a",
+    color: textColors.secondary,
   },
   error: {
     marginTop: 2,
-    color: "#a80000",
+    color: textColors.error,
   },
 });
 

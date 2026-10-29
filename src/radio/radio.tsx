@@ -5,7 +5,17 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../styles/sx";
-import { fonts, forms } from "../variables/variables.stylex";
+import {
+  backgroundColors,
+  backgrounds,
+  fontSizes,
+  fonts,
+  forms,
+  lineHeights,
+  radii,
+  shadows,
+  textColors,
+} from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
 
 const radioTotalWidth = `calc(${forms.radioWidth} + ${forms.radioLabelSpacing})`;
@@ -18,7 +28,7 @@ const styles = stylex.create({
     flexDirection: "column",
     alignItems: "flex-start",
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
   },
   groupLabel: {
     marginBottom: 4,
@@ -31,7 +41,7 @@ const styles = stylex.create({
   label: {
     position: "relative",
     marginLeft: radioTotalWidth,
-    lineHeight: "16px",
+    lineHeight: lineHeights.base,
     "::before": {
       content: '""',
       display: "inline-block",
@@ -41,8 +51,8 @@ const styles = stylex.create({
       width: forms.radioWidth,
       height: forms.radioWidth,
       border: forms.radioBorder,
-      borderRadius: "50%",
-      background: forms.radioBg,
+      borderRadius: radii.round,
+      background: backgrounds.control,
     },
     "::after": {
       content: '""',
@@ -54,29 +64,29 @@ const styles = stylex.create({
       height: forms.radioDotWidth,
     },
     ":not([data-disabled]):not(:active):hover::before": {
-      boxShadow: forms.radioInnerShadowHover,
+      boxShadow: shadows.controlHover,
     },
     ":not([data-disabled]):active::before": {
-      background: forms.radioBgActive,
+      background: backgrounds.controlActive,
     },
     ":is([data-checked])::after": {
       backgroundImage: "var(--xp-radio-icon)",
     },
     ":is([data-disabled])::before": {
       border: forms.radioBorderDisabled,
-      backgroundColor: "#ffffff",
+      backgroundColor: backgroundColors.surface,
     },
     ":is([data-disabled][data-checked])::after": {
       backgroundImage: "var(--xp-radio-icon-disabled)",
     },
   },
   focused: {
-    outline: "1px dotted #000000",
+    outline: `1px dotted ${textColors.primary}`,
   },
   description: {
     marginLeft: radioTotalWidth,
     marginTop: 2,
-    color: "#4a4a4a",
+    color: textColors.secondary,
   },
 });
 

@@ -145,6 +145,16 @@ items register. It measures DOM order outside the reactive graph; Solid reports
 that as a one-frame tear. It is expected for this kind of measurement and does
 not affect the rendered tabs.
 
+## Theming
+
+Design tokens live in `src/variables/variables.stylex.ts` and are exported from
+the package root. Typography is split into `fonts`, `fontSizes`, `fontWeights`,
+`lineHeights`, `textColors` and `textShadows`. Surfaces use `backgrounds`,
+`backgroundColors`, `shadows` and `radii`; colors, spacing, borders and
+component measurements have their own groups. Use the tokens in `stylex.create`
+calls instead of hard-coded values, and override them per subtree with
+`stylex.createTheme`.
+
 ## Development
 
 ```bash

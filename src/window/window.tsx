@@ -3,22 +3,29 @@ import * as stylex from "@stylexjs/stylex";
 import { omit, type Component } from "solid-js";
 import type { ButtonProps } from "../button/button";
 import { sx } from "../styles/sx";
-import { colors, fonts, spacing } from "../variables/variables.stylex";
-
-const titleBarBackground =
-  "linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0066ff 88% 93%, #005bff 95%, #003dd7 96% 100%)";
+import {
+  backgroundColors,
+  backgrounds,
+  fontSizes,
+  fontWeights,
+  fonts,
+  radii,
+  shadows,
+  spacing,
+  textColors,
+  textShadows,
+} from "../variables/variables.stylex";
 
 const styles = stylex.create({
   window: {
     display: "flex",
     flexDirection: "column",
     padding: "0 0 3px",
-    boxShadow:
-      "inset -1px -1px #00138c, inset 1px 1px #0831d9, inset -2px -2px #001ea0, inset 2px 2px #166aee, inset -3px -3px #003bda, inset 3px 3px #0855dd",
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    backgroundColor: colors.surface,
-    fontSize: 11,
+    boxShadow: shadows.window,
+    borderTopLeftRadius: radii.window,
+    borderTopRightRadius: radii.window,
+    backgroundColor: backgroundColors.window,
+    fontSize: fontSizes.base,
     WebkitFontSmoothing: "antialiased",
   },
   body: {
@@ -36,19 +43,19 @@ const styles = stylex.create({
     borderTop: "1px solid #0831d9",
     borderLeft: "1px solid #0831d9",
     borderRight: "1px solid #001ea0",
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 7,
-    background: titleBarBackground,
-    color: colors.buttonHighlight,
-    fontFamily: '"Trebuchet MS"',
-    fontSize: 13,
-    textShadow: "1px 1px #0f1089",
+    borderTopLeftRadius: radii.window,
+    borderTopRightRadius: radii.windowTitleBar,
+    background: backgrounds.titleBar,
+    color: textColors.inverse,
+    fontFamily: fonts.titleBar,
+    fontSize: fontSizes.large,
+    textShadow: textShadows.titleBar,
     userSelect: "none",
   },
   titleBarText: {
     marginRight: 24,
     paddingLeft: 3,
-    fontWeight: "bold",
+    fontWeight: fontWeights.bold,
   },
   titleBarControls: {
     display: "flex",
@@ -59,7 +66,7 @@ const styles = stylex.create({
     gap: 0,
     margin: "0 3px",
     padding: "2px 1px",
-    boxShadow: `inset 0 1px 2px ${colors.buttonShadow}`,
+    boxShadow: shadows.statusBar,
   },
   statusBarField: {
     flexGrow: 1,
@@ -67,7 +74,7 @@ const styles = stylex.create({
     padding: "1px 2px",
     borderLeft: "1px solid rgba(255, 255, 255, 0.75)",
     borderRight: "1px solid rgba(208, 206, 191, 0.75)",
-    boxShadow: "none",
+    boxShadow: shadows.none,
     fontFamily: fonts.sansSerif,
     WebkitFontSmoothing: "antialiased",
     ":first-of-type": {
@@ -84,23 +91,23 @@ const styles = stylex.create({
     padding: 0,
     border: "none",
     backgroundImage: "var(--xp-control-icon)",
-    backgroundColor: "#0050ee",
+    backgroundColor: backgroundColors.windowControl,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    boxShadow: "none",
+    boxShadow: shadows.none,
     boxSizing: "border-box",
     cursor: "default",
     transition: "background 100ms",
     ":hover": {
       backgroundImage: "var(--xp-control-icon-hover)",
-      boxShadow: "none",
+      boxShadow: shadows.none,
     },
     ":not(:disabled):active": {
       backgroundImage: "var(--xp-control-icon-active)",
-      boxShadow: "none",
+      boxShadow: shadows.none,
     },
     ":focus": {
-      boxShadow: "none",
+      boxShadow: shadows.none,
     },
     "::-moz-focus-inner": {
       border: 0,

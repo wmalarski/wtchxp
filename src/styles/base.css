@@ -29,7 +29,8 @@
 /*
  * Native options do not inherit the select's font in every browser. This is
  * the one form rule that cannot be scoped to a component class. The font stack
- * mirrors `fonts.sansSerif` in `src/variables/variables.stylex.ts`.
+ * and size mirror `fonts.sansSerif` and `fontSizes.base` in
+ * `src/variables/variables.stylex.ts`.
  */
 option {
   font-family: "Pixelated MS Sans Serif", Arial;

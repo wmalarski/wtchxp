@@ -10,7 +10,13 @@ import {
   type ParentProps,
 } from "solid-js";
 import { sx } from "../styles/sx";
-import { colors, fonts } from "../variables/variables.stylex";
+import {
+  backgroundColors,
+  fontSizes,
+  fonts,
+  lineHeights,
+  textColors,
+} from "../variables/variables.stylex";
 
 const TreeDepthContext = createContext(0);
 
@@ -20,9 +26,9 @@ const styles = stylex.create({
     margin: 0,
     padding: "2px 5px",
     border: "1px solid #7f9db9",
-    backgroundColor: colors.buttonHighlight,
+    backgroundColor: backgroundColors.surface,
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
     userSelect: "none",
   },
   item: {
@@ -48,19 +54,19 @@ const styles = stylex.create({
       bottom: 0,
       left: -20,
       width: 8,
-      backgroundColor: colors.buttonHighlight,
+      backgroundColor: backgroundColors.surface,
     },
   },
   leaf: {
-    color: "#000000",
+    color: textColors.primary,
     textDecoration: "none",
     ":focus": {
-      backgroundColor: colors.dialogBlue,
-      color: colors.buttonHighlight,
+      backgroundColor: backgroundColors.selection,
+      color: textColors.inverse,
     },
     ":is([aria-selected='true'])": {
-      backgroundColor: colors.dialogBlue,
-      color: colors.buttonHighlight,
+      backgroundColor: backgroundColors.selection,
+      color: textColors.inverse,
     },
   },
   group: {
@@ -78,7 +84,7 @@ const styles = stylex.create({
       display: "none",
     },
     ":focus": {
-      outline: "1px dotted #000000",
+      outline: `1px dotted ${textColors.primary}`,
       outlineOffset: -2,
     },
   },
@@ -99,9 +105,9 @@ const styles = stylex.create({
       marginRight: 5,
       paddingLeft: 1,
       border: "1px solid gray",
-      backgroundColor: "#ffffff",
+      backgroundColor: backgroundColors.surface,
       textAlign: "center",
-      lineHeight: "9px",
+      lineHeight: lineHeights.marker,
     },
   },
   markerOpen: {
@@ -114,9 +120,9 @@ const styles = stylex.create({
       marginRight: 5,
       paddingLeft: 1,
       border: "1px solid gray",
-      backgroundColor: "#ffffff",
+      backgroundColor: backgroundColors.surface,
       textAlign: "center",
-      lineHeight: "9px",
+      lineHeight: lineHeights.marker,
     },
   },
 });

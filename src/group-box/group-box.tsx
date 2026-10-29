@@ -2,23 +2,31 @@ import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
-import { fonts, spacing } from "../variables/variables.stylex";
+import {
+  backgroundColors,
+  fontSizes,
+  fonts,
+  radii,
+  shadows,
+  spacing,
+  textColors,
+} from "../variables/variables.stylex";
 
 const styles = stylex.create({
   root: {
     margin: 0,
     padding: 10,
     border: "1px solid #d0d0bf",
-    borderRadius: 4,
-    backgroundColor: "#ffffff",
-    boxShadow: "none",
+    borderRadius: radii.large,
+    backgroundColor: backgroundColors.surface,
+    boxShadow: shadows.none,
     boxSizing: "border-box",
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
   },
   legend: {
-    color: "#0046d5",
-    backgroundColor: "transparent",
+    color: textColors.accent,
+    backgroundColor: backgroundColors.transparent,
   },
   row: {
     display: "flex",

@@ -9,16 +9,22 @@ import {
 import * as stylex from "@stylexjs/stylex";
 import { createContext, omit, useContext, type Component } from "solid-js";
 import { sx } from "../styles/sx";
-import { fonts, tabs } from "../variables/variables.stylex";
-
-const tabBackground = "linear-gradient(180deg, #ffffff 0%, #fafaf9 26%, #f0f0ea 95%, #ecebe5 100%)";
+import {
+  backgrounds,
+  fontSizes,
+  fonts,
+  radii,
+  shadows,
+  tabs,
+  textColors,
+} from "../variables/variables.stylex";
 
 const TabListContext = createContext(false);
 
 const styles = stylex.create({
   root: {
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
   },
   list: {
     position: "relative",
@@ -37,19 +43,19 @@ const styles = stylex.create({
     marginRight: 2,
     padding: "0 12px 3px",
     border: "1px solid #91a7b4",
-    borderRadius: "3px 3px 0 0",
-    background: tabBackground,
-    boxShadow: "none",
-    color: "#222222",
+    borderRadius: `${radii.medium} ${radii.medium} 0 0`,
+    background: backgrounds.tab,
+    boxShadow: shadows.none,
+    color: textColors.strong,
     textDecoration: "none",
     boxSizing: "border-box",
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
     WebkitFontSmoothing: "antialiased",
     cursor: "default",
     userSelect: "none",
     ":hover": {
-      boxShadow: "inset 0 2px #ffc73c",
+      boxShadow: shadows.tabHover,
       borderTop: "1px solid #e68b2c",
     },
     ":is([aria-selected='true'])": {
@@ -63,8 +69,8 @@ const styles = stylex.create({
       border: "1px solid #919b9c",
       borderTop: "1px solid #e68b2c",
       borderBottom: "1px solid transparent",
-      background: "#fcfcfe",
-      boxShadow: "inset 0 2px #ffc73c",
+      background: backgrounds.tabSelected,
+      boxShadow: shadows.tabHover,
     },
     ":is([aria-selected='true']):first-of-type::before": {
       content: '""',
@@ -78,7 +84,7 @@ const styles = stylex.create({
       borderLeft: tabs.border,
     },
     ":focus": {
-      outline: "1px dotted #222222",
+      outline: `1px dotted ${textColors.strong}`,
       outlineOffset: -4,
     },
     "::-moz-focus-inner": {
@@ -95,10 +101,9 @@ const styles = stylex.create({
     clear: "both",
     marginBottom: 9,
     padding: 14,
-    background: tabs.background,
+    background: backgrounds.tabPanel,
     border: tabs.border,
-    boxShadow:
-      "inset 1px 1px #fcfcfe, inset -1px -1px #fcfcfe, 1px 2px 2px 0 rgba(208, 206, 191, 0.75)",
+    boxShadow: shadows.tabPanel,
   },
 });
 

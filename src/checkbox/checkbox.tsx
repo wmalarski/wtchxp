@@ -5,7 +5,16 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../styles/sx";
-import { fonts, forms } from "../variables/variables.stylex";
+import {
+  backgroundColors,
+  backgrounds,
+  fontSizes,
+  fonts,
+  forms,
+  lineHeights,
+  shadows,
+  textColors,
+} from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
 
 const checkboxTotalWidth = `calc(${forms.checkboxWidth} + ${forms.radioLabelSpacing})`;
@@ -17,12 +26,12 @@ const styles = stylex.create({
     flexDirection: "column",
     alignItems: "flex-start",
     fontFamily: fonts.sansSerif,
-    fontSize: 11,
+    fontSize: fontSizes.base,
   },
   label: {
     position: "relative",
     marginLeft: checkboxTotalWidth,
-    lineHeight: "13px",
+    lineHeight: lineHeights.tight,
     "::before": {
       content: '""',
       display: "inline-block",
@@ -32,8 +41,8 @@ const styles = stylex.create({
       width: forms.checkboxWidth,
       height: forms.checkboxWidth,
       border: forms.radioBorder,
-      backgroundColor: forms.radioBg,
-      boxShadow: "none",
+      backgroundColor: backgrounds.control,
+      boxShadow: shadows.none,
     },
     "::after": {
       content: '""',
@@ -45,10 +54,10 @@ const styles = stylex.create({
       height: forms.checkmarkWidth,
     },
     ":not([data-disabled]):not(:active):hover::before": {
-      boxShadow: forms.radioInnerShadowHover,
+      boxShadow: shadows.controlHover,
     },
     ":not([data-disabled]):active::before": {
-      background: forms.radioBgActive,
+      background: backgrounds.controlActive,
     },
     ":is([data-checked])::after": {
       left: -17,
@@ -56,24 +65,24 @@ const styles = stylex.create({
     },
     ":is([data-disabled])::before": {
       border: forms.radioBorderDisabled,
-      backgroundColor: "#ffffff",
+      backgroundColor: backgroundColors.surface,
     },
     ":is([data-disabled][data-checked])::after": {
       backgroundImage: "var(--xp-checkbox-icon-disabled)",
     },
   },
   focused: {
-    outline: "1px dotted #000000",
+    outline: `1px dotted ${textColors.primary}`,
   },
   description: {
     marginLeft: checkboxTotalWidth,
     marginTop: 2,
-    color: "#4a4a4a",
+    color: textColors.secondary,
   },
   error: {
     marginLeft: checkboxTotalWidth,
     marginTop: 2,
-    color: "#a80000",
+    color: textColors.error,
   },
 });
 
