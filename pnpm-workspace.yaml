@@ -1,8 +1,18 @@
+allowBuilds:
+  esbuild: true
 catalog:
   vite: npm:@voidzero-dev/vite-plus-core@1.4.0
   vite-plus: 1.4.0
+minimumReleaseAgeExclude:
+  - "@storybook/addon-docs@10.6.5"
+  - "@storybook/react-dom-shim@10.6.5"
+  - storybook@10.6.5
 overrides:
   vite@*: "catalog:"
+  # Storybook declares `vite-plugin-solid` as a peer. Its v3 release is a thin
+  # re-export of the Solid 2 plugin used by this project, so keep both on the
+  # same implementation instead of pulling in the Solid 1 plugin.
+  vite-plugin-solid: 3.0.0-next.27
   # Keep the Solid 2 RC compiler in lockstep with solid-js/@solidjs/web rc.16.
   "@solidjs/compiler": "2.0.0-rc.16"
   "@solidjs/babel-plugin": "2.0.0-rc.16"
@@ -13,3 +23,8 @@ peerDependencyRules:
     - vite
   allowedVersions:
     vite: "*"
+    # Storybook 10 only declares Vite+ 0.2 in its optional peer range, but the
+    # builder only uses the Vite-compatible API exposed by Vite+ 1.x.
+    vite-plus: "*"
+    # Storybook's docgen dependencies still declare TypeScript <7.
+    typescript: "*"

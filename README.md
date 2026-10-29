@@ -149,16 +149,25 @@ not affect the rendered tabs.
 
 ```bash
 vp install
-vp dev       # demo at http://localhost:5173
-vp test      # Vitest in browser mode (Playwright/Chromium)
-vp check     # formatting, linting and type checking
-vp build     # dist/index.js, dist/styles.css and d.ts files
+vp dev              # demo at http://localhost:5173
+vp run storybook    # component explorer at http://localhost:6006
+vp run build-storybook
+vp test             # Vitest in browser mode (Playwright/Chromium)
+vp check            # formatting, linting and type checking
+vp build            # dist/index.js, dist/styles.css and d.ts files
 ```
 
-The demo lives in `demo/main.tsx` and uses every component. `src/styles.css`
-imports the global skin files, `src/variables/variables.stylex.ts` defines the
-theme tokens, and `src/styles/base.css` contains the structural rules that the
-theme files do not provide.
+The demo lives in `demo/main.tsx` and uses every component. Stories live next
+to their components as `src/**/*.stories.tsx`; the Storybook configuration is in
+`.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup
+as the library. `src/styles.css` imports the global skin files,
+`src/variables/variables.stylex.ts` defines the theme tokens, and
+`src/styles/base.css` contains the structural rules that the theme files do not
+provide.
+
+StyleX runs in `application-order` mode. The default `property-specificity`
+mode drops shorthand properties such as `border` and `background`, which this
+skin relies on.
 
 ## Credits
 

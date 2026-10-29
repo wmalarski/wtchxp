@@ -4,7 +4,12 @@ import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
-  plugins: [stylex.vite(), solid()],
+  plugins: [
+    // `property-specificity` (the StyleX default) drops shorthand properties
+    // such as `border` and `background`, which this skin relies on.
+    stylex.vite({ styleResolution: "application-order" }),
+    solid(),
+  ],
   build: {
     lib: {
       entry: {

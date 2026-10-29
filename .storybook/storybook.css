@@ -1,0 +1,35 @@
+html,
+body,
+#storybook-root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #3a6ea5;
+}
+
+.storybook-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px;
+  box-sizing: border-box;
+  font-family: "Pixelated MS Sans Serif", Arial;
+}
+
+.storybook-stack > * + * {
+  margin-top: 12px;
+}
+
+.storybook-stack .field-row + .field-row {
+  margin-top: 6px;
+}
+
+.storybook-desktop p {
+  margin: 0;
+  font-family: "Pixelated MS Sans Serif", Arial;
+  font-size: 11px;
+  line-height: 1.6;
+}
