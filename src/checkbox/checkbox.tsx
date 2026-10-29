@@ -30,6 +30,7 @@ const styles = stylex.create({
   },
   label: {
     position: "relative",
+    marginBottom: 0,
     marginLeft: checkboxTotalWidth,
     lineHeight: lineHeights.tight,
     "::before": {

@@ -13,14 +13,31 @@ import {
  * rules left in CSS are for elements we do not render ourselves (`option`).
  */
 export const formStyles = stylex.create({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    fontFamily: fonts.sansSerif,
+    fontSize: fontSizes.base,
+  },
   label: {
     display: "inline-flex",
     alignItems: "center",
     fontFamily: fonts.sansSerif,
     fontSize: fontSizes.base,
     WebkitFontSmoothing: "antialiased",
+    marginBottom: 2,
+  },
+  description: {
+    marginTop: 2,
+    color: textColors.secondary,
+  },
+  error: {
+    marginTop: 2,
+    color: textColors.error,
   },
   input: {
+    width: "100%",
     height: 21,
     padding: "3px 4px",
     border: "1px solid #7f9db9",
@@ -40,6 +57,7 @@ export const formStyles = stylex.create({
     },
   },
   inputTall: {
+    width: "100%",
     height: 23,
     padding: "3px 4px",
     border: "1px solid #7f9db9",
@@ -59,6 +77,7 @@ export const formStyles = stylex.create({
     },
   },
   textarea: {
+    width: "100%",
     padding: "3px 4px",
     border: "1px solid #7f9db9",
     backgroundColor: backgroundColors.surface,

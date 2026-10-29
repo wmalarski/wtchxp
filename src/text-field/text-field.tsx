@@ -2,36 +2,9 @@ import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { TextField as KobalteTextField } from "@kobalte/core/text-field";
 import type { TextFieldRootProps } from "@kobalte/core/text-field";
 import type { ComponentProps, JSX } from "@solidjs/web";
-import * as stylex from "@stylexjs/stylex";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
-import { fontSizes, fonts, textColors } from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
-
-const styles = stylex.create({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    fontFamily: fonts.sansSerif,
-    fontSize: fontSizes.base,
-  },
-  label: {
-    marginBottom: 2,
-  },
-  input: {
-    width: "100%",
-    boxSizing: "border-box",
-  },
-  description: {
-    marginTop: 2,
-    color: textColors.secondary,
-  },
-  error: {
-    marginTop: 2,
-    color: textColors.error,
-  },
-});
 
 export type TextFieldProps = Omit<
   PolymorphicProps<"div", TextFieldRootProps<"div">>,
@@ -100,17 +73,14 @@ export const TextField: Component<TextFieldProps> = (props) => {
   };
   const inputClass = () => [
     sx(isTallInput() ? formStyles.inputTall : formStyles.input),
-    sx(styles.input),
     props.inputClass,
   ];
-  const textareaClass = () => [sx(formStyles.textarea), sx(styles.input), props.inputClass];
+  const textareaClass = () => [sx(formStyles.textarea), props.inputClass];
 
   return (
-    <KobalteTextField {...others} class={[sx(styles.root), props.class]}>
+    <KobalteTextField {...others} class={[sx(formStyles.root), props.class]}>
       <Show when={props.label}>
-        <KobalteTextField.Label class={[sx(formStyles.label), sx(styles.label)]}>
-          {props.label}
-        </KobalteTextField.Label>
+        <KobalteTextField.Label class={sx(formStyles.label)}>{props.label}</KobalteTextField.Label>
       </Show>
       <Show
         when={props.multiline}
@@ -137,12 +107,12 @@ export const TextField: Component<TextFieldProps> = (props) => {
         />
       </Show>
       <Show when={props.description}>
-        <KobalteTextField.Description class={sx(styles.description)}>
+        <KobalteTextField.Description class={sx(formStyles.description)}>
           {props.description}
         </KobalteTextField.Description>
       </Show>
       <Show when={props.errorMessage}>
-        <KobalteTextField.ErrorMessage class={sx(styles.error)}>
+        <KobalteTextField.ErrorMessage class={sx(formStyles.error)}>
           {props.errorMessage}
         </KobalteTextField.ErrorMessage>
       </Show>

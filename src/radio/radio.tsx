@@ -40,6 +40,7 @@ const styles = stylex.create({
   },
   label: {
     position: "relative",
+    marginBottom: 0,
     marginLeft: radioTotalWidth,
     lineHeight: lineHeights.base,
     "::before": {
