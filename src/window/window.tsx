@@ -1,6 +1,6 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { omit } from "solid-js";
+import { omit, type Component } from "solid-js";
 import type { ButtonProps } from "../button/button";
 import { sx } from "../styles/sx";
 import { colors, fonts, spacing } from "../variables/variables.stylex";
@@ -108,78 +108,78 @@ const styles = stylex.create({
   },
 });
 
-export type WindowProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type WindowProps = ComponentProps<"div">;
 
 /**
  * The window frame. Compose it with `TitleBar`, `WindowBody` and `StatusBar`.
  */
-export function Window(props: WindowProps) {
+export const Window: Component<WindowProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["window", sx(styles.window), props.class]} />;
-}
+};
 
-export type TitleBarProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type TitleBarProps = ComponentProps<"div">;
 
-export function TitleBar(props: TitleBarProps) {
+export const TitleBar: Component<TitleBarProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["title-bar", sx(styles.titleBar), props.class]} />;
-}
+};
 
-export type TitleBarTextProps = JSX.HTMLAttributes<HTMLSpanElement>;
+export type TitleBarTextProps = ComponentProps<"span">;
 
-export function TitleBarText(props: TitleBarTextProps) {
+export const TitleBarText: Component<TitleBarTextProps> = (props) => {
   const others = omit(props, "class");
 
   return <span {...others} class={["title-bar-text", sx(styles.titleBarText), props.class]} />;
-}
+};
 
-export type TitleBarControlsProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type TitleBarControlsProps = ComponentProps<"div">;
 
-export function TitleBarControls(props: TitleBarControlsProps) {
+export const TitleBarControls: Component<TitleBarControlsProps> = (props) => {
   const others = omit(props, "class");
 
   return (
     <div {...others} class={["title-bar-controls", sx(styles.titleBarControls), props.class]} />
   );
-}
+};
 
-export type WindowBodyProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type WindowBodyProps = ComponentProps<"div">;
 
-export function WindowBody(props: WindowBodyProps) {
+export const WindowBody: Component<WindowBodyProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["window-body", sx(styles.body), props.class]} />;
-}
+};
 
-export type StatusBarProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type StatusBarProps = ComponentProps<"div">;
 
-export function StatusBar(props: StatusBarProps) {
+export const StatusBar: Component<StatusBarProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["status-bar", sx(styles.statusBar), props.class]} />;
-}
+};
 
-export type StatusBarFieldProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type StatusBarFieldProps = ComponentProps<"div">;
 
-export function StatusBarField(props: StatusBarFieldProps) {
+export const StatusBarField: Component<StatusBarFieldProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["status-bar-field", sx(styles.statusBarField), props.class]} />;
-}
+};
 
 export type WindowControlAction = "Minimize" | "Maximize" | "Restore" | "Help" | "Close";
 
-export interface WindowControlProps extends Omit<
+export type WindowControlProps = Omit<
   ButtonProps,
   "aria-label" | "children" | "active" | "block"
-> {
+> & {
   action: WindowControlAction;
-}
+};
 
 /** A title bar control button. */
-export function WindowControl(props: WindowControlProps) {
+export const WindowControl: Component<WindowControlProps> = (props) => {
   const others = omit(props, "action", "class");
 
   return (
@@ -190,4 +190,4 @@ export function WindowControl(props: WindowControlProps) {
       class={["button", "window-control", sx(styles.control), props.class]}
     />
   );
-}
+};

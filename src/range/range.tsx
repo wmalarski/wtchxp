@@ -1,6 +1,6 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { omit, Show } from "solid-js";
+import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { spacing } from "../variables/variables.stylex";
 
@@ -74,7 +74,7 @@ const styles = stylex.create({
   },
 });
 
-export type RangeProps = Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "type"> & {
+export type RangeProps = Omit<ComponentProps<"input">, "type"> & {
   /** Renders the track vertically. */
   vertical?: boolean;
   /** Uses the rectangular XP thumb instead of the default triangular one. */
@@ -82,7 +82,7 @@ export type RangeProps = Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "type">
 };
 
 /** A native `<input type="range">` with the XP track and thumb skin. */
-export function Range(props: RangeProps) {
+export const Range: Component<RangeProps> = (props) => {
   const others = omit(props, "class", "vertical", "boxIndicator");
 
   const renderInput = () => (
@@ -105,4 +105,4 @@ export function Range(props: RangeProps) {
       <div class={["is-vertical", sx(styles.verticalRoot)]}>{renderInput()}</div>
     </Show>
   );
-}
+};

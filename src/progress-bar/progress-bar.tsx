@@ -1,6 +1,6 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { omit } from "solid-js";
+import { omit, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 
 const sliding = stylex.keyframes({
@@ -92,7 +92,7 @@ const styles = stylex.create({
   },
 });
 
-export type ProgressBarProps = JSX.ProgressHTMLAttributes<HTMLProgressElement> & {
+export type ProgressBarProps = ComponentProps<"progress"> & {
   /** Current value. Omit (or set `indeterminate`) for the animated bar. */
   value?: number;
   /** Upper bound of `value`. Defaults to `100`. */
@@ -107,7 +107,7 @@ export type ProgressBarProps = JSX.ProgressHTMLAttributes<HTMLProgressElement> &
  * A native `<progress>` element, so the XP progress styling (including the
  * indeterminate animation) applies without extra markup.
  */
-export function ProgressBar(props: ProgressBarProps) {
+export const ProgressBar: Component<ProgressBarProps> = (props) => {
   const others = omit(props, "class", "value", "max", "indeterminate", "label");
   const isIndeterminate = () => props.indeterminate || props.value === undefined;
 
@@ -121,4 +121,4 @@ export function ProgressBar(props: ProgressBarProps) {
       class={[sx(styles.root), props.class]}
     />
   );
-}
+};

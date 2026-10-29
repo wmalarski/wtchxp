@@ -3,7 +3,7 @@ import { Checkbox as KobalteCheckbox } from "@kobalte/core/checkbox";
 import type { CheckboxRootProps } from "@kobalte/core/checkbox";
 import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { createSignal, omit, Show } from "solid-js";
+import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts, forms } from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
@@ -77,21 +77,19 @@ const styles = stylex.create({
   },
 });
 
-export type CheckboxProps = Omit<
-  PolymorphicProps<"div", CheckboxRootProps<"div">>,
-  "as" | "children"
-> & {
-  /** Label rendered next to the checkbox. */
-  label?: JSX.Element;
-  /** Secondary text rendered below the label. */
-  description?: JSX.Element;
-  /** Validation message rendered below the label. */
-  errorMessage?: JSX.Element;
-  children?: JSX.Element;
-};
+export type CheckboxProps = ParentProps<
+  Omit<PolymorphicProps<"div", CheckboxRootProps<"div">>, "as" | "children"> & {
+    /** Label rendered next to the checkbox. */
+    label?: JSX.Element;
+    /** Secondary text rendered below the label. */
+    description?: JSX.Element;
+    /** Validation message rendered below the label. */
+    errorMessage?: JSX.Element;
+  }
+>;
 
 /** A Kobalte checkbox skinned with the XP form styles. */
-export function Checkbox(props: CheckboxProps) {
+export const Checkbox: Component<CheckboxProps> = (props) => {
   const [focused, setFocused] = createSignal(false);
   const others = omit(props, "class", "label", "description", "errorMessage", "children");
 
@@ -122,4 +120,4 @@ export function Checkbox(props: CheckboxProps) {
       </Show>
     </KobalteCheckbox>
   );
-}
+};

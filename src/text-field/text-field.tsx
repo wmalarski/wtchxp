@@ -1,9 +1,9 @@
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { TextField as KobalteTextField } from "@kobalte/core/text-field";
 import type { TextFieldRootProps } from "@kobalte/core/text-field";
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { omit, Show } from "solid-js";
+import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts } from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
@@ -52,7 +52,7 @@ export type TextFieldProps = Omit<
   /** Visible width of a `multiline` textarea. */
   cols?: number;
   /** Native input type. Defaults to `"text"`. */
-  type?: JSX.InputHTMLAttributes<HTMLInputElement>["type"];
+  type?: ComponentProps<"input">["type"];
   /** Placeholder passed to the input element. */
   placeholder?: string;
   /** Autocomplete hint passed to the input element. */
@@ -60,15 +60,15 @@ export type TextFieldProps = Omit<
   /** Maximum number of characters accepted by the input element. */
   maxLength?: number;
   /** Input mode hint passed to the input element. */
-  inputmode?: JSX.InputHTMLAttributes<HTMLInputElement>["inputmode"];
+  inputmode?: ComponentProps<"input">["inputmode"];
   /** Extra props for the input element. */
   inputProps?: Omit<
-    JSX.InputHTMLAttributes<HTMLInputElement>,
+    ComponentProps<"input">,
     "id" | "onInput" | "aria-label" | "aria-labelledby" | "aria-describedby" | "ref"
   >;
   /** Extra props for the textarea element. */
   textareaProps?: Omit<
-    JSX.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    ComponentProps<"textarea">,
     "id" | "onInput" | "aria-label" | "aria-labelledby" | "aria-describedby" | "ref"
   >;
 };
@@ -92,7 +92,7 @@ const INPUT_PROPS = [
 ] as const;
 
 /** A Kobalte text field (input or textarea) skinned with the XP form styles. */
-export function TextField(props: TextFieldProps) {
+export const TextField: Component<TextFieldProps> = (props) => {
   const others = omit(props, ...INPUT_PROPS);
   const isTallInput = () => {
     const type = props.type ?? "text";
@@ -148,4 +148,4 @@ export function TextField(props: TextFieldProps) {
       </Show>
     </KobalteTextField>
   );
-}
+};

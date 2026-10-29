@@ -1,6 +1,6 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { omit } from "solid-js";
+import { omit, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { colors, fonts } from "../variables/variables.stylex";
 
@@ -49,15 +49,15 @@ const styles = stylex.create({
   },
 });
 
-export interface ButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = ComponentProps<"button"> & {
   /** Keeps the button in its pressed ("active") state. */
   active?: boolean;
   /** Stretches the button to the full width of its container. */
   block?: boolean;
-}
+};
 
 /** A Windows XP style push button. */
-export function Button(props: ButtonProps) {
+export const Button: Component<ButtonProps> = (props) => {
   const others = omit(props, "class", "active", "block", "type");
 
   return (
@@ -65,12 +65,7 @@ export function Button(props: ButtonProps) {
       {...others}
       type={props.type ?? "button"}
       data-active={props.active ? "true" : undefined}
-      class={[
-        "button",
-        { active: props.active, [sx(styles.block)]: props.block },
-        sx(styles.root),
-        props.class,
-      ]}
+      class={[{ [sx(styles.block)]: props.block }, sx(styles.root), props.class]}
     />
   );
-}
+};

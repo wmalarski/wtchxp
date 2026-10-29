@@ -1,6 +1,14 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { createContext, createSignal, omit, Show, useContext } from "solid-js";
+import {
+  createContext,
+  createSignal,
+  omit,
+  Show,
+  useContext,
+  type Component,
+  type ParentProps,
+} from "solid-js";
 import { sx } from "../styles/sx";
 import { colors, fonts } from "../variables/variables.stylex";
 
@@ -113,13 +121,13 @@ const styles = stylex.create({
   },
 });
 
-export type TreeViewProps = JSX.HTMLAttributes<HTMLUListElement> & {
+export type TreeViewProps = ComponentProps<"ul"> & {
   /** Accessible name for the tree. */
   label?: string;
 };
 
 /** A tree view built from `<ul class="tree-view">`, `<details>` and `<summary>`. */
-export function TreeView(props: TreeViewProps) {
+export const TreeView: Component<TreeViewProps> = (props) => {
   const others = omit(props, "class", "label");
 
   return (
@@ -130,34 +138,32 @@ export function TreeView(props: TreeViewProps) {
       class={["tree-view", sx(styles.tree), props.class]}
     />
   );
-}
-
-export type TreeItemProps = Omit<
-  JSX.LiHTMLAttributes<HTMLLIElement>,
-  "title" | "children" | "onSelect"
-> & {
-  /** Text (or markup) of the item. */
-  label?: JSX.Element;
-  /** Alias for `label`, matching the native `title` attribute. */
-  title?: JSX.Element;
-  /** Renders the item as selected. */
-  selected?: boolean;
-  /** Called when a leaf item is activated. */
-  onSelect?: (event: MouseEvent) => void;
-  /** Initial open state of a branch. Defaults to `true`. */
-  defaultOpen?: boolean;
-  /** Controlled open state of a branch. */
-  open?: boolean;
-  /** Called when a branch is expanded or collapsed. */
-  onOpenChange?: (open: boolean) => void;
-  children?: JSX.Element;
 };
+
+export type TreeItemProps = ParentProps<
+  Omit<ComponentProps<"li">, "title" | "children" | "onSelect"> & {
+    /** Text (or markup) of the item. */
+    label?: JSX.Element;
+    /** Alias for `label`, matching the native `title` attribute. */
+    title?: JSX.Element;
+    /** Renders the item as selected. */
+    selected?: boolean;
+    /** Called when a leaf item is activated. */
+    onSelect?: (event: MouseEvent) => void;
+    /** Initial open state of a branch. Defaults to `true`. */
+    defaultOpen?: boolean;
+    /** Controlled open state of a branch. */
+    open?: boolean;
+    /** Called when a branch is expanded or collapsed. */
+    onOpenChange?: (open: boolean) => void;
+  }
+>;
 
 /**
  * A tree item. Items with children render an expandable branch, items without
  * children render a selectable leaf.
  */
-export function TreeItem(props: TreeItemProps) {
+export const TreeItem: Component<TreeItemProps> = (props) => {
   const [localOpen, setLocalOpen] = createSignal(props.defaultOpen ?? true);
   const depth = useContext(TreeDepthContext);
   const isOpen = () => props.open ?? localOpen();
@@ -226,4 +232,4 @@ export function TreeItem(props: TreeItemProps) {
       </Show>
     </li>
   );
-}
+};

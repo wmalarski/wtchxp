@@ -1,6 +1,6 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { createUniqueId, omit, Show } from "solid-js";
+import { createUniqueId, omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts } from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
@@ -30,7 +30,7 @@ const styles = stylex.create({
   },
 });
 
-export type SelectProps = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
+export type SelectProps = ComponentProps<"select"> & {
   /** Label rendered above the select. */
   label?: JSX.Element;
   /** Secondary text rendered below the select. */
@@ -45,7 +45,7 @@ export type SelectProps = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
  * A native `<select>` so the existing `select` rules (including the XP dropdown
  * glyph) apply unchanged.
  */
-export function Select(props: SelectProps) {
+export const Select: Component<SelectProps> = (props) => {
   const fallbackId = createUniqueId();
   const id = () => props.id ?? fallbackId;
   const descriptionId = () => `${id()}-description`;
@@ -96,4 +96,4 @@ export function Select(props: SelectProps) {
       </Show>
     </div>
   );
-}
+};

@@ -1,6 +1,6 @@
-import type { JSX } from "@solidjs/web";
+import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { omit, Show } from "solid-js";
+import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts, spacing } from "../variables/variables.stylex";
 
@@ -32,13 +32,13 @@ const styles = stylex.create({
   },
 });
 
-export type GroupBoxProps = JSX.FieldsetHTMLAttributes<HTMLFieldSetElement> & {
+export type GroupBoxProps = ComponentProps<"fieldset"> & {
   /** Content rendered inside the `legend` element. */
   legend?: JSX.Element;
 };
 
 /** A themed `fieldset` with an optional `legend`. */
-export function GroupBox(props: GroupBoxProps) {
+export const GroupBox: Component<GroupBoxProps> = (props) => {
   const others = omit(props, "class", "legend", "children");
 
   return (
@@ -49,22 +49,22 @@ export function GroupBox(props: GroupBoxProps) {
       {props.children}
     </fieldset>
   );
-}
+};
 
-export type FieldRowProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type FieldRowProps = ComponentProps<"div">;
 
 /** A horizontal row of form controls. */
-export function FieldRow(props: FieldRowProps) {
+export const FieldRow: Component<FieldRowProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["field-row", sx(styles.row), props.class]} />;
-}
+};
 
-export type FieldRowStackedProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type FieldRowStackedProps = ComponentProps<"div">;
 
 /** A vertical row of form controls. */
-export function FieldRowStacked(props: FieldRowStackedProps) {
+export const FieldRowStacked: Component<FieldRowStackedProps> = (props) => {
   const others = omit(props, "class");
 
   return <div {...others} class={["field-row-stacked", sx(styles.stacked), props.class]} />;
-}
+};

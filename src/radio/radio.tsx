@@ -3,7 +3,7 @@ import { RadioGroup as KobalteRadioGroup } from "@kobalte/core/radio-group";
 import type { RadioGroupItemProps, RadioGroupRootProps } from "@kobalte/core/radio-group";
 import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
-import { createSignal, omit, Show } from "solid-js";
+import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts, forms } from "../variables/variables.stylex";
 import { formStyles } from "../styles/form-styles";
@@ -80,18 +80,16 @@ const styles = stylex.create({
   },
 });
 
-export type RadioGroupProps = Omit<
-  PolymorphicProps<"div", RadioGroupRootProps<"div">>,
-  "as" | "children"
-> & {
-  /** Label rendered above the group. */
-  label?: JSX.Element;
-  description?: JSX.Element;
-  children?: JSX.Element;
-};
+export type RadioGroupProps = ParentProps<
+  Omit<PolymorphicProps<"div", RadioGroupRootProps<"div">>, "as" | "children"> & {
+    /** Label rendered above the group. */
+    label?: JSX.Element;
+    description?: JSX.Element;
+  }
+>;
 
 /** A Kobalte radio group skinned with the XP form styles. */
-export function RadioGroup(props: RadioGroupProps) {
+export const RadioGroup: Component<RadioGroupProps> = (props) => {
   const others = omit(props, "class", "label", "description", "children");
 
   return (
@@ -107,21 +105,19 @@ export function RadioGroup(props: RadioGroupProps) {
       </Show>
     </KobalteRadioGroup>
   );
-}
-
-export type RadioProps = Omit<
-  PolymorphicProps<"div", RadioGroupItemProps<"div">>,
-  "as" | "children"
-> & {
-  /** Label rendered next to the radio button. */
-  label?: JSX.Element;
-  /** Secondary text rendered below the label. */
-  description?: JSX.Element;
-  children?: JSX.Element;
 };
 
+export type RadioProps = ParentProps<
+  Omit<PolymorphicProps<"div", RadioGroupItemProps<"div">>, "as" | "children"> & {
+    /** Label rendered next to the radio button. */
+    label?: JSX.Element;
+    /** Secondary text rendered below the label. */
+    description?: JSX.Element;
+  }
+>;
+
 /** A single radio button inside a `RadioGroup`. */
-export function Radio(props: RadioProps) {
+export const Radio: Component<RadioProps> = (props) => {
   const [focused, setFocused] = createSignal(false);
   const others = omit(props, "class", "label", "description", "children");
 
@@ -148,4 +144,4 @@ export function Radio(props: RadioProps) {
       </Show>
     </KobalteRadioGroup.Item>
   );
-}
+};

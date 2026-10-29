@@ -157,6 +157,8 @@ vp check            # formatting, linting and type checking
 vp build            # dist/index.js, dist/styles.css and d.ts files
 ```
 
+Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).
+
 The demo lives in `demo/main.tsx` and uses every component. Stories live next
 to their components as `src/**/*.stories.tsx`; the Storybook configuration is in
 `.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup

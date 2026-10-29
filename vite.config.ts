@@ -42,9 +42,25 @@ export default defineConfig({
     setupFiles: ["tests/setup.ts"],
   },
   lint: {
+    plugins: ["typescript", "oxc", "unicorn", "react"],
+    jsPlugins: ["./lint/component-props.js"],
     options: {
       typeAware: true,
       typeCheck: true,
+    },
+    rules: {
+      "typescript/consistent-type-definitions": ["error", "type"],
+      "wtchxp/component-props-name": "error",
+      "wtchxp/use-component-props": "error",
+      // Solid components follow the same shape as React components: a
+      // capitalized function that returns JSX must be an arrow function.
+      "react/function-component-definition": [
+        "error",
+        {
+          namedComponents: "arrow-function",
+          unnamedComponents: "arrow-function",
+        },
+      ],
     },
   },
   fmt: {},

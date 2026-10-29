@@ -7,7 +7,7 @@ import {
   type TabsTriggerProps,
 } from "@kobalte/core/tabs";
 import * as stylex from "@stylexjs/stylex";
-import { createContext, omit, useContext } from "solid-js";
+import { createContext, omit, useContext, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { fonts, tabs } from "../variables/variables.stylex";
 
@@ -105,11 +105,11 @@ const styles = stylex.create({
 export type TabsProps = Omit<PolymorphicProps<"div", TabsRootProps<"div">>, "as">;
 
 /** A tab set powered by Kobalte. */
-export function Tabs(props: TabsProps) {
+export const Tabs: Component<TabsProps> = (props) => {
   const others = omit(props, "class");
 
   return <KobalteTabs {...others} class={[sx(styles.root), props.class]} />;
-}
+};
 
 export type TabListProps = Omit<PolymorphicProps<"menu", TabsListProps<"menu">>, "as"> & {
   /** Makes every tab share the available width. */
@@ -120,7 +120,7 @@ export type TabListProps = Omit<PolymorphicProps<"menu", TabsListProps<"menu">>,
  * The tab strip. Rendered as `<menu role="tablist">`, which is the element the
  * XP tab styles are written for.
  */
-export function TabList(props: TabListProps) {
+export const TabList: Component<TabListProps> = (props) => {
   const others = omit(props, "class", "justified");
 
   return (
@@ -128,12 +128,12 @@ export function TabList(props: TabListProps) {
       <TabListContext value={props.justified ?? false}>{props.children}</TabListContext>
     </KobalteTabs.List>
   );
-}
+};
 
 export type TabProps = Omit<PolymorphicProps<"button", TabsTriggerProps<"button">>, "as">;
 
 /** A single tab button. */
-export function Tab(props: TabProps) {
+export const Tab: Component<TabProps> = (props) => {
   const others = omit(props, "class");
   const justified = useContext(TabListContext);
 
@@ -143,15 +143,15 @@ export function Tab(props: TabProps) {
       class={["button", sx(styles.trigger), justified && sx(styles.justified), props.class]}
     />
   );
-}
+};
 
 export type TabPanelProps = Omit<PolymorphicProps<"div", TabsContentProps<"div">>, "as">;
 
 /** The content associated with a tab. */
-export function TabPanel(props: TabPanelProps) {
+export const TabPanel: Component<TabPanelProps> = (props) => {
   const others = omit(props, "class");
 
   return <KobalteTabs.Content {...others} class={[sx(styles.panel), props.class]} />;
-}
+};
 
 export { KobalteTabs };

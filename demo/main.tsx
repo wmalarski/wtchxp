@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, type Component } from "solid-js";
 import { render } from "@solidjs/web";
 import {
   Button,
@@ -30,7 +30,7 @@ import {
 import "../src/styles.css";
 import "./demo.css";
 
-function Demo() {
+const Demo: Component = () => {
   const [checked, setChecked] = createSignal(true);
   const [radio, setRadio] = createSignal("work");
   const [text, setText] = createSignal("C:\\WINDOWS");
@@ -176,6 +176,6 @@ function Demo() {
       </Window>
     </div>
   );
-}
+};
 
 render(() => <Demo />, document.getElementById("root")!);
