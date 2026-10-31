@@ -14,5 +14,5 @@ test("GroupBox and FieldRow use the skin's class contract", () => {
   ));
 
   expect(screen.getByText("Buttons").tagName).toBe("LEGEND");
-  expect(screen.getByRole("button", { name: "OK" }).parentElement).toHaveClass("field-row");
+  expect(screen.getByRole("button", { name: "OK" }).parentElement?.className).toMatch(/field-row/);
 });

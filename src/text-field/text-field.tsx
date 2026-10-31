@@ -3,8 +3,9 @@ import { TextField as KobalteTextField } from "@kobalte/core/text-field";
 import type { TextFieldRootProps } from "@kobalte/core/text-field";
 import type { ComponentProps, JSX } from "@solidjs/web";
 import { omit, Show, type Component } from "solid-js";
-import { sx } from "../styles/sx";
-import { formStyles } from "../styles/form-styles";
+import { sx } from "../sx";
+import { fieldStyles } from "../field/field.styles";
+import { textFieldStyles } from "./text-field.styles";
 
 export type TextFieldProps = Omit<
   PolymorphicProps<"div", TextFieldRootProps<"div">>,
@@ -72,15 +73,15 @@ export const TextField: Component<TextFieldProps> = (props) => {
     return type === "text" || type === "password" || type === "email";
   };
   const inputClass = () => [
-    sx(isTallInput() ? formStyles.inputTall : formStyles.input),
+    sx(isTallInput() ? textFieldStyles.inputTall : textFieldStyles.input),
     props.inputClass,
   ];
-  const textareaClass = () => [sx(formStyles.textarea), props.inputClass];
+  const textareaClass = () => [sx(textFieldStyles.textarea), props.inputClass];
 
   return (
-    <KobalteTextField {...others} class={[sx(formStyles.root), props.class]}>
+    <KobalteTextField {...others} class={[sx(fieldStyles.root), props.class]}>
       <Show when={props.label}>
-        <KobalteTextField.Label class={sx(formStyles.label)}>{props.label}</KobalteTextField.Label>
+        <KobalteTextField.Label class={sx(fieldStyles.label)}>{props.label}</KobalteTextField.Label>
       </Show>
       <Show
         when={props.multiline}
@@ -107,12 +108,12 @@ export const TextField: Component<TextFieldProps> = (props) => {
         />
       </Show>
       <Show when={props.description}>
-        <KobalteTextField.Description class={sx(formStyles.description)}>
+        <KobalteTextField.Description class={sx(fieldStyles.description)}>
           {props.description}
         </KobalteTextField.Description>
       </Show>
       <Show when={props.errorMessage}>
-        <KobalteTextField.ErrorMessage class={sx(formStyles.error)}>
+        <KobalteTextField.ErrorMessage class={sx(fieldStyles.error)}>
           {props.errorMessage}
         </KobalteTextField.ErrorMessage>
       </Show>

@@ -4,9 +4,9 @@ Windows XP themed components for [SolidJS](https://www.solidjs.com/), built on
 [Kobalte](https://kobalte.dev/) and styled with the XP.css skin plus
 [StyleX](https://stylexjs.com/).
 
-The library keeps the original XP.css class names (`button`, `window`,
-`title-bar`, `field-row`, `tree-view`, …), so the existing CSS remains the skin
-and can be overridden or extended like normal CSS.
+The library recreates the XP.css skin with StyleX and scoped CSS modules.
+Component class names are hashed, so the skin cannot clash with application
+CSS; theme through the exported StyleX tokens instead.
 
 > Requires Solid 2 RC (`solid-js@2.0.0-rc.16`) and its matching
 > `@solidjs/web` runtime.
@@ -27,8 +27,8 @@ If your toolchain can import CSS files directly, `import "wtchxp/styles.css"`
 also works (add a `*.css` module declaration if TypeScript asks for one).
 
 The stylesheet bundles the Pixelated MS Sans Serif font and all XP icons.
-Components add only their structural/layout styles through StyleX; the XP look
-comes from the CSS skin.
+Components define their layout and skin styles with StyleX, using colocated CSS
+modules only where a rule needs a bundler asset URL such as an icon.
 
 ## Components
 
@@ -172,10 +172,10 @@ Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).
 The demo lives in `demo/main.tsx` and uses every component. Stories live next
 to their components as `src/**/*.stories.tsx`; the Storybook configuration is in
 `.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup
-as the library. `src/styles.css` imports the global skin files,
-`src/variables/variables.stylex.ts` defines the theme tokens, and
-`src/styles/base.css` contains the structural rules that the theme files do not
-provide.
+as the library. `src/styles.css` is the single global stylesheet (fonts, native
+`option` rules and scrollbars), `src/variables/variables.stylex.ts` defines the
+theme tokens, and component-specific CSS lives next to each component as
+`*.module.css`.
 
 StyleX runs in `application-order` mode. The default `property-specificity`
 mode drops shorthand properties such as `border` and `background`, which this

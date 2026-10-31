@@ -7,8 +7,8 @@ import {
   type Accessor,
   type Component,
 } from "solid-js";
-import { sx } from "../styles/sx";
-import { formStyles } from "../styles/form-styles";
+import { sx } from "../sx";
+import { fieldStyles } from "./field.styles";
 
 /**
  * Reactive state shared by a `Field` and its control descendants.
@@ -91,20 +91,20 @@ export const Field: Component<FieldProps> = (props) => {
         invalid: () => invalid(),
       }}
     >
-      <div class={[sx(formStyles.root), props.wrapperClass]}>
+      <div class={[sx(fieldStyles.root), props.wrapperClass]}>
         <Show when={props.label}>
-          <label for={id()} class={sx(formStyles.label)}>
+          <label for={id()} class={sx(fieldStyles.label)}>
             {props.label}
           </label>
         </Show>
         {props.children}
         <Show when={props.description}>
-          <div id={descriptionId()} class={sx(formStyles.description)}>
+          <div id={descriptionId()} class={sx(fieldStyles.description)}>
             {props.description}
           </div>
         </Show>
         <Show when={props.errorMessage}>
-          <div id={errorId()} class={sx(formStyles.error)}>
+          <div id={errorId()} class={sx(fieldStyles.error)}>
             {props.errorMessage}
           </div>
         </Show>

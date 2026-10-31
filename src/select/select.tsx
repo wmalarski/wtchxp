@@ -1,17 +1,9 @@
 import type { ComponentProps, JSX } from "@solidjs/web";
-import * as stylex from "@stylexjs/stylex";
-import classes from "./select.module.css";
 import { createUniqueId, omit, type Component } from "solid-js";
-import { sx } from "../styles/sx";
-import { formStyles } from "../styles/form-styles";
+import { sx } from "../sx";
+import classes from "./select.module.css";
+import { selectStyles } from "./select.styles";
 import { Field, fieldDescribedBy } from "../field/field";
-
-const styles = stylex.create({
-  select: {
-    width: "100%",
-    boxSizing: "border-box",
-  },
-});
 
 export type SelectProps = ComponentProps<"select"> & {
   /** Label rendered above the select. */
@@ -56,7 +48,7 @@ export const Select: Component<SelectProps> = (props) => {
         id={id()}
         aria-invalid={props.errorMessage ? "true" : undefined}
         aria-describedby={describedBy()}
-        class={[classes["xp-select"], sx(formStyles.select), sx(styles.select), props.class]}
+        class={[classes["xp-select"], sx(selectStyles.select), props.class]}
       >
         {props.children}
       </select>

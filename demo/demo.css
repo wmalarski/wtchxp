@@ -22,10 +22,6 @@ body {
   margin-top: 12px;
 }
 
-.stack .field-row + .field-row {
-  margin-top: 6px;
-}
-
 p {
   margin: 0;
   font-family: "Pixelated MS Sans Serif", Arial;

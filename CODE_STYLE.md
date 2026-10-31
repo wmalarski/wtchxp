@@ -76,3 +76,20 @@ plugin `lint/component-props.js`. The `Component<Props>` annotation itself is
 checked during type checking.
 
 Non-component helpers may remain regular function declarations.
+
+## Styling
+
+- `src/styles.css` is the single source of global CSS. It holds only rules that
+  cannot be expressed by StyleX or scoped to a component: `@font-face`, native
+  `option` styling and scrollbar pseudo-elements.
+- Theme values live in `src/variables/variables.stylex.ts`. Use the tokens in
+  `stylex.create` calls instead of hard-coded values.
+- Component styles live in the component folder. Move every `stylex.create`
+  definition into a `<component>.styles.ts` file and export it as
+  `<component>Styles`; the component file should only consume it.
+- Use a colocated `*.module.css` file when a rule needs a bundler asset URL
+  (for example an icon) that StyleX cannot resolve. CSS modules keep the class
+  names hashed and scoped to the component.
+- Shared field primitives (`Field`'s wrapper, label, description and error
+  message) live in `src/field/field.styles.ts` and are imported by other form
+  controls.

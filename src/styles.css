@@ -1,3 +1,95 @@
-@import "./styles/base.css";
-@import "./styles/icons.css";
-@import "./global/global.css";
+/*-------------------------------------------*\
+    Global skin
+
+    This is the single source of global CSS.
+    Theme tokens live in StyleX
+    (`src/variables/variables.stylex.ts`);
+    component-specific rules live next to
+    their components as CSS modules.
+\*-------------------------------------------*/
+
+@font-face {
+  font-family: "Pixelated MS Sans Serif";
+  src:
+    url("./fonts/ms_sans_serif.woff2") format("woff2"),
+    url("./fonts/ms_sans_serif.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixelated MS Sans Serif";
+  src:
+    url("./fonts/ms_sans_serif_bold.woff2") format("woff2"),
+    url("./fonts/ms_sans_serif_bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Native options do not inherit the select's font in every browser. This is
+ * the one form rule that cannot be scoped to a component class. The font stack
+ * and size mirror `fonts.sansSerif` and `fontSizes.base` in
+ * `src/variables/variables.stylex.ts`.
+ */
+option {
+  font-family: "Pixelated MS Sans Serif", Arial;
+  font-size: 11px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*-------------------------------------------*\
+    Scrollbars
+    These pseudo-elements cannot take a
+    component class, so they stay global.
+\*-------------------------------------------*/
+
+::-webkit-scrollbar {
+  width: 17px;
+}
+::-webkit-scrollbar-corner {
+  /* Mirrors `colors.buttonFace`; this pseudo-element cannot take a class. */
+  background: #dfdfdf;
+}
+::-webkit-scrollbar-track:vertical {
+  background-image: url("./icons/scroll-background.svg");
+}
+::-webkit-scrollbar-track:horizontal {
+  background-image: url("./icons/scroll-background-horizontal.svg");
+}
+::-webkit-scrollbar-thumb {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #c8d6fb;
+  background-size: 7px;
+  border: 1px solid white;
+  border-radius: 2px;
+  box-shadow:
+    inset -3px 0 #bad1fc,
+    inset 1px 1px #b7caf5;
+}
+::-webkit-scrollbar-thumb:vertical {
+  background-image: url("./icons/scroll-thumb.svg");
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background-size: 8px;
+  background-image: url("./icons/scroll-thumb-horizontal.svg");
+}
+::-webkit-scrollbar-button:vertical:start {
+  height: 17px;
+  background-image: url("./icons/scroll-arrow-up.svg");
+}
+::-webkit-scrollbar-button:vertical:end {
+  height: 17px;
+  background-image: url("./icons/scroll-arrow-down.svg");
+}
+::-webkit-scrollbar-button:horizontal:start {
+  width: 17px;
+  background-image: url("./icons/scroll-arrow-left.svg");
+}
+::-webkit-scrollbar-button:horizontal:end {
+  width: 17px;
+  background-image: url("./icons/scroll-arrow-right.svg");
+}

@@ -1,24 +1,10 @@
 /*-------------------------------------------*\
-    Icon assets
-    StyleX cannot resolve bundler asset imports, so the icon URLs live
-    in CSS custom properties. The components consume them from StyleX.
+    Window
+    Component CSS for title bar control icons.
+    StyleX handles the main styling; these rules
+    set the icon URLs as CSS custom properties for
+    each control action.
 \*-------------------------------------------*/
-
-.checkbox-label {
-  --xp-checkbox-icon: url("../icons/checkmark.svg");
-  --xp-checkbox-icon-disabled: url("../icons/checkmark-disabled.svg");
-}
-
-.radio-label {
-  --xp-radio-icon: url("../icons/radio-dot.svg");
-  --xp-radio-icon-disabled: url("../icons/radio-dot-disabled.svg");
-}
-
-.xp-select {
-  --xp-select-icon: url("../icons/dropdown.svg");
-  --xp-select-icon-hover: url("../icons/dropdown-hover.svg");
-  --xp-select-icon-active: url("../icons/dropdown-active.svg");
-}
 
 .window-control[aria-label="Minimize"] {
   --xp-control-icon: url("../icons/minimize.svg");

@@ -4,38 +4,10 @@ import {
   fontSizes,
   fonts,
   radii,
-  shadows,
   textColors,
 } from "../variables/variables.stylex";
 
-/**
- * Shared form-control skin. StyleX owns the layout and theme; the only native
- * rules left in CSS are for elements we do not render ourselves (`option`).
- */
-export const formStyles = stylex.create({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    fontFamily: fonts.sansSerif,
-    fontSize: fontSizes.base,
-  },
-  label: {
-    display: "inline-flex",
-    alignItems: "center",
-    fontFamily: fonts.sansSerif,
-    fontSize: fontSizes.base,
-    WebkitFontSmoothing: "antialiased",
-    marginBottom: 2,
-  },
-  description: {
-    marginTop: 2,
-    color: textColors.secondary,
-  },
-  error: {
-    marginTop: 2,
-    color: textColors.error,
-  },
+export const textFieldStyles = stylex.create({
   input: {
     width: "100%",
     height: 21,
@@ -93,33 +65,6 @@ export const formStyles = stylex.create({
     "::selection": {
       backgroundColor: backgroundColors.selection,
       color: textColors.inverse,
-    },
-  },
-  select: {
-    height: 23,
-    minHeight: 21,
-    padding: "3px 32px 3px 4px",
-    border: "1px solid #7f9db9",
-    backgroundColor: backgroundColors.surface,
-    backgroundImage: "var(--xp-select-icon)",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "top 2px right 2px",
-    backgroundSize: "15px",
-    boxSizing: "border-box",
-    borderRadius: radii.none,
-    appearance: "none",
-    fontFamily: fonts.sansSerif,
-    fontSize: fontSizes.base,
-    WebkitFontSmoothing: "antialiased",
-    ":focus": {
-      outline: "none",
-      boxShadow: shadows.selectFocus,
-    },
-    ":hover": {
-      backgroundImage: "var(--xp-select-icon-hover)",
-    },
-    ":active": {
-      backgroundImage: "var(--xp-select-icon-active)",
     },
   },
 });

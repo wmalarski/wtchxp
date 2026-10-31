@@ -23,10 +23,6 @@ body {
   margin-top: 12px;
 }
 
-.storybook-stack .field-row + .field-row {
-  margin-top: 6px;
-}
-
 .storybook-desktop p {
   margin: 0;
   font-family: "Pixelated MS Sans Serif", Arial;
