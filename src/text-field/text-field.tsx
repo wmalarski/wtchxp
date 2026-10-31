@@ -1,14 +1,109 @@
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { TextField as KobalteTextField } from "@kobalte/core/text-field";
-import type { TextFieldRootProps } from "@kobalte/core/text-field";
+import type {
+  TextFieldDescriptionProps as KobalteTextFieldDescriptionProps,
+  TextFieldErrorMessageProps as KobalteTextFieldErrorMessageProps,
+  TextFieldInputProps as KobalteTextFieldInputProps,
+  TextFieldLabelProps as KobalteTextFieldLabelProps,
+  TextFieldRootProps as KobalteTextFieldRootProps,
+  TextFieldTextAreaProps as KobalteTextFieldTextAreaProps,
+} from "@kobalte/core/text-field";
 import type { ComponentProps, JSX } from "@solidjs/web";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../sx";
 import { fieldStyles } from "../field/field.styles";
 import { textFieldInputRecipe, textFieldTextareaRecipe } from "./text-field.styles";
 
+export type TextFieldRootProps = Omit<
+  PolymorphicProps<"div", KobalteTextFieldRootProps<"div">>,
+  "as"
+>;
+
+/** The text field root container. */
+export const TextFieldRoot: Component<TextFieldRootProps> = (props) => {
+  const others = omit(props, "class");
+
+  return <KobalteTextField {...others} class={[sx(fieldStyles.root), props.class]} />;
+};
+
+export type TextFieldLabelProps = Omit<
+  PolymorphicProps<"label", KobalteTextFieldLabelProps<"label">>,
+  "as"
+>;
+
+/** The label rendered above a text field. */
+export const TextFieldLabel: Component<TextFieldLabelProps> = (props) => {
+  const others = omit(props, "class");
+
+  return <KobalteTextField.Label {...others} class={[sx(fieldStyles.label), props.class]} />;
+};
+
+export type TextFieldInputProps = Omit<
+  PolymorphicProps<"input", KobalteTextFieldInputProps<"input">>,
+  "as"
+>;
+
+/** The input element of a text field. */
+export const TextFieldInput: Component<TextFieldInputProps & { tall?: boolean }> = (props) => {
+  const isTall = () => {
+    const type = (props as any).type ?? "text";
+    return type === "text" || type === "password" || type === "email";
+  };
+  const others = omit(props, "class", "tall");
+
+  return (
+    <KobalteTextField.Input
+      {...others}
+      class={textFieldInputRecipe({ tall: isTall(), class: props.class })}
+    />
+  );
+};
+
+export type TextFieldTextAreaProps = Omit<
+  PolymorphicProps<"textarea", KobalteTextFieldTextAreaProps<"textarea">>,
+  "as"
+>;
+
+/** The textarea element of a text field. */
+export const TextFieldTextArea: Component<TextFieldTextAreaProps> = (props) => {
+  const others = omit(props, "class");
+
+  return (
+    <KobalteTextField.TextArea
+      {...others}
+      class={textFieldTextareaRecipe({ class: props.class })}
+    />
+  );
+};
+
+export type TextFieldDescriptionProps = Omit<
+  PolymorphicProps<"div", KobalteTextFieldDescriptionProps>,
+  "as"
+>;
+
+/** Secondary text rendered below a text field. */
+export const TextFieldDescription: Component<TextFieldDescriptionProps> = (props) => {
+  const others = omit(props, "class");
+
+  return (
+    <KobalteTextField.Description {...others} class={[sx(fieldStyles.description), props.class]} />
+  );
+};
+
+export type TextFieldErrorMessageProps = Omit<
+  PolymorphicProps<"div", KobalteTextFieldErrorMessageProps<"div">>,
+  "as"
+>;
+
+/** Validation message rendered below a text field. */
+export const TextFieldErrorMessage: Component<TextFieldErrorMessageProps> = (props) => {
+  const others = omit(props, "class");
+
+  return <KobalteTextField.ErrorMessage {...others} class={[sx(fieldStyles.error), props.class]} />;
+};
+
 export type TextFieldProps = Omit<
-  PolymorphicProps<"div", TextFieldRootProps<"div">>,
+  PolymorphicProps<"div", KobalteTextFieldRootProps<"div">>,
   "as" | "children"
 > & {
   /** Label rendered above the input. */
@@ -68,24 +163,18 @@ const INPUT_PROPS = [
 /** A Kobalte text field (input or textarea) skinned with the XP form styles. */
 export const TextField: Component<TextFieldProps> = (props) => {
   const others = omit(props, ...INPUT_PROPS);
-  const isTallInput = () => {
-    const type = props.type ?? "text";
-    return type === "text" || type === "password" || type === "email";
-  };
-  const inputClass = () => textFieldInputRecipe({ tall: isTallInput(), class: props.inputClass });
-  const textareaClass = () => textFieldTextareaRecipe({ class: props.inputClass });
 
   return (
-    <KobalteTextField {...others} class={[sx(fieldStyles.root), props.class]}>
+    <TextFieldRoot {...others} class={props.class}>
       <Show when={props.label}>
-        <KobalteTextField.Label class={sx(fieldStyles.label)}>{props.label}</KobalteTextField.Label>
+        <TextFieldLabel>{props.label}</TextFieldLabel>
       </Show>
       <Show
         when={props.multiline}
         fallback={
-          <KobalteTextField.Input
+          <TextFieldInput
             {...(props.inputProps ?? {})}
-            class={inputClass()}
+            class={props.inputClass}
             type={props.type ?? "text"}
             placeholder={props.placeholder}
             autocomplete={props.autocomplete}
@@ -94,9 +183,9 @@ export const TextField: Component<TextFieldProps> = (props) => {
           />
         }
       >
-        <KobalteTextField.TextArea
+        <TextFieldTextArea
           {...(props.textareaProps ?? {})}
-          class={textareaClass()}
+          class={props.inputClass}
           rows={props.rows}
           cols={props.cols}
           placeholder={props.placeholder}
@@ -105,15 +194,11 @@ export const TextField: Component<TextFieldProps> = (props) => {
         />
       </Show>
       <Show when={props.description}>
-        <KobalteTextField.Description class={sx(fieldStyles.description)}>
-          {props.description}
-        </KobalteTextField.Description>
+        <TextFieldDescription>{props.description}</TextFieldDescription>
       </Show>
       <Show when={props.errorMessage}>
-        <KobalteTextField.ErrorMessage class={sx(fieldStyles.error)}>
-          {props.errorMessage}
-        </KobalteTextField.ErrorMessage>
+        <TextFieldErrorMessage>{props.errorMessage}</TextFieldErrorMessage>
       </Show>
-    </KobalteTextField>
+    </TextFieldRoot>
   );
 };

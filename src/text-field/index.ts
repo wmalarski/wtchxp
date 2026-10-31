@@ -1,1 +1,16 @@
-export { TextField, type TextFieldProps } from "./text-field";
+export {
+  TextField,
+  TextFieldDescription,
+  TextFieldErrorMessage,
+  TextFieldInput,
+  TextFieldLabel,
+  TextFieldRoot,
+  TextFieldTextArea,
+  type TextFieldDescriptionProps,
+  type TextFieldErrorMessageProps,
+  type TextFieldInputProps,
+  type TextFieldLabelProps,
+  type TextFieldProps,
+  type TextFieldRootProps,
+  type TextFieldTextAreaProps,
+} from "./text-field";
