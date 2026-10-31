@@ -1,6 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import type { JSX } from "@solidjs/web/jsx-runtime";
-import { sx } from "../sx";
 import {
   backgroundColors,
   fontSizes,
@@ -70,25 +68,3 @@ export const textFieldStyles = stylex.create({
     },
   },
 });
-
-type TextFieldInputRecipeArgs = {
-  class?: JSX.ClassValue;
-  tall?: boolean;
-};
-
-export const textFieldInputRecipe = ({
-  tall,
-  class: className,
-}: TextFieldInputRecipeArgs): JSX.ClassValue[] => {
-  return [sx(tall ? textFieldStyles.inputTall : textFieldStyles.input), className];
-};
-
-type TextFieldTextareaRecipeArgs = {
-  class?: JSX.ClassValue;
-};
-
-export const textFieldTextareaRecipe = ({
-  class: className,
-}: TextFieldTextareaRecipeArgs): JSX.ClassValue[] => {
-  return [sx(textFieldStyles.textarea), className];
-};

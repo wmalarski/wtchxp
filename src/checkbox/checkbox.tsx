@@ -10,9 +10,11 @@ import type {
   CheckboxRootProps as KobalteCheckboxRootProps,
 } from "@kobalte/core/checkbox";
 import type { JSX } from "@solidjs/web";
-import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
+import { omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../sx";
-import { checkboxRecipe, checkboxStyles } from "./checkbox.styles";
+import { checkboxInputMarker, checkboxStyles } from "./checkbox.styles";
+import { fieldStyles } from "../field/field.styles";
+import classes from "./checkbox.module.css";
 
 export type CheckboxRootProps = Omit<
   PolymorphicProps<"div", KobalteCheckboxRootProps<"div">>,
@@ -35,25 +37,27 @@ export type CheckboxInputProps = Omit<
 export const CheckboxInput: Component<CheckboxInputProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteCheckbox.Input {...others} class={props.class} />;
+  return <KobalteCheckbox.Input {...others} class={[sx(checkboxInputMarker), props.class]} />;
 };
 
 export type CheckboxLabelProps = Omit<
   PolymorphicProps<"label", KobalteCheckboxLabelProps<"label">>,
   "as"
-> & {
-  /** Whether the associated input is focused. */
-  focused?: boolean;
-};
+>;
 
 /** The clickable label rendered next to the checkbox. */
 export const CheckboxLabel: Component<CheckboxLabelProps> = (props) => {
-  const others = omit(props, "class", "focused");
+  const others = omit(props, "class");
 
   return (
     <KobalteCheckbox.Label
       {...others}
-      class={checkboxRecipe({ focused: props.focused, class: props.class })}
+      class={[
+        classes["checkbox-label"],
+        sx(fieldStyles.label),
+        sx(checkboxStyles.label),
+        props.class,
+      ]}
     />
   );
 };
@@ -126,14 +130,13 @@ export type CheckboxProps = ParentProps<
 
 /** A Kobalte checkbox skinned with the XP form styles. */
 export const Checkbox: Component<CheckboxProps> = (props) => {
-  const [focused, setFocused] = createSignal(false);
   const others = omit(props, "class", "label", "description", "errorMessage", "children");
 
   return (
     <CheckboxRoot {...others} class={props.class}>
-      <CheckboxInput onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
+      <CheckboxInput />
       <Show when={props.label !== undefined} fallback={props.children}>
-        <CheckboxLabel focused={focused()}>{props.label}</CheckboxLabel>
+        <CheckboxLabel>{props.label}</CheckboxLabel>
       </Show>
       <Show when={props.description}>
         <CheckboxDescription>{props.description}</CheckboxDescription>

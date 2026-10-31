@@ -9,10 +9,6 @@ import {
   shadows,
   textColors,
 } from "../variables/variables.stylex";
-import type { JSX } from "@solidjs/web/jsx-runtime";
-import classes from "./checkbox.module.css";
-import { fieldStyles } from "../field/field.styles";
-import { sx } from "../sx";
 
 const checkboxBorderWidth = "1px";
 const checkboxTotalWidth = `calc(${forms.checkboxWidth} + ${forms.radioLabelSpacing})`;
@@ -69,9 +65,9 @@ export const checkboxStyles = stylex.create({
     ":is([data-disabled][data-checked])::after": {
       backgroundImage: "var(--xp-checkbox-icon-disabled)",
     },
-  },
-  focused: {
-    outline: `1px dotted ${textColors.primary}`,
+    [stylex.when.siblingBefore(":focus")]: {
+      outline: `1px dotted ${textColors.primary}`,
+    },
   },
   description: {
     marginLeft: checkboxTotalWidth,
@@ -85,20 +81,4 @@ export const checkboxStyles = stylex.create({
   },
 });
 
-type CheckboxRecipeArgs = {
-  class?: JSX.ClassValue;
-  focused?: boolean;
-};
-
-export const checkboxRecipe = ({
-  focused,
-  class: className,
-}: CheckboxRecipeArgs): JSX.ClassValue[] => {
-  return [
-    classes["checkbox-label"],
-    sx(fieldStyles.label),
-    sx(checkboxStyles.label),
-    focused && sx(checkboxStyles.focused),
-    className,
-  ];
-};
+export const checkboxInputMarker = stylex.defaultMarker();

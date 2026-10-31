@@ -1,8 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import type { JSX } from "@solidjs/web/jsx-runtime";
-import classes from "./radio.module.css";
-import { fieldStyles } from "../field/field.styles";
-import { sx } from "../sx";
 import {
   backgroundColors,
   backgrounds,
@@ -78,9 +74,9 @@ export const radioStyles = stylex.create({
     ":is([data-disabled][data-checked])::after": {
       backgroundImage: "var(--xp-radio-icon-disabled)",
     },
-  },
-  focused: {
-    outline: `1px dotted ${textColors.primary}`,
+    [stylex.when.siblingBefore(":focus")]: {
+      outline: `1px dotted ${textColors.primary}`,
+    },
   },
   description: {
     marginLeft: radioTotalWidth,
@@ -89,17 +85,4 @@ export const radioStyles = stylex.create({
   },
 });
 
-type RadioRecipeArgs = {
-  class?: JSX.ClassValue;
-  focused?: boolean;
-};
-
-export const radioRecipe = ({ focused, class: className }: RadioRecipeArgs): JSX.ClassValue[] => {
-  return [
-    classes["radio-label"],
-    sx(fieldStyles.label),
-    sx(radioStyles.label),
-    focused && sx(radioStyles.focused),
-    className,
-  ];
-};
+export const radioInputMarker = stylex.defaultMarker();

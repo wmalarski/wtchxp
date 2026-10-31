@@ -12,7 +12,7 @@ import type { ComponentProps, JSX } from "@solidjs/web";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../sx";
 import { fieldStyles } from "../field/field.styles";
-import { textFieldInputRecipe, textFieldTextareaRecipe } from "./text-field.styles";
+import { textFieldStyles } from "./text-field.styles";
 
 export type TextFieldRootProps = Omit<
   PolymorphicProps<"div", KobalteTextFieldRootProps<"div">>,
@@ -54,7 +54,7 @@ export const TextFieldInput: Component<TextFieldInputProps & { tall?: boolean }>
   return (
     <KobalteTextField.Input
       {...others}
-      class={textFieldInputRecipe({ tall: isTall(), class: props.class })}
+      class={[sx(isTall() ? textFieldStyles.inputTall : textFieldStyles.input), props.class]}
     />
   );
 };
@@ -69,10 +69,7 @@ export const TextFieldTextArea: Component<TextFieldTextAreaProps> = (props) => {
   const others = omit(props, "class");
 
   return (
-    <KobalteTextField.TextArea
-      {...others}
-      class={textFieldTextareaRecipe({ class: props.class })}
-    />
+    <KobalteTextField.TextArea {...others} class={[sx(textFieldStyles.textarea), props.class]} />
   );
 };
 

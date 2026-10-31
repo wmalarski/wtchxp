@@ -13,10 +13,11 @@ import type {
   RadioGroupRootProps as KobalteRadioGroupRootProps,
 } from "@kobalte/core/radio-group";
 import type { JSX } from "@solidjs/web";
-import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
+import { omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../sx";
-import { radioRecipe, radioStyles } from "./radio.styles";
+import { radioInputMarker, radioStyles } from "./radio.styles";
 import { fieldStyles } from "../field/field.styles";
+import classes from "./radio.module.css";
 
 export type RadioGroupRootProps = Omit<
   PolymorphicProps<"div", KobalteRadioGroupRootProps<"div">>,
@@ -89,24 +90,22 @@ export type RadioInputProps = Omit<
 export const RadioInput: Component<RadioInputProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteRadioGroup.ItemInput {...others} class={props.class} />;
+  return <KobalteRadioGroup.ItemInput {...others} class={[sx(radioInputMarker), props.class]} />;
 };
 
 export type RadioLabelProps = Omit<
   PolymorphicProps<"label", KobalteRadioGroupItemLabelProps<"label">>,
   "as"
-> & {
-  focused?: boolean;
-};
+>;
 
 /** The label rendered next to a radio item. */
 export const RadioLabel: Component<RadioLabelProps> = (props) => {
-  const others = omit(props, "class", "focused");
+  const others = omit(props, "class");
 
   return (
     <KobalteRadioGroup.ItemLabel
       {...others}
-      class={radioRecipe({ focused: props.focused, class: props.class })}
+      class={[classes["radio-label"], sx(fieldStyles.label), sx(radioStyles.label), props.class]}
     />
   );
 };
@@ -188,13 +187,12 @@ export type RadioProps = ParentProps<
 
 /** A single radio button inside a `RadioGroup`. */
 export const Radio: Component<RadioProps> = (props) => {
-  const [focused, setFocused] = createSignal(false);
   const others = omit(props, "class", "label", "description", "children");
 
   return (
     <RadioItem {...others} class={props.class}>
-      <RadioInput onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
-      <RadioLabel focused={focused()}>{props.label ?? props.children}</RadioLabel>
+      <RadioInput />
+      <RadioLabel>{props.label ?? props.children}</RadioLabel>
       <Show when={props.description}>
         <RadioDescription>{props.description}</RadioDescription>
       </Show>
