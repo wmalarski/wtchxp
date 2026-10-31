@@ -88,8 +88,26 @@ Non-component helpers may remain regular function declarations.
   definition into a `<component>.styles.ts` file and export it as
   `<component>Styles`; the component file should only consume it.
 - Use a colocated `*.module.css` file when a rule needs a bundler asset URL
-  (for example an icon) that StyleX cannot resolve. CSS modules keep the class
-  names hashed and scoped to the component.
+  (for example an icon) that StyleX cannot resolve, or a selector StyleX cannot
+  express, such as switching inline SVG states on an ancestor's
+  `:hover`/`:active`. CSS modules keep the class names hashed and scoped to the
+  component.
 - Shared field primitives (`Field`'s wrapper, label, description and error
   message) live in `src/field/field.styles.ts` and are imported by other form
   controls.
+
+## Icons
+
+- Prefer inline SVG components for icons rendered in the DOM. They avoid a
+  separate request, cannot cause layout shift, and tree-shake with the
+  component that uses them.
+- Give every icon an explicit `viewBox` and fixed `width`/`height` (or style
+  the SVG box in CSS). Mark decorative icons with `aria-hidden="true"`; the
+  surrounding control supplies the accessible name.
+- Keep CSS `url()` icons only where CSS paints the image: scrollbars,
+  pseudo-elements, and native control internals that cannot contain DOM.
+- The title bar icons are generated from `src/icons/*.svg` by
+  `scripts/generate-window-icons.mjs`. Run `vp run generate:icons` after
+  changing those assets instead of editing `src/window/window-icons.tsx`.
+- Do not inline large multicolor pixel-art icons by hand; add them to the
+  generator when they need to be components.

@@ -26,3 +26,13 @@ test("Window composition renders the title bar and XP classes", () => {
   expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
   expect(screen.getByText("Body")).toBeInTheDocument();
 });
+
+test("WindowControl renders an inline icon with every interaction state", () => {
+  render(() => <WindowControl action="Close" />);
+
+  const button = screen.getByRole("button", { name: "Close" });
+  const icon = button.querySelector("svg");
+
+  expect(icon).toHaveAttribute("aria-hidden", "true");
+  expect(icon?.querySelectorAll("[data-icon-state]")).toHaveLength(3);
+});

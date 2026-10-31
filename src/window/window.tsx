@@ -1,8 +1,9 @@
 import type { ComponentProps } from "@solidjs/web";
-import { omit, type Component } from "solid-js";
+import { createComponent, omit, type Component } from "solid-js";
 import type { ButtonProps } from "../button/button";
 import { sx } from "../sx";
 import classes from "./window.module.css";
+import { CloseIcon, HelpIcon, MaximizeIcon, MinimizeIcon, RestoreIcon } from "./window-icons";
 import { windowStyles } from "./window.styles";
 
 export type WindowProps = ComponentProps<"div">;
@@ -66,6 +67,14 @@ export const StatusBarField: Component<StatusBarFieldProps> = (props) => {
 
 export type WindowControlAction = "Minimize" | "Maximize" | "Restore" | "Help" | "Close";
 
+const windowControlIcons = {
+  Minimize: MinimizeIcon,
+  Maximize: MaximizeIcon,
+  Restore: RestoreIcon,
+  Help: HelpIcon,
+  Close: CloseIcon,
+} satisfies Record<WindowControlAction, Component<ComponentProps<"svg">>>;
+
 export type WindowControlProps = Omit<
   ButtonProps,
   "aria-label" | "children" | "active" | "block"
@@ -83,6 +92,8 @@ export const WindowControl: Component<WindowControlProps> = (props) => {
       type="button"
       aria-label={props.action}
       class={[classes["window-control"], sx(windowStyles.control), props.class]}
-    />
+    >
+      {createComponent(windowControlIcons[props.action], {})}
+    </button>
   );
 };

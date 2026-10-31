@@ -1,37 +1,29 @@
 /*-------------------------------------------*\
     Window
     Component CSS for title bar control icons.
-    StyleX handles the main styling; these rules
-    set the icon URLs as CSS custom properties for
-    each control action.
+    StyleX handles the button skin; these rules
+    switch the inlined SVG between its normal,
+    hover and active states.
 \*-------------------------------------------*/
 
-.window-control[aria-label="Minimize"] {
-  --xp-control-icon: url("../icons/minimize.svg");
-  --xp-control-icon-hover: url("../icons/minimize-hover.svg");
-  --xp-control-icon-active: url("../icons/minimize-active.svg");
+.window-control [data-icon-state="hover"],
+.window-control [data-icon-state="active"] {
+  display: none;
 }
 
-.window-control[aria-label="Maximize"] {
-  --xp-control-icon: url("../icons/maximize.svg");
-  --xp-control-icon-hover: url("../icons/maximize-hover.svg");
-  --xp-control-icon-active: url("../icons/maximize-active.svg");
+.window-control:hover [data-icon-state="normal"] {
+  display: none;
 }
 
-.window-control[aria-label="Restore"] {
-  --xp-control-icon: url("../icons/restore.svg");
-  --xp-control-icon-hover: url("../icons/restore-hover.svg");
-  --xp-control-icon-active: url("../icons/restore-active.svg");
+.window-control:hover [data-icon-state="hover"] {
+  display: inline;
 }
 
-.window-control[aria-label="Help"] {
-  --xp-control-icon: url("../icons/help.svg");
-  --xp-control-icon-hover: url("../icons/help-hover.svg");
-  --xp-control-icon-active: url("../icons/help-active.svg");
+.window-control:not(:disabled):active [data-icon-state="normal"],
+.window-control:not(:disabled):active [data-icon-state="hover"] {
+  display: none;
 }
 
-.window-control[aria-label="Close"] {
-  --xp-control-icon: url("../icons/close.svg");
-  --xp-control-icon-hover: url("../icons/close-hover.svg");
-  --xp-control-icon-active: url("../icons/close-active.svg");
+.window-control:not(:disabled):active [data-icon-state="active"] {
+  display: inline;
 }

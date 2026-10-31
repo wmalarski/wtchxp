@@ -26,9 +26,13 @@ import "wtchxp/styles";
 If your toolchain can import CSS files directly, `import "wtchxp/styles.css"`
 also works (add a `*.css` module declaration if TypeScript asks for one).
 
-The stylesheet bundles the Pixelated MS Sans Serif font and all XP icons.
-Components define their layout and skin styles with StyleX, using colocated CSS
-modules only where a rule needs a bundler asset URL such as an icon.
+The stylesheet bundles the Pixelated MS Sans Serif font and the icons that must
+live in CSS (scrollbars, native select and range internals). Icons rendered in
+the DOM, such as the title bar controls, are inline SVG Solid components so they
+ship with their component instead of the global stylesheet. Components define
+their layout and skin styles with StyleX, using colocated CSS modules only for
+rules StyleX cannot express, such as a bundler asset URL or switching inline SVG
+states on `:hover`/`:active`.
 
 ## Components
 
@@ -165,6 +169,7 @@ vp run build-storybook
 vp test             # Vitest in browser mode (Playwright/Chromium)
 vp check            # formatting, linting and type checking
 vp build            # dist/index.js, dist/styles.css and d.ts files
+vp run generate:icons # regenerate inline title bar icons from src/icons
 ```
 
 Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).

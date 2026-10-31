@@ -46,6 +46,7 @@
   "scripts": {
     "build": "vp build && tsc -p tsconfig.build.json && node scripts/postbuild.mjs",
     "dev": "vp dev",
+    "generate:icons": "node scripts/generate-window-icons.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vp test",
