@@ -1,0 +1,11 @@
+/*-------------------------------------------*\
+    Checkbox
+    Component-scoped CSS for checkbox-label icon
+    StyleX handles the main styling; this rule sets
+    the checkbox icon URL as a CSS custom property.
+\*-------------------------------------------*/
+
+.checkbox-label {
+  --xp-checkbox-icon: url("../icons/checkmark.svg");
+  --xp-checkbox-icon-disabled: url("../icons/checkmark-disabled.svg");
+}

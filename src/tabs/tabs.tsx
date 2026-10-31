@@ -145,7 +145,7 @@ export const Tab: Component<TabProps> = (props) => {
   return (
     <KobalteTabs.Trigger
       {...others}
-      class={["button", sx(styles.trigger), justified && sx(styles.justified), props.class]}
+      class={[sx(styles.trigger), justified && sx(styles.justified), props.class]}
     />
   );
 };

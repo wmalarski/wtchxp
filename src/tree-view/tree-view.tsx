@@ -137,12 +137,7 @@ export const TreeView: Component<TreeViewProps> = (props) => {
   const others = omit(props, "class", "label");
 
   return (
-    <ul
-      {...others}
-      role="tree"
-      aria-label={props.label}
-      class={["tree-view", sx(styles.tree), props.class]}
-    />
+    <ul {...others} role="tree" aria-label={props.label} class={[sx(styles.tree), props.class]} />
   );
 };
 
@@ -201,7 +196,7 @@ export const TreeItem: Component<TreeItemProps> = (props) => {
             href="#"
             role="treeitem"
             aria-selected={props.selected ? "true" : undefined}
-            class={["tree-item-label", sx(styles.leaf)]}
+            class={[sx(styles.leaf), props.class]}
             onClick={(event) => {
               event.preventDefault();
               props.onSelect?.(event);

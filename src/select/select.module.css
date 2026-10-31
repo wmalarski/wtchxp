@@ -1,0 +1,12 @@
+/*-------------------------------------------*\
+    Select
+    Component-scoped CSS for xp-select icon
+    StyleX handles the main styling; this rule sets
+    the select icon URLs as CSS custom properties.
+\*-------------------------------------------*/
+
+.xp-select {
+  --xp-select-icon: url("../icons/dropdown.svg");
+  --xp-select-icon-hover: url("../icons/dropdown-hover.svg");
+  --xp-select-icon-active: url("../icons/dropdown-active.svg");
+}

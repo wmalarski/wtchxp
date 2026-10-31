@@ -1,5 +1,6 @@
 import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
+import classes from "./select.module.css";
 import { createUniqueId, omit, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import { formStyles } from "../styles/form-styles";
@@ -55,7 +56,7 @@ export const Select: Component<SelectProps> = (props) => {
         id={id()}
         aria-invalid={props.errorMessage ? "true" : undefined}
         aria-describedby={describedBy()}
-        class={["xp-select", sx(formStyles.select), sx(styles.select), props.class]}
+        class={[classes["xp-select"], sx(formStyles.select), sx(styles.select), props.class]}
       >
         {props.children}
       </select>

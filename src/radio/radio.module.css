@@ -1,0 +1,11 @@
+/*-------------------------------------------*\
+    Radio
+    Component-scoped CSS for radio-label icon
+    StyleX handles the main styling; this rule sets
+    the radio icon URL as a CSS custom property.
+\*-------------------------------------------*/
+
+.radio-label {
+  --xp-radio-icon: url("../icons/radio-dot.svg");
+  --xp-radio-icon-disabled: url("../icons/radio-dot-disabled.svg");
+}

@@ -123,7 +123,7 @@ export type WindowProps = ComponentProps<"div">;
 export const Window: Component<WindowProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["window", sx(styles.window), props.class]} />;
+  return <div {...others} class={[sx(styles.window), props.class]} />;
 };
 
 export type TitleBarProps = ComponentProps<"div">;
@@ -131,7 +131,7 @@ export type TitleBarProps = ComponentProps<"div">;
 export const TitleBar: Component<TitleBarProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["title-bar", sx(styles.titleBar), props.class]} />;
+  return <div {...others} class={[sx(styles.titleBar), props.class]} />;
 };
 
 export type TitleBarTextProps = ComponentProps<"span">;
@@ -139,7 +139,7 @@ export type TitleBarTextProps = ComponentProps<"span">;
 export const TitleBarText: Component<TitleBarTextProps> = (props) => {
   const others = omit(props, "class");
 
-  return <span {...others} class={["title-bar-text", sx(styles.titleBarText), props.class]} />;
+  return <span {...others} class={[sx(styles.titleBarText), props.class]} />;
 };
 
 export type TitleBarControlsProps = ComponentProps<"div">;
@@ -147,9 +147,7 @@ export type TitleBarControlsProps = ComponentProps<"div">;
 export const TitleBarControls: Component<TitleBarControlsProps> = (props) => {
   const others = omit(props, "class");
 
-  return (
-    <div {...others} class={["title-bar-controls", sx(styles.titleBarControls), props.class]} />
-  );
+  return <div {...others} class={[sx(styles.titleBarControls), props.class]} />;
 };
 
 export type WindowBodyProps = ComponentProps<"div">;
@@ -157,7 +155,7 @@ export type WindowBodyProps = ComponentProps<"div">;
 export const WindowBody: Component<WindowBodyProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["window-body", sx(styles.body), props.class]} />;
+  return <div {...others} class={[sx(styles.body), props.class]} />;
 };
 
 export type StatusBarProps = ComponentProps<"div">;
@@ -165,7 +163,7 @@ export type StatusBarProps = ComponentProps<"div">;
 export const StatusBar: Component<StatusBarProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["status-bar", sx(styles.statusBar), props.class]} />;
+  return <div {...others} class={[sx(styles.statusBar), props.class]} />;
 };
 
 export type StatusBarFieldProps = ComponentProps<"div">;
@@ -173,7 +171,7 @@ export type StatusBarFieldProps = ComponentProps<"div">;
 export const StatusBarField: Component<StatusBarFieldProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["status-bar-field", sx(styles.statusBarField), props.class]} />;
+  return <div {...others} class={[sx(styles.statusBarField), props.class]} />;
 };
 
 export type WindowControlAction = "Minimize" | "Maximize" | "Restore" | "Help" | "Close";
@@ -194,7 +192,7 @@ export const WindowControl: Component<WindowControlProps> = (props) => {
       {...others}
       type="button"
       aria-label={props.action}
-      class={["button", "window-control", sx(styles.control), props.class]}
+      class={[sx(styles.control), props.class]}
     />
   );
 };

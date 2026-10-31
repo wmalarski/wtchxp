@@ -12,7 +12,7 @@ test("Button defaults to type=button and forwards clicks", () => {
 
   const button = screen.getByRole("button", { name: "Go" });
   expect(button).toHaveAttribute("type", "button");
-  expect(button).toHaveClass("button", "active");
+  expect(button).toHaveAttribute("data-active", "true");
 
   fireEvent.click(button);
   expect(onClick).toHaveBeenCalledTimes(1);

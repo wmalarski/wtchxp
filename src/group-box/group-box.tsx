@@ -2,6 +2,7 @@ import type { ComponentProps, JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
+import classes from "./group-box.module.css";
 import {
   backgroundColors,
   fontSizes,
@@ -50,7 +51,7 @@ export const GroupBox: Component<GroupBoxProps> = (props) => {
   const others = omit(props, "class", "legend", "children");
 
   return (
-    <fieldset {...others} class={["group-box", sx(styles.root), props.class]}>
+    <fieldset {...others} class={[sx(styles.root), props.class]}>
       <Show when={props.legend}>
         <legend class={sx(styles.legend)}>{props.legend}</legend>
       </Show>
@@ -65,7 +66,7 @@ export type FieldRowProps = ComponentProps<"div">;
 export const FieldRow: Component<FieldRowProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["field-row", sx(styles.row), props.class]} />;
+  return <div {...others} class={[classes["field-row"], sx(styles.row), props.class]} />;
 };
 
 export type FieldRowStackedProps = ComponentProps<"div">;
@@ -74,5 +75,5 @@ export type FieldRowStackedProps = ComponentProps<"div">;
 export const FieldRowStacked: Component<FieldRowStackedProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={["field-row-stacked", sx(styles.stacked), props.class]} />;
+  return <div {...others} class={[sx(styles.stacked), props.class]} />;
 };

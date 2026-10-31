@@ -1,0 +1,14 @@
+/*-------------------------------------------*\
+    Range
+    Component-scoped CSS for xp-range thumb icon
+    StyleX handles the main styling; this rule sets
+    the range thumb URL as a CSS custom property.
+\*-------------------------------------------*/
+
+.xp-range {
+  --xp-range-thumb: url("../icons/indicator-horizontal.svg");
+}
+
+.xp-range.has-box-indicator {
+  --xp-range-thumb: url("../icons/indicator-rectangle-horizontal.svg");
+}

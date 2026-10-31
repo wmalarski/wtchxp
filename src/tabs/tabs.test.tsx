@@ -17,7 +17,7 @@ test("Tabs switch panels and use the menu tablist contract", () => {
 
   const tablist = screen.getByRole("tablist");
   expect(tablist.tagName).toBe("MENU");
-  expect(screen.getByRole("tab", { name: "One" })).toHaveClass("button");
+  expect(screen.getByRole("tab", { name: "One" })).toBeInTheDocument();
   expect(screen.getByText("First panel")).toBeInTheDocument();
 
   fireEvent.click(screen.getByRole("tab", { name: "Two" }));

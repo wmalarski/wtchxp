@@ -49,11 +49,3 @@
   --xp-control-icon-hover: url("../icons/close-hover.svg");
   --xp-control-icon-active: url("../icons/close-active.svg");
 }
-
-.xp-range {
-  --xp-range-thumb: url("../icons/indicator-horizontal.svg");
-}
-
-.xp-range.has-box-indicator {
-  --xp-range-thumb: url("../icons/indicator-rectangle-horizontal.svg");
-}

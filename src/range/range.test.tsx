@@ -8,5 +8,5 @@ test("Range renders the vertical wrapper around a native input", () => {
   const input = screen.getByRole("slider");
   expect(input).toHaveAttribute("type", "range");
   expect(input).toHaveAttribute("min", "0");
-  expect(input.parentElement).toHaveClass("is-vertical");
+  expect(input.parentElement).toBeInTheDocument();
 });

@@ -1,0 +1,10 @@
+/*-------------------------------------------*\
+    GroupBox
+    Component-scoped CSS for field-row spacing
+    StyleX handles the main styling; this rule adds
+    margin between adjacent field rows.
+\*-------------------------------------------*/
+
+.field-row + .field-row {
+  margin-top: 6px;
+}

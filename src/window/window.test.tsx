@@ -22,7 +22,7 @@ test("Window composition renders the title bar and XP classes", () => {
     </Window>
   ));
 
-  expect(screen.getByText("My Computer")).toHaveClass("title-bar-text");
-  expect(screen.getByRole("button", { name: "Close" })).toHaveClass("button");
-  expect(screen.getByText("Body")).toHaveClass("window-body");
+  expect(screen.getByText("My Computer")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
+  expect(screen.getByText("Body")).toBeInTheDocument();
 });

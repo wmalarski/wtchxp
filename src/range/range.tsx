@@ -1,5 +1,6 @@
 import type { ComponentProps } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
+import classes from "./range.module.css";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../styles/sx";
 import {
@@ -90,8 +91,8 @@ export const Range: Component<RangeProps> = (props) => {
       {...others}
       type="range"
       class={[
-        "xp-range",
-        { "has-box-indicator": props.boxIndicator },
+        classes["xp-range"],
+        { [classes["has-box-indicator"]]: props.boxIndicator },
         sx(styles.range),
         props.vertical && sx(styles.verticalRange),
         props.boxIndicator && sx(styles.boxIndicator as stylex.StyleXStyles),
@@ -102,7 +103,7 @@ export const Range: Component<RangeProps> = (props) => {
 
   return (
     <Show when={props.vertical} fallback={renderInput()}>
-      <div class={["is-vertical", sx(styles.verticalRoot)]}>{renderInput()}</div>
+      <div class={[sx(styles.verticalRoot), props.class]}>{renderInput()}</div>
     </Show>
   );
 };

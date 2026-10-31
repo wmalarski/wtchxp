@@ -5,6 +5,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../styles/sx";
+import classes from "./checkbox.module.css";
 import {
   backgroundColors,
   backgrounds,
@@ -109,7 +110,7 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
       <Show when={props.label !== undefined} fallback={props.children}>
         <KobalteCheckbox.Label
           class={[
-            "checkbox-label",
+            classes["checkbox-label"],
             sx(formStyles.label),
             sx(styles.label),
             focused() && sx(styles.focused),

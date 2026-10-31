@@ -37,12 +37,3 @@ option {
   font-size: 11px;
   -webkit-font-smoothing: antialiased;
 }
-
-/*
- * Adjacent rows cannot be expressed with StyleX until it supports sibling
- * selectors. Keep the tiny layout rule that makes two stacked FieldRows
- * separate. The gap mirrors `spacing.groupedElement`.
- */
-[class^="field-row"] + [class^="field-row"] {
-  margin-top: 6px;
-}

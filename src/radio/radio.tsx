@@ -5,6 +5,7 @@ import type { JSX } from "@solidjs/web";
 import * as stylex from "@stylexjs/stylex";
 import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../styles/sx";
+import classes from "./radio.module.css";
 import {
   backgroundColors,
   backgrounds,
@@ -140,7 +141,7 @@ export const Radio: Component<RadioProps> = (props) => {
       />
       <KobalteRadioGroup.ItemLabel
         class={[
-          "radio-label",
+          classes["radio-label"],
           sx(formStyles.label),
           sx(styles.label),
           focused() && sx(styles.focused),
