@@ -11,9 +11,10 @@ import {
   textColors,
 } from "../variables/variables.stylex";
 
+const radioBorderWidth = "1px";
 const radioTotalWidth = `calc(${forms.radioWidth} + ${forms.radioLabelSpacing})`;
 const radioLeft = `calc(-1 * (${forms.radioWidth} + ${forms.radioLabelSpacing}))`;
-const radioDotLeft = `calc(-1 * (${forms.radioWidth} + ${forms.radioLabelSpacing}) + ${forms.radioWidth} / 2 - ${forms.radioDotWidth} / 2)`;
+const radioDotLeft = `calc(${radioLeft} + (${forms.radioWidth} + 2 * ${radioBorderWidth} - ${forms.radioDotWidth}) / 2)`;
 
 export const radioStyles = stylex.create({
   group: {

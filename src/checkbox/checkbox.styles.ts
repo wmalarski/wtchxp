@@ -10,8 +10,10 @@ import {
   textColors,
 } from "../variables/variables.stylex";
 
+const checkboxBorderWidth = "1px";
 const checkboxTotalWidth = `calc(${forms.checkboxWidth} + ${forms.radioLabelSpacing})`;
 const checkboxLeft = `calc(-1 * (${forms.checkboxWidth} + ${forms.radioLabelSpacing}))`;
+const checkboxCheckmarkLeft = `calc(${checkboxLeft} + (${forms.checkboxWidth} + 2 * ${checkboxBorderWidth} - ${forms.checkmarkWidth}) / 2)`;
 
 export const checkboxStyles = stylex.create({
   root: {
@@ -43,7 +45,7 @@ export const checkboxStyles = stylex.create({
       display: "block",
       position: "absolute",
       top: forms.checkmarkTop,
-      left: forms.checkmarkLeft,
+      left: checkboxCheckmarkLeft,
       width: forms.checkmarkWidth,
       height: forms.checkmarkWidth,
     },
@@ -54,7 +56,6 @@ export const checkboxStyles = stylex.create({
       background: backgrounds.controlActive,
     },
     ":is([data-checked])::after": {
-      left: -17,
       backgroundImage: "var(--xp-checkbox-icon)",
     },
     ":is([data-disabled])::before": {

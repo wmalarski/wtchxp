@@ -127,7 +127,6 @@ export const forms = stylex.defineVars({
   checkboxWidth: "13px",
   checkmarkWidth: "11px",
   checkmarkTop: "1px",
-  checkmarkLeft: "3px",
   radioWidth: "13px",
   radioLabelSpacing: "6px",
   radioDotWidth: "5px",
