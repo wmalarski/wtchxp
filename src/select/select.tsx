@@ -1,8 +1,6 @@
 import type { ComponentProps, JSX } from "@solidjs/web";
 import { createUniqueId, omit, type Component } from "solid-js";
-import { sx } from "../sx";
-import classes from "./select.module.css";
-import { selectStyles } from "./select.styles";
+import { selectRecipe } from "./select.styles";
 import { Field, fieldDescribedBy } from "../field/field";
 
 export type SelectProps = ComponentProps<"select"> & {
@@ -48,7 +46,7 @@ export const Select: Component<SelectProps> = (props) => {
         id={id()}
         aria-invalid={props.errorMessage ? "true" : undefined}
         aria-describedby={describedBy()}
-        class={[classes["xp-select"], sx(selectStyles.select), props.class]}
+        class={selectRecipe({ class: props.class })}
       >
         {props.children}
       </select>

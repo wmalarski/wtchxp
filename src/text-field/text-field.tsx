@@ -5,7 +5,7 @@ import type { ComponentProps, JSX } from "@solidjs/web";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../sx";
 import { fieldStyles } from "../field/field.styles";
-import { textFieldStyles } from "./text-field.styles";
+import { textFieldInputRecipe, textFieldTextareaRecipe } from "./text-field.styles";
 
 export type TextFieldProps = Omit<
   PolymorphicProps<"div", TextFieldRootProps<"div">>,
@@ -72,11 +72,8 @@ export const TextField: Component<TextFieldProps> = (props) => {
     const type = props.type ?? "text";
     return type === "text" || type === "password" || type === "email";
   };
-  const inputClass = () => [
-    sx(isTallInput() ? textFieldStyles.inputTall : textFieldStyles.input),
-    props.inputClass,
-  ];
-  const textareaClass = () => [sx(textFieldStyles.textarea), props.inputClass];
+  const inputClass = () => textFieldInputRecipe({ tall: isTallInput(), class: props.inputClass });
+  const textareaClass = () => textFieldTextareaRecipe({ class: props.inputClass });
 
   return (
     <KobalteTextField {...others} class={[sx(fieldStyles.root), props.class]}>

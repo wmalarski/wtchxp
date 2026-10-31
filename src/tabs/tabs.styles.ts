@@ -1,4 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
+import type { JSX } from "@solidjs/web/jsx-runtime";
+import { sx } from "../sx";
 import {
   backgrounds,
   fontSizes,
@@ -94,3 +96,12 @@ export const tabsStyles = stylex.create({
     boxShadow: shadows.tabPanel,
   },
 });
+
+type TabRecipeArgs = {
+  class?: JSX.ClassValue;
+  justified?: boolean;
+};
+
+export const tabRecipe = ({ justified, class: className }: TabRecipeArgs): JSX.ClassValue[] => {
+  return [sx(tabsStyles.trigger), justified && sx(tabsStyles.justified), className];
+};

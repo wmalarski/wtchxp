@@ -1,7 +1,6 @@
 import type { ComponentProps } from "@solidjs/web";
 import { omit, type Component } from "solid-js";
-import { sx } from "../sx";
-import { buttonStyles } from "./button.styles";
+import { buttonRecipe } from "./button.styles";
 
 export type ButtonProps = ComponentProps<"button"> & {
   /** Keeps the button in its pressed ("active") state. */
@@ -19,7 +18,7 @@ export const Button: Component<ButtonProps> = (props) => {
       {...others}
       type={props.type ?? "button"}
       data-active={props.active ? "true" : undefined}
-      class={[{ [sx(buttonStyles.block)]: props.block }, sx(buttonStyles.root), props.class]}
+      class={buttonRecipe({ block: props.block, class: props.class })}
     />
   );
 };

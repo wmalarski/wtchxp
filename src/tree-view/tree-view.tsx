@@ -9,7 +9,7 @@ import {
   type ParentProps,
 } from "solid-js";
 import { sx } from "../sx";
-import { treeViewStyles } from "./tree-view.styles";
+import { treeItemRecipe, treeSummaryRecipe, treeViewStyles } from "./tree-view.styles";
 
 const TreeDepthContext = createContext(0);
 
@@ -75,11 +75,7 @@ export const TreeItem: Component<TreeItemProps> = (props) => {
   const content = () => props.label ?? props.title;
 
   return (
-    <li
-      {...others}
-      role="none"
-      class={[sx(treeViewStyles.item), depth > 0 && sx(treeViewStyles.nestedItem), props.class]}
-    >
+    <li {...others} role="none" class={treeItemRecipe({ nested: depth > 0, class: props.class })}>
       <Show
         when={props.children}
         fallback={
@@ -109,11 +105,7 @@ export const TreeItem: Component<TreeItemProps> = (props) => {
           <summary
             role="treeitem"
             aria-expanded={isOpen() ? "true" : "false"}
-            class={[
-              sx(treeViewStyles.summary),
-              depth > 0 && sx(treeViewStyles.nestedMarker),
-              isOpen() ? sx(treeViewStyles.markerOpen) : sx(treeViewStyles.marker),
-            ]}
+            class={treeSummaryRecipe({ nested: depth > 0, open: isOpen() })}
           >
             {content()}
           </summary>

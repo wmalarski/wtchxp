@@ -1,9 +1,7 @@
 import type { ComponentProps } from "@solidjs/web";
-import type { StyleXStyles } from "@stylexjs/stylex";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../sx";
-import classes from "./range.module.css";
-import { rangeStyles } from "./range.styles";
+import { rangeRecipe, rangeStyles } from "./range.styles";
 
 export type RangeProps = Omit<ComponentProps<"input">, "type"> & {
   /** Renders the track vertically. */
@@ -20,14 +18,11 @@ export const Range: Component<RangeProps> = (props) => {
     <input
       {...others}
       type="range"
-      class={[
-        classes["xp-range"],
-        { [classes["has-box-indicator"]]: props.boxIndicator },
-        sx(rangeStyles.range),
-        props.vertical && sx(rangeStyles.verticalRange),
-        props.boxIndicator && sx(rangeStyles.boxIndicator as StyleXStyles),
-        props.class,
-      ]}
+      class={rangeRecipe({
+        vertical: props.vertical,
+        boxIndicator: props.boxIndicator,
+        class: props.class,
+      })}
     />
   );
 

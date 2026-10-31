@@ -8,6 +8,8 @@ import {
   shadows,
   textColors,
 } from "../variables/variables.stylex";
+import type { JSX } from "@solidjs/web/jsx-runtime";
+import { sx } from "../sx";
 
 export const buttonStyles = stylex.create({
   root: {
@@ -51,3 +53,12 @@ export const buttonStyles = stylex.create({
     width: "100%",
   },
 });
+
+type ButtonRecipeArgs = {
+  class?: JSX.ClassValue;
+  block?: boolean;
+};
+
+export const buttonRecipe = ({ block, class: className }: ButtonRecipeArgs): JSX.ClassValue[] => {
+  return [{ [sx(buttonStyles.block)]: block }, sx(buttonStyles.root), className];
+};

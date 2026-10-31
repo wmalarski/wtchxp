@@ -1,4 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
+import type { JSX } from "@solidjs/web/jsx-runtime";
+import { sx } from "../sx";
 import {
   backgroundColors,
   fontSizes,
@@ -113,3 +115,28 @@ export const treeViewStyles = stylex.create({
     },
   },
 });
+
+type TreeItemRecipeArgs = {
+  class?: JSX.ClassValue;
+  nested?: boolean;
+};
+
+export const treeItemRecipe = ({
+  nested,
+  class: className,
+}: TreeItemRecipeArgs): JSX.ClassValue[] => {
+  return [sx(treeViewStyles.item), nested && sx(treeViewStyles.nestedItem), className];
+};
+
+type TreeSummaryRecipeArgs = {
+  nested?: boolean;
+  open?: boolean;
+};
+
+export const treeSummaryRecipe = ({ nested, open }: TreeSummaryRecipeArgs): JSX.ClassValue[] => {
+  return [
+    sx(treeViewStyles.summary),
+    nested && sx(treeViewStyles.nestedMarker),
+    open ? sx(treeViewStyles.markerOpen) : sx(treeViewStyles.marker),
+  ];
+};

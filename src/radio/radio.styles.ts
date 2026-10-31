@@ -1,4 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
+import type { JSX } from "@solidjs/web/jsx-runtime";
+import classes from "./radio.module.css";
+import { fieldStyles } from "../field/field.styles";
+import { sx } from "../sx";
 import {
   backgroundColors,
   backgrounds,
@@ -84,3 +88,18 @@ export const radioStyles = stylex.create({
     color: textColors.secondary,
   },
 });
+
+type RadioRecipeArgs = {
+  class?: JSX.ClassValue;
+  focused?: boolean;
+};
+
+export const radioRecipe = ({ focused, class: className }: RadioRecipeArgs): JSX.ClassValue[] => {
+  return [
+    classes["radio-label"],
+    sx(fieldStyles.label),
+    sx(radioStyles.label),
+    focused && sx(radioStyles.focused),
+    className,
+  ];
+};

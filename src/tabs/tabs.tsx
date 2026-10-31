@@ -8,7 +8,7 @@ import {
 } from "@kobalte/core/tabs";
 import { createContext, omit, useContext, type Component } from "solid-js";
 import { sx } from "../sx";
-import { tabsStyles } from "./tabs.styles";
+import { tabRecipe, tabsStyles } from "./tabs.styles";
 
 const TabListContext = createContext(false);
 
@@ -47,12 +47,7 @@ export const Tab: Component<TabProps> = (props) => {
   const others = omit(props, "class");
   const justified = useContext(TabListContext);
 
-  return (
-    <KobalteTabs.Trigger
-      {...others}
-      class={[sx(tabsStyles.trigger), justified && sx(tabsStyles.justified), props.class]}
-    />
-  );
+  return <KobalteTabs.Trigger {...others} class={tabRecipe({ justified, class: props.class })} />;
 };
 
 export type TabPanelProps = Omit<PolymorphicProps<"div", TabsContentProps<"div">>, "as">;

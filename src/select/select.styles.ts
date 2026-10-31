@@ -1,4 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
+import type { JSX } from "@solidjs/web/jsx-runtime";
+import classes from "./select.module.css";
+import { sx } from "../sx";
 import { backgroundColors, fontSizes, fonts, radii, shadows } from "../variables/variables.stylex";
 
 export const selectStyles = stylex.create({
@@ -31,3 +34,11 @@ export const selectStyles = stylex.create({
     },
   },
 });
+
+type SelectRecipeArgs = {
+  class?: JSX.ClassValue;
+};
+
+export const selectRecipe = ({ class: className }: SelectRecipeArgs): JSX.ClassValue[] => {
+  return [classes["xp-select"], sx(selectStyles.select), className];
+};

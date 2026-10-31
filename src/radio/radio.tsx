@@ -4,8 +4,7 @@ import type { RadioGroupItemProps, RadioGroupRootProps } from "@kobalte/core/rad
 import type { JSX } from "@solidjs/web";
 import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../sx";
-import classes from "./radio.module.css";
-import { radioStyles } from "./radio.styles";
+import { radioRecipe, radioStyles } from "./radio.styles";
 import { fieldStyles } from "../field/field.styles";
 
 export type RadioGroupProps = ParentProps<
@@ -55,14 +54,7 @@ export const Radio: Component<RadioProps> = (props) => {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
-      <KobalteRadioGroup.ItemLabel
-        class={[
-          classes["radio-label"],
-          sx(fieldStyles.label),
-          sx(radioStyles.label),
-          focused() && sx(radioStyles.focused),
-        ]}
-      >
+      <KobalteRadioGroup.ItemLabel class={radioRecipe({ focused: focused() })}>
         {props.label ?? props.children}
       </KobalteRadioGroup.ItemLabel>
       <Show when={props.description}>

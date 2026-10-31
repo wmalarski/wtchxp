@@ -4,9 +4,7 @@ import type { CheckboxRootProps } from "@kobalte/core/checkbox";
 import type { JSX } from "@solidjs/web";
 import { createSignal, omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../sx";
-import classes from "./checkbox.module.css";
-import { checkboxStyles } from "./checkbox.styles";
-import { fieldStyles } from "../field/field.styles";
+import { checkboxRecipe, checkboxStyles } from "./checkbox.styles";
 
 export type CheckboxProps = ParentProps<
   Omit<PolymorphicProps<"div", CheckboxRootProps<"div">>, "as" | "children"> & {
@@ -28,14 +26,7 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     <KobalteCheckbox {...others} class={[sx(checkboxStyles.root), props.class]}>
       <KobalteCheckbox.Input onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
       <Show when={props.label !== undefined} fallback={props.children}>
-        <KobalteCheckbox.Label
-          class={[
-            classes["checkbox-label"],
-            sx(fieldStyles.label),
-            sx(checkboxStyles.label),
-            focused() && sx(checkboxStyles.focused),
-          ]}
-        >
+        <KobalteCheckbox.Label class={checkboxRecipe({ focused: focused() })}>
           {props.label}
         </KobalteCheckbox.Label>
       </Show>

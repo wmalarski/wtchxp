@@ -1,4 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
+import type { JSX } from "@solidjs/web/jsx-runtime";
+import classes from "./window.module.css";
+import { sx } from "../sx";
 import {
   backgroundColors,
   backgrounds,
@@ -103,3 +106,13 @@ export const windowStyles = stylex.create({
     },
   },
 });
+
+type WindowControlRecipeArgs = {
+  class?: JSX.ClassValue;
+};
+
+export const windowControlRecipe = ({
+  class: className,
+}: WindowControlRecipeArgs): JSX.ClassValue[] => {
+  return [classes["window-control"], sx(windowStyles.control), className];
+};

@@ -1,8 +1,7 @@
 import type { ComponentProps, JSX } from "@solidjs/web";
 import { omit, Show, type Component } from "solid-js";
 import { sx } from "../sx";
-import classes from "./group-box.module.css";
-import { groupBoxStyles } from "./group-box.styles";
+import { fieldRowRecipe, groupBoxStyles } from "./group-box.styles";
 
 export type GroupBoxProps = ComponentProps<"fieldset"> & {
   /** Content rendered inside the `legend` element. */
@@ -29,7 +28,7 @@ export type FieldRowProps = ComponentProps<"div">;
 export const FieldRow: Component<FieldRowProps> = (props) => {
   const others = omit(props, "class");
 
-  return <div {...others} class={[classes["field-row"], sx(groupBoxStyles.row), props.class]} />;
+  return <div {...others} class={fieldRowRecipe({ class: props.class })} />;
 };
 
 export type FieldRowStackedProps = ComponentProps<"div">;

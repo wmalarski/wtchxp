@@ -2,9 +2,8 @@ import type { ComponentProps } from "@solidjs/web";
 import { createComponent, omit, type Component } from "solid-js";
 import type { ButtonProps } from "../button/button";
 import { sx } from "../sx";
-import classes from "./window.module.css";
 import { CloseIcon, HelpIcon, MaximizeIcon, MinimizeIcon, RestoreIcon } from "./window-icons";
-import { windowStyles } from "./window.styles";
+import { windowControlRecipe, windowStyles } from "./window.styles";
 
 export type WindowProps = ComponentProps<"div">;
 
@@ -91,7 +90,7 @@ export const WindowControl: Component<WindowControlProps> = (props) => {
       {...others}
       type="button"
       aria-label={props.action}
-      class={[classes["window-control"], sx(windowStyles.control), props.class]}
+      class={windowControlRecipe({ class: props.class })}
     >
       {createComponent(windowControlIcons[props.action], {})}
     </button>
