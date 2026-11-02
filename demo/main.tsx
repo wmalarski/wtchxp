@@ -26,16 +26,23 @@ import {
   Window,
   WindowBody,
   WindowControl,
+  type SelectOption,
 } from "../src";
 import "../src/styles.css";
 import "./demo.css";
+
+const themeOptions: SelectOption[] = [
+  { value: "xp", label: "Windows XP" },
+  { value: "classic", label: "Windows Classic" },
+  { value: "olive", label: "Olive Green" },
+];
 
 const Demo: Component = () => {
   const [checked, setChecked] = createSignal(true);
   const [radio, setRadio] = createSignal("work");
   const [text, setText] = createSignal("C:\\WINDOWS");
   const [progress, setProgress] = createSignal(35);
-  const [theme, setTheme] = createSignal("xp");
+  const [theme, setTheme] = createSignal<SelectOption | null>(themeOptions[0]);
   const [selectedFile, setSelectedFile] = createSignal("readme.txt");
 
   return (
@@ -103,14 +110,11 @@ const Demo: Component = () => {
                   <FieldRowStacked>
                     <Select
                       label="Theme"
+                      options={themeOptions}
                       value={theme()}
-                      onChange={(event) => setTheme(event.currentTarget.value)}
+                      onChange={setTheme}
                       description="Changes the look of the operating system."
-                    >
-                      <option value="xp">Windows XP</option>
-                      <option value="classic">Windows Classic</option>
-                      <option value="olive">Olive Green</option>
-                    </Select>
+                    />
 
                     <FieldRow>
                       <Range

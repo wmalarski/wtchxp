@@ -69,8 +69,8 @@ export type FieldProps = ComponentProps<"div"> & {
  * `aria` wiring for free:
  *
  * ```tsx
- * <Field label="Theme" errorMessage="Pick one">
- *   <Select>...</Select>
+ * <Field label="Name" errorMessage="Pick one">
+ *   <input />
  * </Field>
  * ```
  */

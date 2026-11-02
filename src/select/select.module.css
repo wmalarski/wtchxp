@@ -10,3 +10,10 @@
   --xp-select-icon-hover: url("../icons/dropdown-hover.svg");
   --xp-select-icon-active: url("../icons/dropdown-active.svg");
 }
+
+.xp-select-item-indicator {
+  background-image: url("../icons/checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px;
+}

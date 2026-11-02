@@ -107,9 +107,7 @@ Kobalte drives the accessible behaviour; the XP markup contract is preserved.
 </RadioGroup>
 
 <TextField label="Installation path" value={path()} onChange={setPath} />
-<Select label="Theme" value={theme()} onChange={(event) => setTheme(event.currentTarget.value)}>
-  <option value="xp">Windows XP</option>
-</Select>
+<Select label="Theme" options={["Windows XP", "Windows Classic"]} value={theme()} onChange={setTheme} />
 <Range min={0} max={100} value={level()} onInput={(event) => setLevel(Number(event.currentTarget.value))} />
 <ProgressBar value={level()} label="Disk usage" />
 ```

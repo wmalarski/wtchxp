@@ -1,15 +1,13 @@
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
-import { Select } from "./select";
+import { Select, type SelectOption } from "./select";
 
-const options = (
-  <>
-    <option value="xp">Windows XP</option>
-    <option value="classic">Windows Classic</option>
-    <option value="olive">Olive Green</option>
-  </>
-);
+const options: SelectOption[] = [
+  { value: "xp", label: "Windows XP" },
+  { value: "classic", label: "Windows Classic" },
+  { value: "olive", label: "Olive Green" },
+];
 
 const meta = {
   title: "Forms/Select",
@@ -17,23 +15,23 @@ const meta = {
   tags: ["autodocs"],
   args: {
     label: "Theme",
+    options,
     onChange: fn(),
   },
   render: (args) => {
-    const [value, setValue] = createSignal("xp");
-    const onChange = args.onChange as ((event: Event) => void) | undefined;
+    const [value, setValue] = createSignal<SelectOption | null>(options[0]);
+    const onChange = args.onChange as ((value: SelectOption | null) => void) | undefined;
 
     return (
       <Select
         {...args}
+        options={options}
         value={value()}
-        onChange={(event) => {
-          setValue(event.currentTarget.value);
-          onChange?.(event);
+        onChange={(option) => {
+          setValue(option);
+          onChange?.(option);
         }}
-      >
-        {options}
-      </Select>
+      />
     );
   },
 } satisfies Meta<typeof Select>;
