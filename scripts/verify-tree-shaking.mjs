@@ -48,6 +48,28 @@ if (!existsSync(join(root, "dist", "index.js"))) {
   throw new Error("dist/index.js is missing. Run `vp run build` before verifying tree shaking.");
 }
 
+// Every component subpath must resolve to the generated entry point.
+for (const component of [
+  "button",
+  "checkbox",
+  "field",
+  "group-box",
+  "progress-bar",
+  "radio",
+  "range",
+  "select",
+  "tabs",
+  "text-field",
+  "tree-view",
+  "window",
+]) {
+  const resolved = import.meta.resolve(`wtchxp/components/${component}`);
+
+  if (!resolved.endsWith(`/dist/${component}/index.js`)) {
+    throw new Error(`Unexpected component subpath for ${component}: ${resolved}`);
+  }
+}
+
 const nodeModules = join(fixture, "node_modules");
 const fixturePackage = join(nodeModules, "wtchxp");
 mkdirSync(nodeModules, { recursive: true });
@@ -82,7 +104,7 @@ if (cssFiles.length !== 1) {
   );
 }
 
-const separateAssets = [".svg", ".woff", ".woff2"].flatMap((extension) =>
+const separateAssets = [".svg", ".woff", ".woff2", ".png"].flatMap((extension) =>
   findFiles(fixtureDist, extension),
 );
 
@@ -108,6 +130,7 @@ assertIncludes("JavaScript", js, [
   "dist/group-box/group-box.js",
   "dist/window/window.js",
   "dist/window/window-control-base.js",
+  "dist/window/close-control.js",
   "dist/window/icons/close-icon.js",
   "@kobalte/core/dist/checkbox",
 ]);
@@ -122,6 +145,10 @@ assertExcludes("JavaScript", js, [
   "dist/tabs/tabs.js",
   "dist/text-field/text-field.js",
   "dist/tree-view/tree-view.js",
+  "dist/window/help-control.js",
+  "dist/window/maximize-control.js",
+  "dist/window/minimize-control.js",
+  "dist/window/restore-control.js",
   "dist/window/icons/help-icon.js",
   "dist/window/icons/maximize-icon.js",
   "dist/window/icons/minimize-icon.js",
@@ -149,6 +176,7 @@ assertExcludes("CSS", css, [
   "_radio-label_",
   "--xp-range-thumb",
   "@keyframes xhtld8h-B",
+  "::-webkit-scrollbar",
 ]);
 
 const jsRaw = readFileSync(jsFiles[0]).byteLength;
@@ -156,11 +184,11 @@ const jsGzip = gzipSync(readFileSync(jsFiles[0])).byteLength;
 const cssRaw = readFileSync(cssFiles[0]).byteLength;
 const cssGzip = gzipSync(readFileSync(cssFiles[0])).byteLength;
 
-if (jsRaw > 320 * 1024 || jsGzip > 85 * 1024) {
+if (jsRaw > 260 * 1024 || jsGzip > 75 * 1024) {
   throw new Error(`Fixture JS exceeds budget: ${kib(jsRaw)} (${kib(jsGzip)} gzip)`);
 }
 
-if (cssRaw > 80 * 1024 || cssGzip > 25 * 1024) {
+if (cssRaw > 48 * 1024 || cssGzip > 20 * 1024) {
   throw new Error(`Fixture CSS exceeds budget: ${kib(cssRaw)} (${kib(cssGzip)} gzip)`);
 }
 

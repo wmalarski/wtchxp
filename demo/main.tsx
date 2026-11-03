@@ -31,6 +31,7 @@ import {
   type SelectOption,
 } from "../src";
 import "../src/styles.css";
+import "../src/scrollbar/scrollbar.css";
 import "./demo.css";
 
 const themeOptions: SelectOption[] = [

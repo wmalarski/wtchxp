@@ -19,7 +19,8 @@
   "type": "module",
   "sideEffects": [
     "**/*.css",
-    "./dist/styles.js"
+    "./dist/styles.js",
+    "./dist/scrollbars.js"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -35,17 +36,30 @@
       "default": "./dist/styles.css"
     },
     "./components/*.css": "./dist/*/styles.css",
+    "./components/*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js",
+      "default": "./dist/*/index.js"
+    },
+    "./scrollbars.css": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/scrollbars.css"
+    },
     "./package.json": "./package.json",
     "./styles": {
       "types": "./dist/styles.d.ts",
       "default": "./dist/styles.js"
+    },
+    "./scrollbars": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/scrollbars.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "vp build && tsc -p tsconfig.build.json && node scripts/build-styles.mjs && node scripts/postbuild.mjs",
+    "build": "vp build && tsc -p tsconfig.build.json && node scripts/build-component-entries.mjs && node scripts/build-styles.mjs && node scripts/postbuild.mjs",
     "dev": "vp dev",
     "generate:icons": "node scripts/generate-window-icons.mjs",
     "storybook": "storybook dev -p 6006",
@@ -58,15 +72,13 @@
     "prepublishOnly": "vp run verify:bundle",
     "prepare": "vp config"
   },
-  "dependencies": {
-    "@stylexjs/stylex": "^0.19.1"
-  },
   "devDependencies": {
     "@kobalte/core": "2.0.0-alpha.4",
     "@solidjs/testing-library": "1.0.0-rc.2",
     "@solidjs/vite-plugin": "3.0.0-next.51",
     "@solidjs/web": "2.0.0-rc.16",
     "@storybook/addon-docs": "^10.6.5",
+    "@stylexjs/stylex": "^0.19.1",
     "@stylexjs/unplugin": "^0.19.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@types/node": "^26.6.5",
@@ -82,6 +94,7 @@
   "peerDependencies": {
     "@kobalte/core": "^2.0.0-alpha.4",
     "@solidjs/web": "^2.0.0-rc.16",
+    "@stylexjs/stylex": "^0.19.1",
     "solid-js": "^2.0.0-rc.16"
   },
   "devEngines": {

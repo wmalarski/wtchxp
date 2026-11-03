@@ -80,8 +80,9 @@ Non-component helpers may remain regular function declarations.
 ## Styling
 
 - `src/styles.css` is the base global stylesheet. It holds only rules that
-  cannot be expressed by StyleX or scoped to a component: `@font-face`. It
-  imports `src/scrollbar/scrollbar.css` for the scrollbar pseudo-elements.
+  cannot be expressed by StyleX or scoped to a component: `@font-face`. The
+  scrollbar pseudo-elements live in `src/scrollbar/scrollbar.css`, which is
+  compiled separately and is opt-in through `wtchxp/scrollbars.css`.
 - Theme values live in `src/variables/variables.stylex.ts`. Use the tokens in
   `stylex.create` calls instead of hard-coded values.
 - Component styles live in the component folder. Move every `stylex.create`
@@ -89,7 +90,7 @@ Non-component helpers may remain regular function declarations.
   `<component>Styles`; the component file should only consume it.
 - Use a colocated `*.module.css` file when a rule needs a bundler asset URL
   (for example an icon) that StyleX cannot resolve, or a selector StyleX cannot
-  express, such as switching inline SVG states on an ancestor's
+  express, such as switching image or inline SVG states on an ancestor's
   `:hover`/`:active`. CSS modules keep the class names hashed and scoped to the
   component.
 - Shared field primitives (`Field`'s wrapper, label, description and error
@@ -103,16 +104,18 @@ Non-component helpers may remain regular function declarations.
 
 - Component icons live in `<component>/icons/*.svg`. Global scrollbar icons
   live in `src/scrollbar/icons/*.svg` alongside `src/scrollbar/scrollbar.css`
-  because they are painted by base scrollbar selectors rather than by a
-  component. Icons are source assets, not
-  bundle entries: assets referenced by CSS are inlined into the owning
-  component's stylesheet by the build and are not emitted as separate SVG
-  requests.
-- Prefer inline SVG components for icons rendered in the DOM. They avoid a
-  separate request, cannot cause layout shift, and tree-shake with the
-  component that uses them.
+  because they are painted by scrollbar selectors rather than by a component.
+  Icons are source assets, not bundle entries: assets referenced by CSS are
+  inlined into the owning component's stylesheet by the build and are not
+  emitted as separate SVG requests.
+- Prefer small raster images for dense pixel art, and inline SVG components for
+  simple shapes. Raster images avoid a separate request when the bundler inlines
+  them, cannot cause layout shift, and tree-shake with the component that uses
+  them.
 - Keep one icon per module. A module that imports several icons from a barrel
-  causes every one of those icons to be retained when that module is used.
+  causes every one of those icons to be retained when that module is used. The
+  static title bar controls are split into one module each so that, for example,
+  `CloseControl` only imports the close icon states.
 - Prefer statically typed components over a string-based icon lookup. Each
   static title bar control imports only its own icon; the dynamic
   `WindowControl action="…"` lookup needs every action icon at runtime.
@@ -129,8 +132,9 @@ Non-component helpers may remain regular function declarations.
   style the SVG box in CSS). Mark decorative icons with `aria-hidden="true"`;
   the surrounding control supplies the accessible name.
 - The title bar icons are generated from `src/window/icons/*.svg` by
-  `scripts/generate-window-icons.mjs` into `src/window/icons/*-icon.tsx`. Run
-  `vp run generate:icons` after changing those assets instead of editing the
-  generated files.
+  `scripts/generate-window-icons.mjs` into `src/window/icons/*.png` and
+  `src/window/icons/*-icon.tsx`. Run `vp run generate:icons` after changing
+  those assets instead of editing the generated files; it rasterizes the PNGs
+  with Playwright/Chromium and formats the generated components.
 - Do not inline large multicolor pixel-art icons by hand; add them to the
   generator when they need to be components.

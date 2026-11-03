@@ -1,14 +1,17 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
 
 // The XP title bar icons are pixel art with hundreds of one-pixel paths. Keep
-// the SVG files as the source of truth and generate one inline Solid component
-// per icon. Separate modules let apps that use a single title bar control load
-// only that control's icon instead of every XP window glyph.
+// the SVG files as the source of truth, rasterize each state to a tiny PNG,
+// and generate one Solid component per icon. The components import their own
+// PNGs, so a statically typed control only carries its own artwork.
 const actions = ["Minimize", "Maximize", "Restore", "Help", "Close"];
 const states = ["normal", "hover", "active"];
 const iconsDir = new URL("../src/window/icons/", import.meta.url);
+
+const stateSuffix = (index) => (index === 0 ? "" : `-${states[index]}`);
 
 const readIcon = (name) => {
   const source = readFileSync(new URL(`../src/window/icons/${name}.svg`, import.meta.url), "utf8");
@@ -21,11 +24,35 @@ const readIcon = (name) => {
   return { viewBox: match[1], body: match[2].trim() };
 };
 
-const indent = (value, spaces) =>
-  value
-    .split("\n")
-    .map((line) => (line.trim() === "" ? line : `${" ".repeat(spaces)}${line.trim()}`))
-    .join("\n");
+const renderPngs = async () => {
+  const browser = await chromium.launch();
+
+  try {
+    const page = await browser.newPage({ deviceScaleFactor: 1 });
+
+    for (const action of actions) {
+      const name = action.toLowerCase();
+
+      for (const index of states.keys()) {
+        const suffix = stateSuffix(index);
+        const source = readFileSync(
+          new URL(`../src/window/icons/${name}${suffix}.svg`, import.meta.url),
+          "utf8",
+        );
+
+        await page.setContent(
+          `<style>html,body{margin:0;background:transparent}svg{display:block;width:21px;height:21px}</style>${source}`,
+        );
+        await page.locator("svg").screenshot({
+          path: fileURLToPath(new URL(`./${name}${suffix}.png`, iconsDir)),
+          omitBackground: true,
+        });
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+};
 
 mkdirSync(iconsDir, { recursive: true });
 
@@ -34,12 +61,14 @@ const exports = actions
     const name = action.toLowerCase();
     const fileName = `${name}-icon`;
     const { viewBox } = readIcon(name);
-    const groups = states
+    const imports = states
       .map((state, index) => {
-        const suffix = index === 0 ? "" : `-${state}`;
-        const { body } = readIcon(`${name}${suffix}`);
-
-        return `    <g data-icon-state="${state}">\n${indent(body, 6)}\n    </g>`;
+        return `import ${state}Icon from "./${name}${stateSuffix(index)}.png";`;
+      })
+      .join("\n");
+    const images = states
+      .map((state) => {
+        return `    <image data-icon-state="${state}" href={${state}Icon} width="21" height="21" />`;
       })
       .join("\n");
 
@@ -47,6 +76,7 @@ const exports = actions
 // Run \`vp run generate:icons\` after changing the title bar SVG files.
 import type { ComponentProps } from "@solidjs/web";
 import { type Component } from "solid-js";
+${imports}
 
 export type ${action}IconProps = ComponentProps<"svg">;
 
@@ -59,7 +89,7 @@ export const ${action}Icon: Component<${action}IconProps> = (props) => (
     aria-hidden="true"
     {...props}
   >
-${groups}
+${images}
   </svg>
 );
 `;
@@ -81,6 +111,9 @@ ${exports}
 // The generated components used to live in one file. Remove it so there is a
 // single source of truth and bundlers cannot pull every icon through it.
 rmSync(new URL("../src/window/window-icons.tsx", import.meta.url), { force: true });
+
+// Rasterize from the SVG source so the checked-in PNGs never drift from it.
+await renderPngs();
 
 // Keep generated output identical to `vp check --fix` output so regenerating
 // the icons never leaves the working tree with formatting-only changes.

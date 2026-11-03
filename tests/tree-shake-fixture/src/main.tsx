@@ -1,7 +1,7 @@
 import { render } from "@solidjs/web";
 import { createSignal, type Component } from "solid-js";
+import { Button } from "wtchxp/components/button";
 import {
-  Button,
   Checkbox,
   CloseControl,
   FieldRow,

@@ -137,10 +137,12 @@ const prependImport = (file, specifier) => {
 try {
   const baseCss = buildCss("base", "src/styles-entry.ts");
   const tokenCss = buildCss("tokens", "src/variables/variables.stylex.ts");
+  const scrollbarCss = buildCss("scrollbars", "src/scrollbars-entry.ts");
 
   // Replace the library-wide stylesheet with the global skin plus one copy of
   // the theme tokens. Component rules are emitted next to their components.
   writeFileSync(join(dist, "styles.css"), `${baseCss}\n${tokenCss}\n`);
+  writeFileSync(join(dist, "scrollbars.css"), `${scrollbarCss}\n`);
 
   for (const component of components) {
     const css = buildCss(component.name, component.entry).replace(tokenRule, "").trim();

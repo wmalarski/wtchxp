@@ -28,16 +28,9 @@ export {
 } from "./icons";
 export { WindowControlBase, type WindowControlBaseProps } from "./window-control-base";
 export { WindowControl, type WindowControlAction, type WindowControlProps } from "./window-control";
-export {
-  CloseControl,
-  HelpControl,
-  MaximizeControl,
-  MinimizeControl,
-  RestoreControl,
-  type CloseControlProps,
-  type HelpControlProps,
-  type MaximizeControlProps,
-  type MinimizeControlProps,
-  type RestoreControlProps,
-  type WindowControlButtonProps,
-} from "./window-controls";
+export { CloseControl, type CloseControlProps } from "./close-control";
+export { HelpControl, type HelpControlProps } from "./help-control";
+export { MaximizeControl, type MaximizeControlProps } from "./maximize-control";
+export { MinimizeControl, type MinimizeControlProps } from "./minimize-control";
+export { RestoreControl, type RestoreControlProps } from "./restore-control";
+export type { WindowControlButtonProps } from "./window-control-button";

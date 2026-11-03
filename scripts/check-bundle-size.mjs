@@ -61,15 +61,17 @@ const cssFiles = readdirSync(dist, { recursive: true })
 
 const results = [
   checkFile("index.js", { raw: 8 * 1024, gzip: 3 * 1024 }),
-  checkFile("styles.css", { raw: 60 * 1024, gzip: 22 * 1024 }),
+  checkFile("styles.css", { raw: 28 * 1024, gzip: 15 * 1024 }),
+  checkFile("scrollbars.css", { raw: 36 * 1024, gzip: 6 * 1024 }),
 ];
 
 for (const component of componentDirs) {
   results.push(checkFile(`${component}/styles.css`, { raw: 24 * 1024, gzip: 5 * 1024 }));
+  results.push(checkFile(`${component}/index.js`, { raw: 4 * 1024, gzip: 2 * 1024 }));
 }
 
-const jsTotal = checkTotal(jsFiles, { raw: 280 * 1024, gzip: 65 * 1024 }, "JavaScript");
-const cssTotal = checkTotal(cssFiles, { raw: 135 * 1024, gzip: 38 * 1024 }, "CSS");
+const jsTotal = checkTotal(jsFiles, { raw: 150 * 1024, gzip: 55 * 1024 }, "JavaScript");
+const cssTotal = checkTotal(cssFiles, { raw: 130 * 1024, gzip: 34 * 1024 }, "CSS");
 
 for (const result of results) {
   console.log(`${result.file}: ${kib(result.size)} (${kib(result.gzip)} gzip)`);

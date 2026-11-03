@@ -1,6 +1,7 @@
 import type { Preview } from "storybook-solidjs-vite";
 import { createJSXDecorator } from "storybook-solidjs-vite";
 import "../src/styles.css";
+import "../src/scrollbar/scrollbar.css";
 import "./storybook.css";
 
 const withDesktop = createJSXDecorator((Story) => (
