@@ -93,9 +93,12 @@ Non-component helpers may remain regular function declarations.
   express, such as switching image or inline SVG states on an ancestor's
   `:hover`/`:active`. CSS modules keep the class names hashed and scoped to the
   component.
-- Shared field primitives (`Field`'s wrapper, label, description and error
-  message) live in `src/field/field.styles.ts` and are imported by other form
-  controls.
+- Shared field primitives (the wrapper, label, description and error message)
+  live in `src/field/field.styles.ts` and are imported by the form controls.
+- Shared styles must only declare properties the local component styles do not
+  override. When composing StyleX styles across modules, never set the same
+  property in both places: CSS module order is not the class-attribute order.
+  Put spacing and other variants in local styles instead.
 - Do not import `src/styles.css` from a component. The build emits one shared
   base stylesheet and one stylesheet per component, then injects those imports
   into the built component modules so only used CSS reaches the consumer.

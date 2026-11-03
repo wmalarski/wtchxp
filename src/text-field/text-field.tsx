@@ -35,7 +35,12 @@ export type TextFieldLabelProps = Omit<
 export const TextFieldLabel: Component<TextFieldLabelProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteTextField.Label {...others} class={[sx(fieldStyles.label), props.class]} />;
+  return (
+    <KobalteTextField.Label
+      {...others}
+      class={[sx(fieldStyles.label), sx(fieldStyles.labelSpacing), props.class]}
+    />
+  );
 };
 
 export type TextFieldInputProps = Omit<
@@ -44,17 +49,20 @@ export type TextFieldInputProps = Omit<
 >;
 
 /** The input element of a text field. */
-export const TextFieldInput: Component<TextFieldInputProps & { tall?: boolean }> = (props) => {
+export const TextFieldInput: Component<TextFieldInputProps> = (props) => {
   const isTall = () => {
-    const type = (props as any).type ?? "text";
+    const type = props.type ?? "text";
     return type === "text" || type === "password" || type === "email";
   };
-  const others = omit(props, "class", "tall");
+  const others = omit(props, "class");
 
   return (
     <KobalteTextField.Input
       {...others}
-      class={[sx(isTall() ? textFieldStyles.inputTall : textFieldStyles.input), props.class]}
+      class={[
+        sx(textFieldStyles.base, isTall() ? textFieldStyles.inputTall : textFieldStyles.input),
+        props.class,
+      ]}
     />
   );
 };
@@ -68,9 +76,7 @@ export type TextFieldTextAreaProps = Omit<
 export const TextFieldTextArea: Component<TextFieldTextAreaProps> = (props) => {
   const others = omit(props, "class");
 
-  return (
-    <KobalteTextField.TextArea {...others} class={[sx(textFieldStyles.textarea), props.class]} />
-  );
+  return <KobalteTextField.TextArea {...others} class={[sx(textFieldStyles.base), props.class]} />;
 };
 
 export type TextFieldDescriptionProps = Omit<

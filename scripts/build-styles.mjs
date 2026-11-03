@@ -26,11 +26,6 @@ const components = [
     owners: ["checkbox/checkbox.js"],
   },
   {
-    name: "field",
-    entry: "src/field/index.ts",
-    owners: ["field/field.js"],
-  },
-  {
     name: "group-box",
     entry: "src/group-box/index.ts",
     owners: ["group-box/group-box.js"],

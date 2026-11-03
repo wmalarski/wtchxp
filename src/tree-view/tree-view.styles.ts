@@ -3,6 +3,7 @@ import type { JSX } from "@solidjs/web/jsx-runtime";
 import { sx } from "../sx";
 import {
   backgroundColors,
+  colors,
   fontSizes,
   fonts,
   lineHeights,
@@ -14,7 +15,7 @@ export const treeViewStyles = stylex.create({
     display: "block",
     margin: 0,
     padding: "2px 5px",
-    border: "1px solid #7f9db9",
+    border: `1px solid ${colors.inputBorder}`,
     backgroundColor: backgroundColors.surface,
     fontFamily: fonts.sansSerif,
     fontSize: fontSizes.base,

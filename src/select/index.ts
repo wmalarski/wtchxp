@@ -1,6 +1,5 @@
 export {
   Select,
-  SelectArrow,
   SelectContent,
   SelectDescription,
   SelectErrorMessage,
@@ -17,7 +16,6 @@ export {
   SelectSection,
   SelectTrigger,
   SelectValue,
-  type SelectArrowProps,
   type SelectContentProps,
   type SelectDescriptionProps,
   type SelectErrorMessageProps,

@@ -1,10 +1,8 @@
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { Checkbox as KobalteCheckbox } from "@kobalte/core/checkbox";
 import type {
-  CheckboxControlProps as KobalteCheckboxControlProps,
   CheckboxDescriptionProps as KobalteCheckboxDescriptionProps,
   CheckboxErrorMessageProps as KobalteCheckboxErrorMessageProps,
-  CheckboxIndicatorProps as KobalteCheckboxIndicatorProps,
   CheckboxInputProps as KobalteCheckboxInputProps,
   CheckboxLabelProps as KobalteCheckboxLabelProps,
   CheckboxRootProps as KobalteCheckboxRootProps,
@@ -93,30 +91,6 @@ export const CheckboxErrorMessage: Component<CheckboxErrorMessageProps> = (props
   );
 };
 
-export type CheckboxControlProps = Omit<
-  PolymorphicProps<"div", KobalteCheckboxControlProps<"div">>,
-  "as"
->;
-
-/** The visual control box of the checkbox. */
-export const CheckboxControl: Component<CheckboxControlProps> = (props) => {
-  const others = omit(props, "class");
-
-  return <KobalteCheckbox.Control {...others} class={props.class} />;
-};
-
-export type CheckboxIndicatorProps = Omit<
-  PolymorphicProps<"div", KobalteCheckboxIndicatorProps<"div">>,
-  "as"
->;
-
-/** The checkmark indicator rendered inside the control. */
-export const CheckboxIndicator: Component<CheckboxIndicatorProps> = (props) => {
-  const others = omit(props, "class");
-
-  return <KobalteCheckbox.Indicator {...others} class={props.class} />;
-};
-
 export type CheckboxProps = ParentProps<
   Omit<PolymorphicProps<"div", KobalteCheckboxRootProps<"div">>, "as" | "children"> & {
     /** Label rendered next to the checkbox. */
@@ -148,15 +122,4 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
       </Show>
     </CheckboxRoot>
   );
-};
-
-// Aliases for Kobalte-style and shorthand names.
-export {
-  CheckboxRoot as Root,
-  CheckboxInput as Input,
-  CheckboxLabel as Label,
-  CheckboxDescription as Description,
-  CheckboxErrorMessage as ErrorMessage,
-  CheckboxControl as Control,
-  CheckboxIndicator as Indicator,
 };

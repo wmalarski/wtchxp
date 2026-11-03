@@ -1,6 +1,5 @@
 export * from "./button";
 export * from "./checkbox";
-export * from "./field";
 export * from "./group-box";
 export * from "./progress-bar";
 export * from "./radio";

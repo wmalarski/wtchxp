@@ -52,7 +52,6 @@ if (!existsSync(join(root, "dist", "index.js"))) {
 for (const component of [
   "button",
   "checkbox",
-  "field",
   "group-box",
   "progress-bar",
   "radio",
@@ -137,7 +136,6 @@ assertIncludes("JavaScript", js, [
 
 // Components and icons the fixture does not use.
 assertExcludes("JavaScript", js, [
-  "dist/field/field.js",
   "dist/progress-bar/progress-bar.js",
   "dist/radio/radio.js",
   "dist/range/range.js",

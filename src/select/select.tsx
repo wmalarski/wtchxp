@@ -1,7 +1,6 @@
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { Select as KobalteSelect } from "@kobalte/core/select";
 import type {
-  SelectArrowProps as KobalteSelectArrowProps,
   SelectContentProps as KobalteSelectContentProps,
   SelectDescriptionProps as KobalteSelectDescriptionProps,
   SelectErrorMessageProps as KobalteSelectErrorMessageProps,
@@ -50,7 +49,12 @@ export type SelectLabelProps = Omit<
 export const SelectLabel: Component<SelectLabelProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteSelect.Label {...others} class={[sx(fieldStyles.label), props.class]} />;
+  return (
+    <KobalteSelect.Label
+      {...others}
+      class={[sx(fieldStyles.label), sx(fieldStyles.labelSpacing), props.class]}
+    />
+  );
 };
 
 export type SelectDescriptionProps = Omit<
@@ -212,15 +216,6 @@ export const SelectSection: Component<SelectSectionProps> = (props) => {
   return <KobalteSelect.Section {...others} class={[sx(selectStyles.section), props.class]} />;
 };
 
-export type SelectArrowProps = Omit<PolymorphicProps<"div", KobalteSelectArrowProps<"div">>, "as">;
-
-/** An optional arrow rendered alongside the select content. */
-export const SelectArrow: Component<SelectArrowProps> = (props) => {
-  const others = omit(props, "class");
-
-  return <KobalteSelect.Arrow {...others} class={props.class} />;
-};
-
 export type SelectHiddenSelectProps = KobalteSelectHiddenSelectProps;
 
 /** The hidden native select used for form submission and autofill. */
@@ -374,7 +369,7 @@ export const Select: Component<SelectProps> = (props) => {
       optionDisabled={selectOptionDisabled}
       itemComponent={props.itemComponent ?? DefaultSelectItem}
       validationState={validationState()}
-      class={[sx(fieldStyles.root), props.wrapperClass, props.class]}
+      class={[props.wrapperClass, props.class]}
     >
       <Show when={props.label}>
         <SelectLabel>{props.label}</SelectLabel>
@@ -401,25 +396,4 @@ export const Select: Component<SelectProps> = (props) => {
       </SelectPortal>
     </SelectRoot>
   );
-};
-
-// Aliases for Kobalte-style and shorthand names.
-export {
-  SelectRoot as Root,
-  SelectLabel as Label,
-  SelectDescription as Description,
-  SelectErrorMessage as ErrorMessage,
-  SelectTrigger as Trigger,
-  SelectValue as Value,
-  SelectIcon as Icon,
-  SelectPortal as Portal,
-  SelectContent as Content,
-  SelectListbox as Listbox,
-  SelectItem as Item,
-  SelectItemLabel as ItemLabel,
-  SelectItemDescription as ItemDescription,
-  SelectItemIndicator as ItemIndicator,
-  SelectSection as Section,
-  SelectArrow as Arrow,
-  SelectHiddenSelect as HiddenSelect,
 };

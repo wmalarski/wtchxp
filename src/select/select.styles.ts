@@ -4,6 +4,7 @@ import classes from "./select.module.css";
 import { sx } from "../sx";
 import {
   backgroundColors,
+  colors,
   fontSizes,
   fonts,
   radii,
@@ -19,7 +20,7 @@ export const selectStyles = stylex.create({
     height: 23,
     minHeight: 21,
     padding: "3px 32px 3px 4px",
-    border: "1px solid #7f9db9",
+    border: `1px solid ${colors.inputBorder}`,
     backgroundColor: backgroundColors.surface,
     backgroundImage: "var(--xp-select-icon)",
     backgroundRepeat: "no-repeat",
@@ -67,7 +68,7 @@ export const selectStyles = stylex.create({
     zIndex: 1000,
     minWidth: "var(--kb-popper-anchor-width)",
     padding: 2,
-    border: "1px solid #7f9db9",
+    border: `1px solid ${colors.inputBorder}`,
     backgroundColor: backgroundColors.surface,
     boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
     fontFamily: fonts.sansSerif,

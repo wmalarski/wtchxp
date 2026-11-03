@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import {
   backgroundColors,
+  colors,
   fontSizes,
   fonts,
   radii,
@@ -8,11 +9,10 @@ import {
 } from "../variables/variables.stylex";
 
 export const textFieldStyles = stylex.create({
-  input: {
+  base: {
     width: "100%",
-    height: 21,
     padding: "3px 4px",
-    border: "1px solid #7f9db9",
+    border: `1px solid ${colors.inputBorder}`,
     backgroundColor: backgroundColors.surface,
     boxSizing: "border-box",
     borderRadius: radii.none,
@@ -27,44 +27,11 @@ export const textFieldStyles = stylex.create({
       backgroundColor: backgroundColors.selection,
       color: textColors.inverse,
     },
+  },
+  input: {
+    height: 21,
   },
   inputTall: {
-    width: "100%",
     height: 23,
-    padding: "3px 4px",
-    border: "1px solid #7f9db9",
-    backgroundColor: backgroundColors.surface,
-    boxSizing: "border-box",
-    borderRadius: radii.none,
-    appearance: "none",
-    fontFamily: fonts.sansSerif,
-    fontSize: fontSizes.base,
-    WebkitFontSmoothing: "antialiased",
-    ":focus": {
-      outline: "none",
-    },
-    "::selection": {
-      backgroundColor: backgroundColors.selection,
-      color: textColors.inverse,
-    },
-  },
-  textarea: {
-    width: "100%",
-    padding: "3px 4px",
-    border: "1px solid #7f9db9",
-    backgroundColor: backgroundColors.surface,
-    boxSizing: "border-box",
-    borderRadius: radii.none,
-    appearance: "none",
-    fontFamily: fonts.sansSerif,
-    fontSize: fontSizes.base,
-    WebkitFontSmoothing: "antialiased",
-    ":focus": {
-      outline: "none",
-    },
-    "::selection": {
-      backgroundColor: backgroundColors.selection,
-      color: textColors.inverse,
-    },
   },
 });

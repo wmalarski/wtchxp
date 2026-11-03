@@ -1,5 +1,4 @@
 export {
-  KobalteTabs,
   Tab,
   TabList,
   TabPanel,

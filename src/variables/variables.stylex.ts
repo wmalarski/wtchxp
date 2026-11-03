@@ -12,11 +12,12 @@ import * as stylex from "@stylexjs/stylex";
 export const colors = stylex.defineVars({
   surface: "#ece9d8",
   buttonHighlight: "#ffffff",
-  buttonFace: "#dfdfdf",
   buttonShadow: "#808080",
-  windowFrame: "#0a0a0a",
   dialogBlue: "#2267cb",
-  inputBorder: "#789dbc",
+  inputBorder: "#7f9db9",
+  rangeTrackBorder: "#f3f2ea",
+  titleBarBorder: "#0831d9",
+  titleBarBorderDark: "#001ea0",
 });
 
 export const fonts = stylex.defineVars({
@@ -30,7 +31,6 @@ export const fontSizes = stylex.defineVars({
 });
 
 export const fontWeights = stylex.defineVars({
-  normal: "normal",
   bold: "bold",
 });
 
@@ -83,7 +83,7 @@ export const backgroundColors = stylex.defineVars({
   transparent: "transparent",
 });
 
-/** Box shadows only. Inset border shadows live in `borders`. */
+/** Box shadows only. */
 export const shadows = stylex.defineVars({
   none: "none",
   buttonHover:
@@ -117,10 +117,8 @@ export const radii = stylex.defineVars({
 
 export const spacing = stylex.defineVars({
   element: "8px",
-  groupedButton: "4px",
   groupedElement: "6px",
   range: "10px",
-  rangeTrackHeight: "4px",
 });
 
 export const forms = stylex.defineVars({
@@ -137,28 +135,6 @@ export const forms = stylex.defineVars({
 
 export const tabs = stylex.defineVars({
   border: "1px solid #919b9c",
-});
-
-export const scrollbar = stylex.defineVars({
-  background:
-    "linear-gradient(90deg, rgba(197, 213, 255, 1) 0%, rgba(181, 211, 255, 1) 86%, rgba(182, 202, 247, 1) 100%)",
-  shadow:
-    "inset 1px 1px white, inset -1px -1px white, inset 2px 2px #b9cdfa, inset -2px -2px #b6c9f7",
-});
-
-export const borders = stylex.defineVars({
-  width: "1px",
-  raisedOuter: () =>
-    `inset -1px -1px ${colors.windowFrame}, inset 1px 1px ${colors.buttonHighlight}`,
-  raisedInner: () => `inset -2px -2px ${colors.buttonShadow}, inset 2px 2px ${colors.buttonFace}`,
-  sunkenOuter: () =>
-    `inset -1px -1px ${colors.buttonHighlight}, inset 1px 1px ${colors.windowFrame}`,
-  sunkenInner: () => `inset -2px -2px ${colors.buttonFace}, inset 2px 2px ${colors.buttonShadow}`,
-  windowOuter: () => `inset -1px -1px ${colors.windowFrame}, inset 1px 1px ${colors.buttonFace}`,
-  windowInner: () =>
-    `inset -2px -2px ${colors.buttonShadow}, inset 2px 2px ${colors.buttonHighlight}`,
-  field: () =>
-    `inset -1px -1px ${colors.buttonHighlight}, inset 1px 1px ${colors.buttonShadow}, inset -2px -2px ${colors.buttonFace}, inset 2px 2px ${colors.windowFrame}`,
-  statusBarField: () =>
-    `inset -1px -1px ${colors.buttonFace}, inset 1px 1px ${colors.buttonShadow}`,
+  inactiveBorder: "1px solid #91a7b4",
+  hoverBorder: "#e68b2c",
 });

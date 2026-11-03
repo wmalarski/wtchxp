@@ -3,7 +3,7 @@ import { fontSizes, fonts, textColors } from "../variables/variables.stylex";
 
 /**
  * Shared field primitives: the wrapper, label, description and error message
- * that `Field` renders and that Kobalte-based form controls reuse.
+ * reused by the Kobalte-based form controls.
  */
 export const fieldStyles = stylex.create({
   root: {
@@ -19,6 +19,8 @@ export const fieldStyles = stylex.create({
     fontFamily: fonts.sansSerif,
     fontSize: fontSizes.base,
     WebkitFontSmoothing: "antialiased",
+  },
+  labelSpacing: {
     marginBottom: 2,
   },
   description: {

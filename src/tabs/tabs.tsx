@@ -58,5 +58,3 @@ export const TabPanel: Component<TabPanelProps> = (props) => {
 
   return <KobalteTabs.Content {...others} class={[sx(tabsStyles.panel), props.class]} />;
 };
-
-export { KobalteTabs };

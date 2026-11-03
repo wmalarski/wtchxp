@@ -32,7 +32,7 @@ export const tabsStyles = stylex.create({
     marginLeft: -1,
     marginRight: 2,
     padding: "0 12px 3px",
-    border: "1px solid #91a7b4",
+    border: tabs.inactiveBorder,
     borderRadius: `${radii.medium} ${radii.medium} 0 0`,
     background: backgrounds.tab,
     boxShadow: shadows.none,
@@ -46,7 +46,7 @@ export const tabsStyles = stylex.create({
     userSelect: "none",
     ":hover": {
       boxShadow: shadows.tabHover,
-      borderTop: "1px solid #e68b2c",
+      borderTop: `1px solid ${tabs.hoverBorder}`,
     },
     ":is([aria-selected='true'])": {
       zIndex: 8,
@@ -56,8 +56,8 @@ export const tabsStyles = stylex.create({
       marginLeft: -3,
       marginRight: -1,
       paddingBottom: 2,
-      border: "1px solid #919b9c",
-      borderTop: "1px solid #e68b2c",
+      border: tabs.border,
+      borderTop: `1px solid ${tabs.hoverBorder}`,
       borderBottom: "1px solid transparent",
       background: backgrounds.tabSelected,
       boxShadow: shadows.tabHover,

@@ -4,9 +4,7 @@ import type {
   RadioGroupDescriptionProps as KobalteRadioGroupDescriptionProps,
   RadioGroupErrorMessageProps as KobalteRadioGroupErrorMessageProps,
   RadioGroupItemProps as KobalteRadioGroupItemProps,
-  RadioGroupItemControlProps as KobalteRadioGroupItemControlProps,
   RadioGroupItemDescriptionProps as KobalteRadioGroupItemDescriptionProps,
-  RadioGroupItemIndicatorProps as KobalteRadioGroupItemIndicatorProps,
   RadioGroupItemInputProps as KobalteRadioGroupItemInputProps,
   RadioGroupItemLabelProps as KobalteRadioGroupItemLabelProps,
   RadioGroupLabelProps as KobalteRadioGroupLabelProps,
@@ -129,30 +127,6 @@ export const RadioDescription: Component<RadioDescriptionProps> = (props) => {
       class={[sx(radioStyles.description), props.class]}
     />
   );
-};
-
-export type RadioControlProps = Omit<
-  PolymorphicProps<"div", KobalteRadioGroupItemControlProps<"div">>,
-  "as"
->;
-
-/** The visual control box of a radio item. */
-export const RadioControl: Component<RadioControlProps> = (props) => {
-  const others = omit(props, "class");
-
-  return <KobalteRadioGroup.ItemControl {...others} class={props.class} />;
-};
-
-export type RadioIndicatorProps = Omit<
-  PolymorphicProps<"div", KobalteRadioGroupItemIndicatorProps<"div">>,
-  "as"
->;
-
-/** The dot indicator rendered inside a radio control. */
-export const RadioIndicator: Component<RadioIndicatorProps> = (props) => {
-  const others = omit(props, "class");
-
-  return <KobalteRadioGroup.ItemIndicator {...others} class={props.class} />;
 };
 
 export type RadioGroupProps = ParentProps<
