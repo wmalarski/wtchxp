@@ -2,15 +2,15 @@
   "name": "wtchxp",
   "version": "0.0.0",
   "description": "Windows XP themed components for SolidJS, built on Kobalte and XP.css.",
-  "homepage": "https://github.com/author/library#readme",
+  "homepage": "https://github.com/wmalarski/wtchxp#readme",
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/wmalarski/wtchxp/issues"
   },
   "license": "MIT",
-  "author": "Author Name <author.name@mail.com>",
+  "author": "Wojtek Malarski <w.malarski@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/wmalarski/wtchxp.git"
   },
   "files": [
     "dist",

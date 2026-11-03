@@ -7,6 +7,7 @@ import {
   readdirSync,
   rmSync,
   symlinkSync,
+  unlinkSync,
 } from "node:fs";
 import { join } from "node:path";
 import { gzipSync } from "node:zlib";
@@ -78,7 +79,7 @@ if (existsSync(fixturePackage)) {
   if (!stat.isSymbolicLink()) {
     throw new Error(`${fixturePackage} exists and is not a symlink`);
   }
-  rmSync(fixturePackage);
+  unlinkSync(fixturePackage);
 }
 
 symlinkSync(root, fixturePackage, "dir");
