@@ -79,9 +79,9 @@ Non-component helpers may remain regular function declarations.
 
 ## Styling
 
-- `src/styles.css` is the single source of global CSS. It holds only rules that
-  cannot be expressed by StyleX or scoped to a component: `@font-face`, native
-  `option` styling and scrollbar pseudo-elements.
+- `src/styles.css` is the base global stylesheet. It holds only rules that
+  cannot be expressed by StyleX or scoped to a component: `@font-face`. It
+  imports `src/scrollbar/scrollbar.css` for the scrollbar pseudo-elements.
 - Theme values live in `src/variables/variables.stylex.ts`. Use the tokens in
   `stylex.create` calls instead of hard-coded values.
 - Component styles live in the component folder. Move every `stylex.create`
@@ -101,6 +101,13 @@ Non-component helpers may remain regular function declarations.
 
 ## Icons
 
+- Component icons live in `<component>/icons/*.svg`. Global scrollbar icons
+  live in `src/scrollbar/icons/*.svg` alongside `src/scrollbar/scrollbar.css`
+  because they are painted by base scrollbar selectors rather than by a
+  component. Icons are source assets, not
+  bundle entries: assets referenced by CSS are inlined into the owning
+  component's stylesheet by the build and are not emitted as separate SVG
+  requests.
 - Prefer inline SVG components for icons rendered in the DOM. They avoid a
   separate request, cannot cause layout shift, and tree-shake with the
   component that uses them.
@@ -109,12 +116,19 @@ Non-component helpers may remain regular function declarations.
 - Prefer statically typed components over a string-based icon lookup. Each
   static title bar control imports only its own icon; the dynamic
   `WindowControl action="…"` lookup needs every action icon at runtime.
-- Give every icon an explicit `viewBox` and fixed `width`/`height` (or style
-  the SVG box in CSS). Mark decorative icons with `aria-hidden="true"`; the
-  surrounding control supplies the accessible name.
-- Keep CSS `url()` icons only where CSS paints the image: scrollbars,
-  pseudo-elements, and native control internals that cannot contain DOM.
-- The title bar icons are generated from `src/icons/*.svg` by
+- Keep an icon as a CSS `url()` when CSS paints it and the paint target cannot
+  contain DOM:
+  - checkbox and radio marks (`::before`/`::after`)
+  - range thumbs (native `::-webkit-slider-thumb`)
+  - scrollbar tracks, thumbs and arrows
+  - select trigger and item-indicator backgrounds
+    Converting those to components would not tree-shake better: the owning
+    component already needs every state, and pseudo-elements/native controls
+    cannot render child SVG nodes.
+- Give every DOM icon an explicit `viewBox` and fixed `width`/`height` (or
+  style the SVG box in CSS). Mark decorative icons with `aria-hidden="true"`;
+  the surrounding control supplies the accessible name.
+- The title bar icons are generated from `src/window/icons/*.svg` by
   `scripts/generate-window-icons.mjs` into `src/window/icons/*-icon.tsx`. Run
   `vp run generate:icons` after changing those assets instead of editing the
   generated files.

@@ -6,9 +6,9 @@
 \*-------------------------------------------*/
 
 .xp-range {
-  --xp-range-thumb: url("../icons/indicator-horizontal.svg");
+  --xp-range-thumb: url("./icons/indicator-horizontal.svg");
 }
 
 .xp-range.has-box-indicator {
-  --xp-range-thumb: url("../icons/indicator-rectangle-horizontal.svg");
+  --xp-range-thumb: url("./icons/indicator-rectangle-horizontal.svg");
 }

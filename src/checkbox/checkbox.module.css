@@ -6,6 +6,6 @@
 \*-------------------------------------------*/
 
 .checkbox-label {
-  --xp-checkbox-icon: url("../icons/checkmark.svg");
-  --xp-checkbox-icon-disabled: url("../icons/checkmark-disabled.svg");
+  --xp-checkbox-icon: url("./icons/checkmark.svg");
+  --xp-checkbox-icon-disabled: url("./icons/checkmark-disabled.svg");
 }

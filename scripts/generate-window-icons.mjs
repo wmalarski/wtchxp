@@ -11,11 +11,11 @@ const states = ["normal", "hover", "active"];
 const iconsDir = new URL("../src/window/icons/", import.meta.url);
 
 const readIcon = (name) => {
-  const source = readFileSync(new URL(`../src/icons/${name}.svg`, import.meta.url), "utf8");
+  const source = readFileSync(new URL(`../src/window/icons/${name}.svg`, import.meta.url), "utf8");
   const match = source.match(/<svg[^>]*\sviewBox="([^"]+)"[^>]*>([\s\S]*?)<\/svg>/);
 
   if (!match) {
-    throw new Error(`Could not parse src/icons/${name}.svg`);
+    throw new Error(`Could not parse src/window/icons/${name}.svg`);
   }
 
   return { viewBox: match[1], body: match[2].trim() };

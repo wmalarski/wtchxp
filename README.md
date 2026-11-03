@@ -19,7 +19,8 @@ pnpm add wtchxp solid-js @solidjs/web @kobalte/core
 
 The package imports the stylesheet for a component when that component is
 imported, so there is no global skin import to remember. The shared base
-stylesheet (fonts, native `option` rules and scrollbars) is emitted once; each
+stylesheet (fonts and scrollbars from `src/scrollbar/scrollbar.css`) is emitted
+once; each
 component gets its own stylesheet, so an app that only uses `Button` does not
 download window, form or navigation CSS.
 
@@ -41,12 +42,15 @@ import "wtchxp/components/button.css";
 
 The base stylesheet bundles the Pixelated MS Sans Serif font and the icons that
 must live in CSS (scrollbars, native select and range internals). The font is
-shipped as WOFF2 only; browsers without WOFF2 support fall back to Arial. Icons
-rendered in the DOM, such as the title bar controls, are inline SVG Solid
-components so they ship with their component instead of the global stylesheet.
-Components define their layout and skin styles with StyleX, using colocated CSS
-modules only for rules StyleX cannot express, such as a bundler asset URL or
-switching inline SVG states on `:hover`/`:active`.
+shipped as WOFF2 only; browsers without WOFF2 support fall back to Arial. CSS
+icons are inlined as data URLs in the stylesheet of the component that paints
+them, so the colocated `<component>/icons/*.svg` assets do not produce extra
+image requests. Icons rendered
+in the DOM, such as the title bar controls, are inline SVG Solid components so
+they ship with their component instead of the global stylesheet. Components
+define their layout and skin styles with StyleX, using colocated CSS modules only
+for rules StyleX cannot express, such as a bundler asset URL or switching inline
+SVG states on `:hover`/`:active`.
 
 ## Components
 
@@ -211,7 +215,7 @@ vp test             # Vitest in browser mode (Playwright/Chromium)
 vp check            # formatting, linting and type checking
 vp run build        # tree-shakeable dist modules, per-component CSS and d.ts files
 vp run verify:bundle # build size budgets + tree-shaking fixtures
-vp run generate:icons # regenerate inline title bar icons from src/icons
+vp run generate:icons # regenerate title bar icons from src/window/icons
 ```
 
 Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).
@@ -219,10 +223,10 @@ Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).
 The demo lives in `demo/main.tsx` and uses every component. Stories live next
 to their components as `src/**/*.stories.tsx`; the Storybook configuration is in
 `.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup
-as the library. `src/styles.css` is the single global stylesheet (fonts, native
-`option` rules and scrollbars), `src/variables/variables.stylex.ts` defines the
-theme tokens, and component-specific CSS lives next to each component as
-`*.module.css`.
+as the library. `src/styles.css` is the base global stylesheet (fonts),
+`src/scrollbar/scrollbar.css` holds the scrollbar skin,
+`src/variables/variables.stylex.ts` defines the theme tokens, and
+component-specific CSS lives next to each component as `*.module.css`.
 
 StyleX runs in `application-order` mode. The default `property-specificity`
 mode drops shorthand properties such as `border` and `background`, which this

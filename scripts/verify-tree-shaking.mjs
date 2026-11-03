@@ -82,6 +82,16 @@ if (cssFiles.length !== 1) {
   );
 }
 
+const separateAssets = [".svg", ".woff", ".woff2"].flatMap((extension) =>
+  findFiles(fixtureDist, extension),
+);
+
+if (separateAssets.length > 0) {
+  throw new Error(
+    `Expected icons and fonts to be inlined in CSS, found separate assets: ${separateAssets.join(", ")}`,
+  );
+}
+
 const stylesheetLinks = html.match(/<link[^>]+rel="stylesheet"[^>]*>/g) ?? [];
 
 if (stylesheetLinks.length !== 1) {
