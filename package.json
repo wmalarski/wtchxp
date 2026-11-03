@@ -34,6 +34,7 @@
       "types": "./dist/styles.d.ts",
       "default": "./dist/styles.css"
     },
+    "./components/*.css": "./dist/*/styles.css",
     "./package.json": "./package.json",
     "./styles": {
       "types": "./dist/styles.d.ts",
@@ -44,14 +45,17 @@
     "access": "public"
   },
   "scripts": {
-    "build": "vp build && tsc -p tsconfig.build.json && node scripts/postbuild.mjs",
+    "build": "vp build && tsc -p tsconfig.build.json && node scripts/build-styles.mjs && node scripts/postbuild.mjs",
     "dev": "vp dev",
     "generate:icons": "node scripts/generate-window-icons.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vp test",
     "check": "vp check",
-    "prepublishOnly": "vp run build",
+    "check:bundle": "node scripts/check-bundle-size.mjs",
+    "verify:tree-shaking": "node scripts/verify-tree-shaking.mjs",
+    "verify:bundle": "vp run build && vp run check:bundle && vp run verify:tree-shaking",
+    "prepublishOnly": "vp run verify:bundle",
     "prepare": "vp config"
   },
   "dependencies": {

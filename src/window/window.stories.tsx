@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { Button } from "../button";
 import { FieldRow, GroupBox } from "../group-box";
 import {
+  CloseControl,
+  HelpControl,
+  MaximizeControl,
+  MinimizeControl,
+  RestoreControl,
   StatusBar,
   StatusBarField,
   TitleBar,
@@ -9,8 +14,7 @@ import {
   TitleBarText,
   Window,
   WindowBody,
-  WindowControl,
-} from "./window";
+} from "./index";
 
 const meta = {
   title: "Windows/Window",
@@ -24,9 +28,9 @@ const meta = {
       <TitleBar>
         <TitleBarText>wtchxp</TitleBarText>
         <TitleBarControls>
-          <WindowControl action="Minimize" />
-          <WindowControl action="Maximize" />
-          <WindowControl action="Close" />
+          <MinimizeControl />
+          <MaximizeControl />
+          <CloseControl />
         </TitleBarControls>
       </TitleBar>
       <WindowBody>
@@ -57,8 +61,8 @@ export const WithoutStatusBar: Story = {
       <TitleBar>
         <TitleBarText>Untitled</TitleBarText>
         <TitleBarControls>
-          <WindowControl action="Minimize" />
-          <WindowControl action="Close" />
+          <MinimizeControl />
+          <CloseControl />
         </TitleBarControls>
       </TitleBar>
       <WindowBody>
@@ -77,7 +81,7 @@ export const Dialog: Story = {
       <TitleBar>
         <TitleBarText>Confirm</TitleBarText>
         <TitleBarControls>
-          <WindowControl action="Close" />
+          <CloseControl />
         </TitleBarControls>
       </TitleBar>
       <WindowBody>
@@ -97,10 +101,10 @@ export const HelpAndRestoreControls: Story = {
       <TitleBar>
         <TitleBarText>Controls</TitleBarText>
         <TitleBarControls>
-          <WindowControl action="Help" />
-          <WindowControl action="Minimize" />
-          <WindowControl action="Restore" />
-          <WindowControl action="Close" />
+          <HelpControl />
+          <MinimizeControl />
+          <RestoreControl />
+          <CloseControl />
         </TitleBarControls>
       </TitleBar>
       <WindowBody>

@@ -95,19 +95,28 @@ Non-component helpers may remain regular function declarations.
 - Shared field primitives (`Field`'s wrapper, label, description and error
   message) live in `src/field/field.styles.ts` and are imported by other form
   controls.
+- Do not import `src/styles.css` from a component. The build emits one shared
+  base stylesheet and one stylesheet per component, then injects those imports
+  into the built component modules so only used CSS reaches the consumer.
 
 ## Icons
 
 - Prefer inline SVG components for icons rendered in the DOM. They avoid a
   separate request, cannot cause layout shift, and tree-shake with the
   component that uses them.
+- Keep one icon per module. A module that imports several icons from a barrel
+  causes every one of those icons to be retained when that module is used.
+- Prefer statically typed components over a string-based icon lookup. Each
+  static title bar control imports only its own icon; the dynamic
+  `WindowControl action="…"` lookup needs every action icon at runtime.
 - Give every icon an explicit `viewBox` and fixed `width`/`height` (or style
   the SVG box in CSS). Mark decorative icons with `aria-hidden="true"`; the
   surrounding control supplies the accessible name.
 - Keep CSS `url()` icons only where CSS paints the image: scrollbars,
   pseudo-elements, and native control internals that cannot contain DOM.
 - The title bar icons are generated from `src/icons/*.svg` by
-  `scripts/generate-window-icons.mjs`. Run `vp run generate:icons` after
-  changing those assets instead of editing `src/window/window-icons.tsx`.
+  `scripts/generate-window-icons.mjs` into `src/window/icons/*-icon.tsx`. Run
+  `vp run generate:icons` after changing those assets instead of editing the
+  generated files.
 - Do not inline large multicolor pixel-art icons by hand; add them to the
   generator when they need to be components.

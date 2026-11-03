@@ -27,6 +27,14 @@ export default defineConfig({
         /^@kobalte\/core(\/|$)/,
         /^@stylexjs\/stylex(\/|$)/,
       ],
+      // Keep one output module per source module. A single bundled entry makes
+      // consumers keep every external import (Kobalte, StyleX helpers) even
+      // when they only use one component. Preserving modules lets the
+      // consumer's bundler drop unused components and their dependencies.
+      output: {
+        preserveModules: true,
+        preserveModulesRoot: "src",
+      },
     },
   },
   staged: {

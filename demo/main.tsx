@@ -3,9 +3,12 @@ import { render } from "@solidjs/web";
 import {
   Button,
   Checkbox,
+  CloseControl,
   FieldRow,
   FieldRowStacked,
   GroupBox,
+  MaximizeControl,
+  MinimizeControl,
   ProgressBar,
   Radio,
   RadioGroup,
@@ -25,7 +28,6 @@ import {
   TreeView,
   Window,
   WindowBody,
-  WindowControl,
   type SelectOption,
 } from "../src";
 import "../src/styles.css";
@@ -51,9 +53,9 @@ const Demo: Component = () => {
         <TitleBar>
           <TitleBarText>wtchxp — Component Gallery</TitleBarText>
           <TitleBarControls>
-            <WindowControl action="Minimize" />
-            <WindowControl action="Maximize" />
-            <WindowControl action="Close" />
+            <MinimizeControl />
+            <MaximizeControl />
+            <CloseControl />
           </TitleBarControls>
         </TitleBar>
 
