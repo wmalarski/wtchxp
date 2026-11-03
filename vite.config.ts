@@ -37,6 +37,11 @@ export default defineConfig({
       },
     },
   },
+  // The demo page is collocated with its source under tests/demo instead of
+  // living at the project root, so point the dev server at it.
+  server: {
+    open: "/tests/demo/",
+  },
   staged: {
     "*": "vp check --fix",
   },

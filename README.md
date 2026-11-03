@@ -233,7 +233,7 @@ calls instead of hard-coded values, and override them per subtree with
 
 ```bash
 vp install
-vp dev              # demo at http://localhost:5173
+vp dev              # demo at http://localhost:5173/tests/demo/
 vp run storybook    # component explorer at http://localhost:6006
 vp run build-storybook
 vp run test         # browser + SSR tests
@@ -251,9 +251,9 @@ Browser tests cover component behavior, axe accessibility checks and
 computed-style regressions for the skin. `tests/ssr.test.tsx` renders the window
 composition with `renderToString` through `vitest.ssr.config.ts`.
 
-The demo lives in `demo/main.tsx` and uses every component. Stories live next
-to their components as `src/**/*.stories.tsx`; the Storybook configuration is in
-`.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup
+The demo lives in `tests/demo/main.tsx` and uses every component. Stories live
+next to their components as `src/**/*.stories.tsx`; the Storybook configuration
+is in `.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup
 as the library. `src/styles.css` is the base global stylesheet (fonts),
 `src/scrollbar/scrollbar.css` holds the opt-in scrollbar skin,
 `src/variables/variables.stylex.ts` defines the theme tokens, and
