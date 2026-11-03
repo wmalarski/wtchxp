@@ -9,6 +9,7 @@ import {
   ProgressBar,
   Radio,
   RadioGroup,
+  Range,
   Select,
   Tab,
   TabList,
@@ -38,6 +39,7 @@ test("a composed form has no accessibility violations", async () => {
       </RadioGroup>
       <TextField label="Installation path" value="C:\\WINDOWS" />
       <Select label="Theme" options={["Windows XP", "Windows Classic"]} />
+      <Range label="Volume" description="Controls the output level." value={50} />
       <ProgressBar value={50} label="Disk usage" />
       <Button>OK</Button>
     </GroupBox>

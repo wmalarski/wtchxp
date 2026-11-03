@@ -1,6 +1,16 @@
 import { render, screen } from "@solidjs/testing-library";
 import { expect, test } from "vite-plus/test";
-import { Checkbox, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, TextField } from "../src";
+import {
+  Checkbox,
+  Radio,
+  RadioGroup,
+  Range,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+  TextField,
+} from "../src";
 
 test("shared label styles do not override local checkbox and radio spacing", () => {
   render(() => (
@@ -17,9 +27,15 @@ test("shared label styles do not override local checkbox and radio spacing", () 
 });
 
 test("field labels keep their shared spacing", () => {
-  render(() => <TextField label="Name" />);
+  render(() => (
+    <>
+      <TextField label="Name" />
+      <Range label="Volume" />
+    </>
+  ));
 
   expect(getComputedStyle(screen.getByText("Name")).marginBottom).toBe("2px");
+  expect(getComputedStyle(screen.getByText("Volume")).marginBottom).toBe("2px");
 });
 
 test("selected tabs use the hover border token", () => {

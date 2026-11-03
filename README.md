@@ -149,7 +149,14 @@ Kobalte drives the accessible behaviour; the XP markup contract is preserved.
 
 <TextField label="Installation path" value={path()} onChange={setPath} />
 <Select label="Theme" options={["Windows XP", "Windows Classic"]} value={theme()} onChange={setTheme} />
-<Range min={0} max={100} value={level()} onInput={(event) => setLevel(Number(event.currentTarget.value))} />
+<Range
+  label="Volume"
+  description="Controls the output level."
+  min={0}
+  max={100}
+  value={level()}
+  onInput={(event) => setLevel(Number(event.currentTarget.value))}
+/>
 <ProgressBar value={level()} label="Disk usage" />
 ```
 

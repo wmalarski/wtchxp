@@ -121,6 +121,8 @@ const Demo: Component = () => {
 
                     <FieldRow>
                       <Range
+                        label="Volume"
+                        description="Controls the output level."
                         min={0}
                         max={100}
                         value={progress()}

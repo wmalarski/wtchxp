@@ -8,6 +8,7 @@ const meta = {
   component: Range,
   tags: ["autodocs"],
   args: {
+    label: "Volume",
     min: 0,
     max: 100,
     onInput: fn(),
@@ -33,6 +34,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const WithDescription: Story = {
+  args: {
+    description: "Controls the output level.",
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    errorMessage: "Volume is out of range.",
+  },
+};
 
 export const BoxIndicator: Story = {
   args: {

@@ -32,3 +32,32 @@ test("Range forwards the disabled state", () => {
 
   expect(screen.getByRole("slider")).toBeDisabled();
 });
+
+test("Range associates its label with the native input", () => {
+  render(() => <Range label="Volume" min={0} max={10} value={5} />);
+
+  expect(screen.getByLabelText("Volume")).toHaveAttribute("type", "range");
+});
+
+test("Range links its description to the input", () => {
+  render(() => (
+    <Range label="Volume" description="Controls the output level." min={0} max={10} value={5} />
+  ));
+
+  const input = screen.getByRole("slider");
+  const descriptionId = input.getAttribute("aria-describedby");
+
+  expect(descriptionId).toBeTruthy();
+  expect(document.getElementById(descriptionId!)).toHaveTextContent("Controls the output level.");
+});
+
+test("Range renders an error message without an explicit validationState", () => {
+  render(() => <Range label="Volume" errorMessage="Volume is required." />);
+
+  const input = screen.getByRole("slider");
+  const error = screen.getByRole("alert");
+
+  expect(input).toHaveAttribute("aria-invalid", "true");
+  expect(error).toHaveTextContent("Volume is required.");
+  expect(input.getAttribute("aria-describedby")).toContain(error.id);
+});
