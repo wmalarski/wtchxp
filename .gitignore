@@ -1,6 +1,7 @@
 node_modules
 dist
 storybook-static
+.agents
 *.log
 .DS_Store
 !.vscode/

@@ -56,7 +56,9 @@ export type TreeItemProps = ParentProps<
  * children render a selectable leaf.
  */
 export const TreeItem: Component<TreeItemProps> = (props) => {
-  const [localOpen, setLocalOpen] = createSignal(props.defaultOpen ?? true);
+  const [localOpen, setLocalOpen] = createSignal(props.defaultOpen ?? true, {
+    name: "TreeItem.localOpen",
+  });
   const depth = useContext(TreeDepthContext);
   const isOpen = () => props.open ?? localOpen();
   const others = omit(

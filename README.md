@@ -192,10 +192,13 @@ development-only and is not part of the published package. Consumers using the
 same Kobalte alpha need to apply the equivalent patch themselves (or tolerate
 the warnings) until Kobalte includes the fix.
 
-Kobalte's tab collection also emits an `EFFECT_RELAY_TEAR` warning when tab
-items register. It measures DOM order outside the reactive graph; Solid reports
-that as a one-frame tear. It is expected for this kind of measurement and does
-not affect the rendered tabs.
+Kobalte's tab collection also emits `EFFECT_RELAY_TEAR` and
+`EFFECT_WRITES_OWN_SOURCE` warnings when tab items register and panels mount. It
+measures DOM order outside the reactive graph; Solid reports the relay as a
+one-frame tear. It is expected for this kind of measurement and does not affect
+the rendered tabs, so the no-diagnostics gate in
+`tests/diagnostics.test.tsx` covers the components whose reactivity this package
+owns.
 
 ## Bundle size and tree shaking
 
@@ -257,6 +260,14 @@ Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).
 Browser tests cover component behavior, axe accessibility checks and
 computed-style regressions for the skin. `tests/ssr.test.tsx` renders the window
 composition with `renderToString` through `vitest.ssr.config.ts`.
+
+Reactive behavior is covered by `tests/diagnostics.test.tsx`, which uses
+`@solidjs/diagnostics` to assert that interactions produce no Solid diagnostics.
+While `vp dev` is running, `POST /__solid/diagnostics` exposes the same channels
+for out-of-process checks (`begin`, `active`, `whyDidRun`, `costs`, `end`).
+Linting uses `eslint-plugin-solid`'s `v2-strict` configuration on top of the
+project rules, so `vp check` catches destructured props, removed Solid 1.x APIs
+and the other common reactivity mistakes.
 
 The demo lives in `tests/demo/main.tsx` and uses every component. Stories live
 next to their components as `src/**/*.stories.tsx`; the Storybook configuration

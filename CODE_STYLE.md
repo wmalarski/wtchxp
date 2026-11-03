@@ -77,6 +77,30 @@ checked during type checking.
 
 Non-component helpers may remain regular function declarations.
 
+## Reactivity
+
+- Props stay reactive: read `props.x` at the point of use and never destructure
+  the props object. The only exception is a value that is deliberately
+  snapshotted, and that choice needs a comment.
+- Derive state with `createMemo` instead of an effect that writes another
+  signal. An effect that writes its own input tears the first frame.
+- Use the two-function form, `createEffect(compute, apply)`. The compute
+  function only reads; the apply function performs side effects.
+- Write signals and stores from event handlers, `onSettled`, or actions, never
+  from a component body, a memo, or an effect's compute function.
+- Name every signal, memo, and effect (`{ name: "TabList.justified" }`) so
+  diagnostic attribution and re-run budgets identify the scope.
+- A `<Context value={...}>` is read once. If the value derives from props, pass
+  a memo (or an accessor) and read it in the consumer, as `TabList` does with
+  its `justified` memo.
+- When an interactive component changes reactive state, cover the interaction
+  in `tests/diagnostics.test.tsx` and assert `toHaveNoDiagnostics()`.
+
+`eslint-plugin-solid/configs/v2-strict` enforces the Solid 2.0 rules
+(`solid/reactivity`, `solid/no-destructure`, `solid/imports`, the removed-API
+rules, and the store/memo write rules). Tests disable only `solid/reactivity`,
+because asserting on a signal after `flush()` is a legitimate untracked read.
+
 ## Styling
 
 - `src/styles.css` is the base global stylesheet. It holds only rules that

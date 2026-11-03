@@ -1,6 +1,7 @@
 import solid from "@solidjs/vite-plugin";
 import stylex from "@stylexjs/unplugin";
 import { playwright } from "@vitest/browser-playwright";
+import solidLint from "eslint-plugin-solid/configs/v2-strict";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
@@ -8,7 +9,9 @@ export default defineConfig({
     // `property-specificity` (the StyleX default) drops shorthand properties
     // such as `border` and `background`, which this skin relies on.
     stylex.vite({ styleResolution: "application-order" }),
-    solid(),
+    // `@solidjs/diagnostics` is a dev dependency, so the diagnostics endpoint
+    // at `/__solid/diagnostics` is enabled automatically in `vp dev`.
+    solid({ diagnostics: true }),
   ],
   build: {
     lib: {
@@ -53,16 +56,23 @@ export default defineConfig({
       instances: [{ browser: "chromium" }],
     },
     setupFiles: ["tests/setup.ts"],
-    include: ["src/**/*.test.tsx", "tests/a11y.test.tsx", "tests/visual.test.tsx"],
+    include: [
+      "src/**/*.test.tsx",
+      "tests/a11y.test.tsx",
+      "tests/diagnostics.test.tsx",
+      "tests/visual.test.tsx",
+    ],
   },
   lint: {
     plugins: ["typescript", "oxc", "unicorn", "react"],
-    jsPlugins: ["./lint/component-props.js"],
+    jsPlugins: ["./lint/component-props.js", "eslint-plugin-solid"],
+    settings: solidLint.settings,
     options: {
       typeAware: true,
       typeCheck: true,
     },
     rules: {
+      ...solidLint.rules,
       "typescript/consistent-type-definitions": ["error", "type"],
       "wtchxp/component-props-name": "error",
       "wtchxp/use-component-props": "error",
@@ -76,6 +86,16 @@ export default defineConfig({
         },
       ],
     },
+    overrides: [
+      {
+        // Tests read signals directly to assert on them after `flush()`; those
+        // reads do not need to be in a tracked scope.
+        files: ["**/*.test.tsx"],
+        rules: {
+          "solid/reactivity": "off",
+        },
+      },
+    ],
   },
   fmt: {},
 });

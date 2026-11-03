@@ -29,3 +29,81 @@ release. Add a tool name to select part of the graph. For example, run
 - [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
 
 <!--VITE PLUS END-->
+
+## Solid 2.0
+
+This project uses Solid 2.0 (`solid-js` 2.x with `@solidjs/web`), not Solid 1.x
+and not React. Components run once; there is no re-render. Read
+`node_modules/solid-js/CHEATSHEET.md` before writing Solid code, especially its
+last section, "What changed from 1.x".
+
+Rules that matter most:
+
+- Props are read, never destructured: `props.name` inside JSX, a memo, or an
+  effect. `function Comp({ name })` loses reactivity. Pass values, not
+  accessors, to value-typed props: `<Child count={count()} />`.
+- `createEffect(compute, apply)` takes two functions. The first reads reactive
+  values and returns a result; the second receives it and performs side effects.
+  One argument is an error.
+- Stores are written through the draft: `setStore(s => { s.user.name = "Ada" })`.
+  There are no path setters and no `produce`.
+- Read reactive values inside JSX, a memo, or an effect, never at the top of a
+  component body.
+- Do not write a signal or store from a memo, an effect's compute function, or a
+  component body. Write from event handlers, `onSettled`, or actions.
+- Name scopes so diagnostics reports are actionable: pass
+  `{ name: "TabList.justified" }` to `createSignal`, `createMemo`, and
+  `createEffect`.
+- A value passed to `<Context value={...}>` is read once. When it derives from a
+  prop, wrap it in `createMemo` and read the memo inside consumers.
+
+Names that no longer exist, and what to use:
+
+- `solid-js/web` -> `@solidjs/web`; `solid-js/store` -> `solid-js`
+- `Suspense` -> `Loading`; `SuspenseList` -> `Reveal`; `ErrorBoundary` -> `Errored`
+- `mergeProps` -> `merge`; `splitProps` -> `omit`; `unwrap` -> `snapshot`;
+  `onMount` -> `onSettled`
+- `createResource` -> an async `createMemo` or `createStore(fn)` read under
+  `<Loading>`
+- `createSelector` -> `createProjection`; `createComputed` -> `createMemo` or a
+  two-function `createEffect`
+- `batch` -> writes batch on a microtask (`flush()` applies them now); `on()` ->
+  the compute half of `createEffect`
+- `startTransition` / `useTransition` -> built in; `isPending()` reports an
+  in-flight change
+- `Index` -> `<For keyed={false}>`; `indexArray` -> `mapArray`; `createMutable`
+  -> `createStore` with draft setters
+- `onError` / `catchError` -> `<Errored>` or the `error` option of
+  `createEffect`
+- `classList` -> `class={{ active: isActive() }}`; `use:` directives ->
+  `ref={factory(args)}`
+- `Context.Provider` -> `<Context value={...}>`; `equalFn` -> `isEqual`;
+  `getListener` -> `getObserver`
+
+Project conventions live in `CODE_STYLE.md`: typed `const` arrow components,
+`Component<Props>` annotations, `<Name>Props` types, `ComponentProps<"tag">` for
+intrinsic props, and StyleX for styles.
+
+Tooling:
+
+- Skills: `node_modules/solid-js/skills/solid-2.0/SKILL.md` (primer),
+  `node_modules/solid-js/skills/solid-2.0-cheatsheet/SKILL.md` (cheatsheet),
+  `node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md` (every warning
+  code and its fix),
+  `node_modules/@solidjs/diagnostics/skills/agent-loops/SKILL.md` (capture
+  evidence, assert budgets), and
+  `node_modules/@solidjs/web/skills/server-components/SKILL.md` (server
+  components and slots).
+- A console warning with a bracketed code, such as
+  `[REACTIVE_WRITE_IN_OWNED_SCOPE]`, is a defect. Look it up in the repair
+  guide; do not suppress it.
+- Lint runs `eslint-plugin-solid/configs/v2-strict` through Vite+ (configured in
+  `vite.config.ts`). Run `vp check` after an edit.
+- Reactive changes are verified with `captureArtifact` and
+  `expectNoDiagnostics` from `@solidjs/diagnostics`; the Vitest matcher is
+  registered in `tests/setup.ts`. Add a scenario to
+  `tests/diagnostics.test.tsx` when you change reactive code, or run
+  `POST /__solid/diagnostics` against `vp dev` with `{"method":"begin"}` ...
+  `{"method":"end"}`.
+- Docs: https://v2.solidjs.com/llms.txt; append `.md` to any page URL for its
+  Markdown.

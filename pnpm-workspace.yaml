@@ -28,3 +28,10 @@ peerDependencyRules:
     vite-plus: "*"
     # Storybook's docgen dependencies still declare TypeScript <7.
     typescript: "*"
+permissions:
+  "@solidjs/diagnostics":
+    skills: true
+  "@solidjs/web":
+    skills: true
+  solid-js:
+    skills: true
