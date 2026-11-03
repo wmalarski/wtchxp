@@ -13,6 +13,9 @@ export type RangeProps = Omit<ComponentProps<"input">, "type"> & {
 /** A native `<input type="range">` with the XP track and thumb skin. */
 export const Range: Component<RangeProps> = (props) => {
   const others = omit(props, "class", "vertical", "boxIndicator");
+  // In vertical mode the wrapper owns the layout class; the rotated input
+  // itself must not receive it a second time.
+  const inputClass = () => (props.vertical ? undefined : props.class);
 
   const renderInput = () => (
     <input
@@ -21,7 +24,7 @@ export const Range: Component<RangeProps> = (props) => {
       class={rangeRecipe({
         vertical: props.vertical,
         boxIndicator: props.boxIndicator,
-        class: props.class,
+        class: inputClass(),
       })}
     />
   );

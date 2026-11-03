@@ -26,7 +26,7 @@ export const TreeView: Component<TreeViewProps> = (props) => {
     <ul
       {...others}
       role="tree"
-      aria-label={props.label}
+      aria-label={props.label ?? props["aria-label"]}
       class={[sx(treeViewStyles.tree), props.class]}
     />
   );
@@ -83,7 +83,7 @@ export const TreeItem: Component<TreeItemProps> = (props) => {
             href="#"
             role="treeitem"
             aria-selected={props.selected ? "true" : undefined}
-            class={[sx(treeViewStyles.leaf), props.class]}
+            class={sx(treeViewStyles.leaf)}
             onClick={(event) => {
               event.preventDefault();
               props.onSelect?.(event);
@@ -97,8 +97,11 @@ export const TreeItem: Component<TreeItemProps> = (props) => {
           open={isOpen()}
           class={sx(treeViewStyles.details)}
           onToggle={(event) => {
+            // Controlled branches never toggle natively; the parent owns the
+            // state, so only the uncontrolled path updates the local signal.
+            if (props.open !== undefined) return;
             const open = event.currentTarget.open;
-            if (props.open === undefined) setLocalOpen(open);
+            setLocalOpen(open);
             props.onOpenChange?.(open);
           }}
         >
@@ -106,6 +109,11 @@ export const TreeItem: Component<TreeItemProps> = (props) => {
             role="treeitem"
             aria-expanded={isOpen() ? "true" : "false"}
             class={treeSummaryRecipe({ nested: depth > 0, open: isOpen() })}
+            onClick={(event) => {
+              if (props.open === undefined) return;
+              event.preventDefault();
+              props.onOpenChange?.(!props.open);
+            }}
           >
             {content()}
           </summary>

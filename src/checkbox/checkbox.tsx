@@ -131,9 +131,11 @@ export type CheckboxProps = ParentProps<
 /** A Kobalte checkbox skinned with the XP form styles. */
 export const Checkbox: Component<CheckboxProps> = (props) => {
   const others = omit(props, "class", "label", "description", "errorMessage", "children");
+  const validationState = () =>
+    props.validationState ?? (props.errorMessage ? "invalid" : undefined);
 
   return (
-    <CheckboxRoot {...others} class={props.class}>
+    <CheckboxRoot {...others} validationState={validationState()} class={props.class}>
       <CheckboxInput />
       <Show when={props.label !== undefined} fallback={props.children}>
         <CheckboxLabel>{props.label}</CheckboxLabel>

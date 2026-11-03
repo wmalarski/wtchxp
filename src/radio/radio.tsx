@@ -57,7 +57,9 @@ export type RadioGroupDescriptionProps = Omit<
 export const RadioGroupDescription: Component<RadioGroupDescriptionProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteRadioGroup.Description {...others} class={props.class} />;
+  return (
+    <KobalteRadioGroup.Description {...others} class={[sx(fieldStyles.description), props.class]} />
+  );
 };
 
 export type RadioGroupErrorMessageProps = Omit<
@@ -69,7 +71,9 @@ export type RadioGroupErrorMessageProps = Omit<
 export const RadioGroupErrorMessage: Component<RadioGroupErrorMessageProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteRadioGroup.ErrorMessage {...others} class={props.class} />;
+  return (
+    <KobalteRadioGroup.ErrorMessage {...others} class={[sx(fieldStyles.error), props.class]} />
+  );
 };
 
 export type RadioItemProps = Omit<PolymorphicProps<"div", KobalteRadioGroupItemProps<"div">>, "as">;
@@ -155,22 +159,38 @@ export type RadioGroupProps = ParentProps<
   Omit<PolymorphicProps<"div", KobalteRadioGroupRootProps<"div">>, "as" | "children"> & {
     /** Label rendered above the group. */
     label?: JSX.Element;
+    /** Secondary text rendered below the group. */
     description?: JSX.Element;
+    /** Validation message rendered below the group. */
+    errorMessage?: JSX.Element;
   }
 >;
 
 /** A Kobalte radio group skinned with the XP form styles. */
 export const RadioGroup: Component<RadioGroupProps> = (props) => {
-  const others = omit(props, "class", "label", "description", "children");
+  const others = omit(
+    props,
+    "class",
+    "label",
+    "description",
+    "errorMessage",
+    "children",
+    "validationState",
+  );
+  const validationState = () =>
+    props.validationState ?? (props.errorMessage ? "invalid" : undefined);
 
   return (
-    <RadioGroupRoot {...others} class={props.class}>
+    <RadioGroupRoot {...others} validationState={validationState()} class={props.class}>
       <Show when={props.label}>
         <RadioGroupLabel>{props.label}</RadioGroupLabel>
       </Show>
       {props.children}
       <Show when={props.description}>
         <RadioGroupDescription>{props.description}</RadioGroupDescription>
+      </Show>
+      <Show when={props.errorMessage}>
+        <RadioGroupErrorMessage>{props.errorMessage}</RadioGroupErrorMessage>
       </Show>
     </RadioGroupRoot>
   );

@@ -23,3 +23,15 @@ test("Field omits the label and the messages when none are provided", () => {
 
   expect(screen.queryByLabelText("Theme")).toBeNull();
 });
+
+test("Field forwards wrapper props and class", () => {
+  render(() => (
+    <Field data-testid="field" class="custom-field" aria-describedby="external">
+      <input id="theme" type="text" />
+    </Field>
+  ));
+
+  const wrapper = screen.getByTestId("field");
+  expect(wrapper).toHaveClass("custom-field");
+  expect(wrapper).toHaveAttribute("aria-describedby", "external");
+});

@@ -19,3 +19,18 @@ test("RadioGroup selects a single value", () => {
   expect(value()).toBe("b");
   expect(optionB).toBeChecked();
 });
+
+test("RadioGroup renders an error message without an explicit validationState", () => {
+  render(() => (
+    <RadioGroup label="Pick one" errorMessage="Choose an option.">
+      <Radio value="a" label="Option A" />
+      <Radio value="b" label="Option B" />
+    </RadioGroup>
+  ));
+
+  expect(screen.getByRole("radiogroup", { name: "Pick one" })).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  expect(screen.getByRole("alert")).toHaveTextContent("Choose an option.");
+});

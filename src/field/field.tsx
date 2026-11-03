@@ -2,6 +2,7 @@ import type { ComponentProps, JSX } from "@solidjs/web";
 import {
   createContext,
   createUniqueId,
+  omit,
   Show,
   useContext,
   type Accessor,
@@ -79,6 +80,16 @@ export const Field: Component<FieldProps> = (props) => {
   const id = () => props.id ?? fallbackId;
   const descriptionId = () => `${id()}-description`;
   const errorId = () => `${id()}-error`;
+  const others = omit(
+    props,
+    "id",
+    "label",
+    "description",
+    "errorMessage",
+    "wrapperClass",
+    "class",
+    "children",
+  );
 
   const describedBy = () => fieldDescribedBy(id(), props.description, props.errorMessage);
   const invalid = () => !!props.errorMessage;
@@ -91,7 +102,7 @@ export const Field: Component<FieldProps> = (props) => {
         invalid: () => invalid(),
       }}
     >
-      <div class={[sx(fieldStyles.root), props.wrapperClass]}>
+      <div {...others} class={[sx(fieldStyles.root), props.wrapperClass, props.class]}>
         <Show when={props.label}>
           <label for={id()} class={sx(fieldStyles.label)}>
             {props.label}

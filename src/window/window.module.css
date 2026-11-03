@@ -11,11 +11,11 @@
   display: none;
 }
 
-.window-control:hover [data-icon-state="normal"] {
+.window-control:not(:disabled):hover [data-icon-state="normal"] {
   display: none;
 }
 
-.window-control:hover [data-icon-state="hover"] {
+.window-control:not(:disabled):hover [data-icon-state="hover"] {
   display: inline;
 }
 

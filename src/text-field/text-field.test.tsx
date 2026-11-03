@@ -16,3 +16,10 @@ test("TextField is controlled by the field value", () => {
   expect(value()).toBe("C:\\WINNT");
   expect(input).toHaveValue("C:\\WINNT");
 });
+
+test("TextField renders an error message without an explicit validationState", () => {
+  render(() => <TextField label="Path" errorMessage="The path does not exist." />);
+
+  expect(screen.getByLabelText("Path")).toHaveAttribute("aria-invalid", "true");
+  expect(screen.getByRole("alert")).toHaveTextContent("The path does not exist.");
+});

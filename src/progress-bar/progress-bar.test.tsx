@@ -9,3 +9,9 @@ test("ProgressBar exposes the native progress value", () => {
   expect(bar.value).toBe(25);
   expect(bar.max).toBe(100);
 });
+
+test("ProgressBar keeps a caller-provided aria-label", () => {
+  render(() => <ProgressBar value={25} aria-label="Disk usage" />);
+
+  expect(screen.getByRole("progressbar", { name: "Disk usage" })).toBeInTheDocument();
+});

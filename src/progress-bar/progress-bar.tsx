@@ -28,7 +28,7 @@ export const ProgressBar: Component<ProgressBarProps> = (props) => {
       value={props.indeterminate ? undefined : props.value}
       max={props.max ?? 100}
       data-indeterminate={isIndeterminate() ? "true" : undefined}
-      aria-label={props.label}
+      aria-label={props.label ?? props["aria-label"]}
       class={[sx(progressBarStyles.root), props.class]}
     />
   );

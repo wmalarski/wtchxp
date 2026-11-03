@@ -160,9 +160,11 @@ const INPUT_PROPS = [
 /** A Kobalte text field (input or textarea) skinned with the XP form styles. */
 export const TextField: Component<TextFieldProps> = (props) => {
   const others = omit(props, ...INPUT_PROPS);
+  const validationState = () =>
+    props.validationState ?? (props.errorMessage ? "invalid" : undefined);
 
   return (
-    <TextFieldRoot {...others} class={props.class}>
+    <TextFieldRoot {...others} validationState={validationState()} class={props.class}>
       <Show when={props.label}>
         <TextFieldLabel>{props.label}</TextFieldLabel>
       </Show>
