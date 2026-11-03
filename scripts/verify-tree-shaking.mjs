@@ -122,6 +122,9 @@ if (stylesheetLinks.length !== 1) {
 const js = readFileSync(jsFiles[0], "utf8");
 const css = readFileSync(cssFiles[0], "utf8");
 
+// The fixture builds with `minify: false` so module path comments remain and
+// can be used as tree-shaking markers. Do not enable minification here without
+// replacing these assertions with markers that survive it.
 // Components used by the fixture app.
 assertIncludes("JavaScript", js, [
   "dist/button/button.js",

@@ -236,14 +236,20 @@ vp install
 vp dev              # demo at http://localhost:5173
 vp run storybook    # component explorer at http://localhost:6006
 vp run build-storybook
-vp test             # Vitest in browser mode (Playwright/Chromium)
+vp run test         # browser + SSR tests
+vp run test:ssr     # server-rendering smoke test only
 vp check            # formatting, linting and type checking
 vp run build        # tree-shakeable dist modules, per-component CSS and d.ts files
 vp run verify:bundle # build size budgets + tree-shaking fixtures
 vp run generate:icons # regenerate title bar icons from src/window/icons
+vp run check:icons    # verify generated title bar assets are up to date
 ```
 
 Component conventions are documented in [`CODE_STYLE.md`](./CODE_STYLE.md).
+
+Browser tests cover component behavior, axe accessibility checks and
+computed-style regressions for the skin. `tests/ssr.test.tsx` renders the window
+composition with `renderToString` through `vitest.ssr.config.ts`.
 
 The demo lives in `demo/main.tsx` and uses every component. Stories live next
 to their components as `src/**/*.stories.tsx`; the Storybook configuration is in

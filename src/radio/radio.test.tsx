@@ -34,3 +34,13 @@ test("RadioGroup renders an error message without an explicit validationState", 
   );
   expect(screen.getByRole("alert")).toHaveTextContent("Choose an option.");
 });
+
+test("RadioGroup forwards the disabled state", () => {
+  render(() => (
+    <RadioGroup disabled label="Pick one">
+      <Radio value="a" label="Option A" />
+    </RadioGroup>
+  ));
+
+  expect(screen.getByRole("radio", { name: "Option A" })).toBeDisabled();
+});

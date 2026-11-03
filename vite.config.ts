@@ -48,6 +48,7 @@ export default defineConfig({
       instances: [{ browser: "chromium" }],
     },
     setupFiles: ["tests/setup.ts"],
+    include: ["src/**/*.test.tsx", "tests/a11y.test.tsx", "tests/visual.test.tsx"],
   },
   lint: {
     plugins: ["typescript", "oxc", "unicorn", "react"],

@@ -23,3 +23,12 @@ test("TextField renders an error message without an explicit validationState", (
   expect(screen.getByLabelText("Path")).toHaveAttribute("aria-invalid", "true");
   expect(screen.getByRole("alert")).toHaveTextContent("The path does not exist.");
 });
+
+test("TextField renders a textarea in multiline mode", () => {
+  render(() => <TextField label="Notes" multiline rows={3} placeholder="Optional notes" />);
+
+  const textarea = screen.getByLabelText("Notes");
+  expect(textarea.tagName).toBe("TEXTAREA");
+  expect(textarea).toHaveAttribute("rows", "3");
+  expect(textarea).toHaveAttribute("placeholder", "Optional notes");
+});

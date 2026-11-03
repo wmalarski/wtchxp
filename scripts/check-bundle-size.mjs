@@ -55,6 +55,11 @@ const jsFiles = readdirSync(dist, { recursive: true })
   .filter((file) => typeof file === "string" && file.endsWith(".js"))
   .map((file) => file.replaceAll("\\", "/"));
 
+const jsFilesIn = (directory) =>
+  readdirSync(join(dist, directory), { recursive: true })
+    .filter((file) => typeof file === "string" && file.endsWith(".js"))
+    .map((file) => `${directory}/${String(file)}`.replaceAll("\\", "/"));
+
 const cssFiles = readdirSync(dist, { recursive: true })
   .filter((file) => typeof file === "string" && file.endsWith(".css"))
   .map((file) => file.replaceAll("\\", "/"));
@@ -69,6 +74,21 @@ for (const component of componentDirs) {
   results.push(checkFile(`${component}/styles.css`, { raw: 24 * 1024, gzip: 5 * 1024 }));
   results.push(checkFile(`${component}/index.js`, { raw: 4 * 1024, gzip: 2 * 1024 }));
 }
+
+for (const component of componentDirs) {
+  const files = jsFilesIn(component).filter(
+    (file) => component !== "window" || !file.startsWith("window/icons/"),
+  );
+  const total = checkTotal(files, { raw: 20 * 1024, gzip: 8 * 1024 }, `${component} JavaScript`);
+  console.log(`${component} JavaScript: ${kib(total.size)} (${kib(total.gzip)} gzip)`);
+}
+
+const iconJs = checkTotal(
+  jsFilesIn("window/icons"),
+  { raw: 40 * 1024, gzip: 24 * 1024 },
+  "Window icon JavaScript",
+);
+console.log(`window icons JavaScript: ${kib(iconJs.size)} (${kib(iconJs.gzip)} gzip)`);
 
 const jsTotal = checkTotal(jsFiles, { raw: 150 * 1024, gzip: 55 * 1024 }, "JavaScript");
 const cssTotal = checkTotal(cssFiles, { raw: 130 * 1024, gzip: 34 * 1024 }, "CSS");

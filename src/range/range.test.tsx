@@ -26,3 +26,9 @@ test("Range applies a horizontal class to the input only", () => {
   expect(input).toHaveClass("custom-range");
   expect(input.parentElement).not.toHaveClass("custom-range");
 });
+
+test("Range forwards the disabled state", () => {
+  render(() => <Range disabled min={0} max={10} value={5} />);
+
+  expect(screen.getByRole("slider")).toBeDisabled();
+});

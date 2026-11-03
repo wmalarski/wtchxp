@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -77,6 +77,40 @@ const components = [
 // stylesheet instead of repeating them in every component CSS file.
 const tokenRule = /:root, \.[\w-]+ \{[^}]*\}/g;
 
+// Every source component must have an explicit stylesheet entry. Otherwise a
+// new component silently loses its rules when the initial library-wide
+// stylesheet is replaced below.
+const sourceComponents = readdirSync(join(root, "src"), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory() && existsSync(join(root, "src", entry.name, "index.ts")))
+  .map((entry) => entry.name)
+  .sort();
+const configuredComponents = components.map((component) => component.name).sort();
+const missingEntries = sourceComponents.filter((name) => !configuredComponents.includes(name));
+const staleEntries = configuredComponents.filter((name) => !sourceComponents.includes(name));
+
+if (missingEntries.length > 0 || staleEntries.length > 0) {
+  throw new Error(
+    [
+      missingEntries.length > 0 ? `Missing stylesheet entries: ${missingEntries.join(", ")}` : "",
+      staleEntries.length > 0 ? `Stale stylesheet entries: ${staleEntries.join(", ")}` : "",
+    ]
+      .filter(Boolean)
+      .join(". "),
+  );
+}
+
+for (const component of components) {
+  if (!existsSync(join(root, component.entry))) {
+    throw new Error(`Missing stylesheet entry file: ${component.entry}`);
+  }
+
+  for (const owner of component.owners) {
+    if (!existsSync(join(dist, owner))) {
+      throw new Error(`Missing stylesheet owner module: ${owner}`);
+    }
+  }
+}
+
 const tempRoot = mkdtempSync(join(tmpdir(), "wtchxp-styles-"));
 
 const findFiles = (directory, extension) =>
@@ -140,7 +174,12 @@ try {
   writeFileSync(join(dist, "scrollbars.css"), `${scrollbarCss}\n`);
 
   for (const component of components) {
-    const css = buildCss(component.name, component.entry).replace(tokenRule, "").trim();
+    const rawCss = buildCss(component.name, component.entry);
+    const css = rawCss.replace(tokenRule, "").trim();
+
+    if (new RegExp(tokenRule.source).test(css)) {
+      throw new Error(`${component.name}: theme token definitions were not stripped`);
+    }
 
     if (css.length === 0) {
       throw new Error(`Component stylesheet for ${component.name} is empty`);

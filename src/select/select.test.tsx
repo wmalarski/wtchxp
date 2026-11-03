@@ -53,6 +53,12 @@ test("Select exposes label, description and error message", () => {
   expect(screen.getByText("Choose a supported theme.")).toBeInTheDocument();
 });
 
+test("Select forwards the disabled state to its trigger", () => {
+  render(() => <Select label="Theme" options={options} disabled />);
+
+  expect(screen.getByRole("button", { name: /Theme/ })).toBeDisabled();
+});
+
 test("Select primitives compose into a custom select", () => {
   const [value, setValue] = createSignal<string | null>("a");
 

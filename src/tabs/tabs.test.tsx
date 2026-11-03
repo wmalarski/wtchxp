@@ -26,3 +26,20 @@ test("Tabs switch panels and use the menu tablist contract", () => {
   expect(screen.getByText("Second panel")).toBeInTheDocument();
   expect(screen.getByRole("tab", { name: "Two" })).toHaveAttribute("aria-selected", "true");
 });
+
+test("Tab forwards the disabled state", () => {
+  render(() => (
+    <Tabs defaultValue="one">
+      <TabList>
+        <Tab value="one">One</Tab>
+        <Tab value="two" disabled>
+          Two
+        </Tab>
+      </TabList>
+      <TabPanel value="one">First panel</TabPanel>
+      <TabPanel value="two">Second panel</TabPanel>
+    </Tabs>
+  ));
+
+  expect(screen.getByRole("tab", { name: "Two" })).toBeDisabled();
+});

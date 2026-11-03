@@ -26,3 +26,11 @@ test("Checkbox renders an error message without an explicit validationState", ()
   );
   expect(screen.getByRole("alert")).toHaveTextContent("This option is required.");
 });
+
+test("Checkbox forwards the disabled state", () => {
+  render(() => <Checkbox checked disabled label="System sounds" />);
+
+  const checkbox = screen.getByRole("checkbox", { name: "System sounds" });
+  expect(checkbox).toBeDisabled();
+  expect(checkbox).toBeChecked();
+});

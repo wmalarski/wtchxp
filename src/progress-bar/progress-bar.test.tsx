@@ -15,3 +15,19 @@ test("ProgressBar keeps a caller-provided aria-label", () => {
 
   expect(screen.getByRole("progressbar", { name: "Disk usage" })).toBeInTheDocument();
 });
+
+test("ProgressBar is indeterminate when no value is provided", () => {
+  render(() => <ProgressBar label="Disk usage" />);
+
+  const bar = screen.getByRole("progressbar", { name: "Disk usage" });
+  expect(bar).toHaveAttribute("data-indeterminate", "true");
+  expect(bar).not.toHaveAttribute("value");
+});
+
+test("ProgressBar can force the indeterminate state", () => {
+  render(() => <ProgressBar value={25} indeterminate label="Disk usage" />);
+
+  const bar = screen.getByRole("progressbar", { name: "Disk usage" });
+  expect(bar).toHaveAttribute("data-indeterminate", "true");
+  expect(bar).not.toHaveAttribute("value");
+});

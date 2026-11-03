@@ -17,3 +17,9 @@ test("Button defaults to type=button and forwards clicks", () => {
   fireEvent.click(button);
   expect(onClick).toHaveBeenCalledTimes(1);
 });
+
+test("Button forwards the disabled state", () => {
+  render(() => <Button disabled>Go</Button>);
+
+  expect(screen.getByRole("button", { name: "Go" })).toBeDisabled();
+});
