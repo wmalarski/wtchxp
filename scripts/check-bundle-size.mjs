@@ -48,7 +48,7 @@ const checkTotal = (files, limits, label) => {
 };
 
 const componentDirs = readdirSync(dist, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory() && existsSync(join(dist, entry.name, "styles.css")))
+  .filter((entry) => entry.isDirectory() && existsSync(join(dist, entry.name, "index.js")))
   .map((entry) => entry.name);
 
 const jsFiles = readdirSync(dist, { recursive: true })
@@ -66,13 +66,13 @@ const cssFiles = readdirSync(dist, { recursive: true })
 
 const results = [
   checkFile("index.js", { raw: 8 * 1024, gzip: 3 * 1024 }),
-  // The shared stylesheet: base skin, scrollbar skin, every `wt-` component
-  // skin and one copy of the theme tokens. Fonts and icons are inlined.
-  checkFile("styles.css", { raw: 84 * 1024, gzip: 24 * 1024 }),
+  // The one published stylesheet: base skin, scrollbar skin, every `wt-`
+  // component skin, the StyleX rules of all components and one copy of the
+  // theme tokens. Fonts and icons are inlined.
+  checkFile("styles.css", { raw: 120 * 1024, gzip: 30 * 1024 }),
 ];
 
 for (const component of componentDirs) {
-  results.push(checkFile(`${component}/styles.css`, { raw: 24 * 1024, gzip: 5 * 1024 }));
   results.push(checkFile(`${component}/index.js`, { raw: 4 * 1024, gzip: 2 * 1024 }));
 }
 

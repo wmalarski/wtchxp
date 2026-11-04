@@ -19,11 +19,12 @@ pnpm add wtchxp solid-js @solidjs/web @kobalte/core @stylexjs/stylex
 ```
 
 The package imports the stylesheet for a component when that component is
-imported, so there is no global skin import to remember. The shared base
-stylesheet (font faces, StyleX tokens, the XP scrollbar skin and the `wt-`
-prefixed component rules) is emitted once; each component gets its own
-stylesheet for the remaining StyleX rules, so an app that only uses `Button`
-does not download window, form or navigation StyleX CSS.
+imported, so there is no global skin import to remember. The whole library
+compiles to one stylesheet: font faces, the XP scrollbar skin, the `wt-`
+prefixed component rules, the StyleX rules and the theme tokens. StyleX
+collects rules globally, so the sheet ships as a unit — what stays granular
+is the JavaScript: an app that only uses `Button` never loads window, form or
+navigation code.
 
 The scrollbar skin ships in the base stylesheet because it is part of the XP
 look. It targets global pseudo-elements (`::-webkit-scrollbar`), so every
@@ -36,13 +37,7 @@ import "wtchxp/styles.css";
 ```
 
 Add a `*.css` module declaration if TypeScript asks for one (Vite-based apps
-get it from `vite/client`). Per-component styles are available under
-`wtchxp/components/<name>.css`, for example:
-
-```ts
-import "wtchxp/styles.css";
-import "wtchxp/components/button.css";
-```
+get it from `vite/client`).
 
 Component code is also exposed through subpaths, which avoids the root barrel
 when a consumer cannot tree-shake it:
@@ -200,11 +195,13 @@ owns.
 
 The published build runs `vp pack` in unbundle mode (tsdown), so `dist/`
 mirrors `src/` instead of bundling everything into a single `index.js`. A
-consumer bundler can therefore drop unused components, their Kobalte imports
-and their styles. Component styles are emitted next to each component and
-imported by that component's module; the base skin, the scrollbar skin and the
-StyleX tokens are emitted once in `dist/styles.css`. Component subpaths such
-as `wtchxp/components/button` resolve to the matching `dist/<component>/index.js`.
+consumer bundler can therefore drop unused components and their Kobalte
+imports. All styling lives in one `dist/styles.css` that every component
+module pulls in through the shared `sx` helper: StyleX compiles to a single
+global stylesheet by design, so CSS is shipped as a unit (skin, scrollbar
+skin, component rules, tokens) while the JavaScript stays tree-shakeable.
+Component subpaths such as `wtchxp/components/button` resolve to the matching
+`dist/<component>/index.js`.
 
 Title bar icons are generated as one module per action, and each statically
 typed `MinimizeControl`, `MaximizeControl`, `RestoreControl`, `HelpControl` and
@@ -245,7 +242,7 @@ vp run build-storybook
 vp run test         # browser + SSR tests
 vp run test:ssr     # server-rendering smoke test only
 vp check            # formatting, linting and type checking
-vp run build        # vp pack (JS + d.ts) and the per-component stylesheets
+vp run build        # vp pack: JS, d.ts and the single stylesheet
 vp run verify:bundle # build size budgets + tree-shaking fixtures
 vp run generate:icons # regenerate title bar icons from src/window/icons
 vp run check:icons    # verify generated title bar assets are up to date

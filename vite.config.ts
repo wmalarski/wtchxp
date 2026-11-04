@@ -2,6 +2,7 @@ import solid from "@solidjs/vite-plugin";
 import stylex from "@stylexjs/unplugin";
 import { playwright } from "@vitest/browser-playwright";
 import solidLint from "eslint-plugin-solid/configs/v2-strict";
+import postcssUrl from "postcss-url";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
@@ -30,17 +31,27 @@ export default defineConfig({
     // when they only use one component. Unbundling lets the consumer's
     // bundler drop unused components and their dependencies.
     unbundle: true,
-    // Inline title-bar PNGs as data URLs, matching the previous Vite build.
-    loader: { ".png": "dataurl", ".woff2": "dataurl" },
+    // Inline icon and font assets as data URLs; the published stylesheets
+    // must be self-contained (the tree-shaking fixture asserts this).
+    loader: { ".png": "dataurl", ".svg": "dataurl", ".woff2": "dataurl" },
     css: {
-      // Pack's own CSS output is discarded by `scripts/build-styles.mjs`,
-      // which owns the published stylesheets: the StyleX rolldown plugin
-      // accumulates rules process-wide and flushes them in nondeterministic
-      // order, so `vp pack` cannot emit the shipped stylesheet itself.
-      // PostCSS matches the transformer of the separate stylesheet builds
-      // there (Vite's default); the tsdown default, Lightning CSS, parses
-      // and minifies the discarded CSS differently.
+      // `vp pack` owns the published stylesheet: it resolves the `@import`s
+      // in `src/styles.css`, collects the StyleX rules, inlines the asset
+      // URLs, and merges everything into `dist/styles.css`. With
+      // `inject: true` each JS chunk that contributes CSS keeps a
+      // side-effect import of the sheet; `src/sx.ts` imports `styles.css`,
+      // so every component chunk reaches it through `sx.js`.
+      //
+      // PostCSS because the Lightning CSS default leaves `url()` references
+      // dangling instead of routing them through the data-URL loaders.
+      // `postcss-url` inlines the icons and fonts so the published sheet is
+      // self-contained (the tree-shaking fixture asserts separate assets).
       transformer: "postcss",
+      postcss: { plugins: [postcssUrl({ url: "inline" })] },
+      splitting: false,
+      fileName: "styles.css",
+      inject: true,
+      minify: true,
     },
     plugins: [
       stylex.rolldown({ styleResolution: "application-order" }),

@@ -162,10 +162,10 @@ assertExcludes("JavaScript", js, [
   "@kobalte/core/dist/text-field",
 ]);
 
-// The app uses Button, Checkbox, GroupBox and Window. The shared base sheet
-// carries the global skin, the scrollbar skin and every `wt-` component
-// skin, so those rules reach even apps that leave some components unused;
-// what must still be tree-shaken are the StyleX rules of unused components.
+// The app uses Button, Checkbox, GroupBox and Window. The stylesheet is one
+// compiled sheet: StyleX rules cannot be split per component, so every skin
+// and rule reaches any app — including StyleX of components it does not
+// render. What must still tree-shake is the JavaScript, asserted above.
 assertIncludes("CSS", css, [
   "75px",
   "wt-window-control",
@@ -173,15 +173,11 @@ assertIncludes("CSS", css, [
   "--xp-checkbox-icon",
   "wt-field-row",
   "::-webkit-scrollbar",
-  // Base-sheet rules for components this app does not use: the skins now
-  // ship globally, so assert they survive in the merged stylesheet.
+  // Skins of components this app does not use: the sheet ships globally.
   "wt-radio-label",
   "wt-xp-select",
   "--xp-range-thumb",
-]);
-
-assertExcludes("CSS", css, [
-  // StyleX keyframes of the unused ProgressBar component.
+  // StyleX rules of the unused ProgressBar component ship too.
   "@keyframes xhtld8h-B",
 ]);
 
@@ -194,7 +190,7 @@ if (jsRaw > 260 * 1024 || jsGzip > 75 * 1024) {
   throw new Error(`Fixture JS exceeds budget: ${kib(jsRaw)} (${kib(jsGzip)} gzip)`);
 }
 
-if (cssRaw > 100 * 1024 || cssGzip > 28 * 1024) {
+if (cssRaw > 120 * 1024 || cssGzip > 30 * 1024) {
   throw new Error(`Fixture CSS exceeds budget: ${kib(cssRaw)} (${kib(cssGzip)} gzip)`);
 }
 

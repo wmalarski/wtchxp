@@ -1,3 +1,4 @@
+import "./styles.css";
 import * as stylex from "@stylexjs/stylex";
 
 /**

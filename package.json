@@ -30,7 +30,6 @@
       "default": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
-    "./components/*.css": "./dist/*/styles.css",
     "./components/*": {
       "types": "./dist/*/index.d.ts",
       "import": "./dist/*/index.js",
@@ -42,7 +41,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack && node scripts/build-styles.mjs",
+    "build": "vp pack",
     "dev": "vp dev",
     "generate:icons": "node scripts/generate-window-icons.mjs",
     "check:icons": "node scripts/check-icons.mjs",
@@ -68,13 +67,15 @@
     "@stylexjs/unplugin": "^0.19.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@types/node": "^26.6.5",
+    "@types/postcss-url": "^10.0.4",
     "@vitest/browser-playwright": "5.0.5",
     "axe-core": "^4.14.0",
     "bumpp": "^12.3.0",
     "eslint-plugin-solid": "0.18.1",
     "playwright": "^1.64.1",
     "postcss": "^8.5.32",
-    "postcss-modules": "^9.0.1",
+    "postcss-import": "^17.0.1",
+    "postcss-url": "^10.1.4",
     "solid-js": "2.0.0-rc.16",
     "storybook": "^10.6.5",
     "storybook-solidjs-vite": "^10.7.4",
