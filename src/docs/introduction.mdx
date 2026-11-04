@@ -1,0 +1,33 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Gallery from "./gallery.stories";
+
+<Meta title="Introduction" />
+
+# wtchxp
+
+Windows XP themed components for [SolidJS](https://www.solidjs.com/), built on
+[Kobalte](https://kobalte.dev/) and styled with the XP.css skin plus
+[StyleX](https://stylexjs.com/).
+
+The goal of this library is to give Solid applications the look of a Windows XP
+dialog without giving up modern fundamentals:
+
+- **Authentic skin** — the XP.css look recreated with StyleX and global
+  component rules. Every class carries the `wt-` prefix, so the skin cannot
+  clash with application CSS.
+- **Accessible behaviour** — Kobalte drives the interaction and a11y semantics
+  of the form controls, tabs and trees; the package keeps the XP markup contract.
+- **Tree-shakeable** — one output module per component; an app that only uses
+  `Button` never loads window, form or navigation code. The whole library
+  compiles to a single stylesheet.
+- **Themeable** — design tokens are exported StyleX variables, overridable per
+  subtree with `stylex.createTheme`.
+
+> Requires Solid 2 RC (`solid-js@2.0.0-rc.16`) and its matching
+> `@solidjs/web` runtime.
+
+Browse the sidebar for per-component stories with controls, or explore the
+gallery below — it uses every component in the library, the same composition as
+the demo page (`tests/demo/main.tsx`).
+
+<Canvas of={Gallery.Default} sourceState="none" />

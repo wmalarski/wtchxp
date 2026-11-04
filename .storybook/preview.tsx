@@ -21,7 +21,15 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ["Buttons", "Forms", "Layout", "Navigation", "Windows"],
+        order: [
+          "Introduction",
+          "Component Gallery",
+          "Buttons",
+          "Forms",
+          "Layout",
+          "Navigation",
+          "Windows",
+        ],
       },
     },
   },

@@ -23,6 +23,15 @@ body {
   margin-top: 12px;
 }
 
+/* Inside the docs pages the desktop backdrop should hug the window instead
+   of filling the viewport the way it does for standalone stories. The blue
+   lives on the wrapper because the docs canvas paints its own background. */
+.sbdocs .storybook-desktop {
+  min-height: 0;
+  padding: 24px;
+  background: #3a6ea5;
+}
+
 .storybook-desktop p {
   margin: 0;
   font-family: "Pixelated MS Sans Serif", Arial;
