@@ -1,0 +1,31 @@
+/*-------------------------------------------*\
+    Window
+    Component CSS for title bar control icons.
+    StyleX handles the button skin; these rules
+    switch the inlined SVG between its normal,
+    hover and active states.
+    The `wt-` prefix keeps the class name unique
+    now that the rules live in the global stylesheet.
+\*-------------------------------------------*/
+
+.wt-window-control [data-icon-state="hover"],
+.wt-window-control [data-icon-state="active"] {
+  display: none;
+}
+
+.wt-window-control:not(:disabled):hover [data-icon-state="normal"] {
+  display: none;
+}
+
+.wt-window-control:not(:disabled):hover [data-icon-state="hover"] {
+  display: inline;
+}
+
+.wt-window-control:not(:disabled):active [data-icon-state="normal"],
+.wt-window-control:not(:disabled):active [data-icon-state="hover"] {
+  display: none;
+}
+
+.wt-window-control:not(:disabled):active [data-icon-state="active"] {
+  display: inline;
+}

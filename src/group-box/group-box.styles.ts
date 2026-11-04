@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
 import type { JSX } from "@solidjs/web/jsx-runtime";
-import classes from "./group-box.module.css";
 import { sx } from "../sx";
 import {
   backgroundColors,
@@ -45,5 +44,5 @@ type FieldRowRecipeArgs = {
 };
 
 export const fieldRowRecipe = ({ class: className }: FieldRowRecipeArgs): JSX.ClassValue[] => {
-  return [classes["field-row"], sx(groupBoxStyles.row), className];
+  return ["wt-field-row", sx(groupBoxStyles.row), className];
 };

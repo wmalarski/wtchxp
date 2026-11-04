@@ -36,11 +36,10 @@ export default defineConfig({
       // Pack's own CSS output is discarded by `scripts/build-styles.mjs`,
       // which owns the published stylesheets: the StyleX rolldown plugin
       // accumulates rules process-wide and flushes them in nondeterministic
-      // order, so `vp pack` cannot emit the shipped stylesheet itself. The
-      // JS here and the stylesheets there must still agree on CSS module
-      // names: PostCSS is the transformer whose default
-      // `_<local>_<hash>_<line>` scoping matches Vite's (Lightning CSS, the
-      // tsdown default, scopes classes differently).
+      // order, so `vp pack` cannot emit the shipped stylesheet itself.
+      // PostCSS matches the transformer of the separate stylesheet builds
+      // there (Vite's default); the tsdown default, Lightning CSS, parses
+      // and minifies the discarded CSS differently.
       transformer: "postcss",
     },
     plugins: [

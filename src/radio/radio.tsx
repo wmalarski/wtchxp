@@ -15,7 +15,6 @@ import { omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../sx";
 import { radioInputMarker, radioStyles } from "./radio.styles";
 import { fieldStyles } from "../field/field.styles";
-import classes from "./radio.module.css";
 
 export type RadioGroupRootProps = Omit<
   PolymorphicProps<"div", KobalteRadioGroupRootProps<"div">>,
@@ -107,7 +106,7 @@ export const RadioLabel: Component<RadioLabelProps> = (props) => {
   return (
     <KobalteRadioGroup.ItemLabel
       {...others}
-      class={[classes["radio-label"], sx(fieldStyles.label), sx(radioStyles.label), props.class]}
+      class={["wt-radio-label", sx(fieldStyles.label), sx(radioStyles.label), props.class]}
     />
   );
 };

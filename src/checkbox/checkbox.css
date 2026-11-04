@@ -3,9 +3,11 @@
     Component CSS for checkbox-label icon
     StyleX handles the main styling; this rule sets
     the checkbox icon URL as a CSS custom property.
+    The `wt-` prefix keeps the class name unique
+    now that the rule lives in the global stylesheet.
 \*-------------------------------------------*/
 
-.checkbox-label {
+.wt-checkbox-label {
   --xp-checkbox-icon: url("./icons/checkmark.svg");
   --xp-checkbox-icon-disabled: url("./icons/checkmark-disabled.svg");
 }

@@ -12,7 +12,6 @@ import { omit, Show, type Component, type ParentProps } from "solid-js";
 import { sx } from "../sx";
 import { checkboxInputMarker, checkboxStyles } from "./checkbox.styles";
 import { fieldStyles } from "../field/field.styles";
-import classes from "./checkbox.module.css";
 
 export type CheckboxRootProps = Omit<
   PolymorphicProps<"div", KobalteCheckboxRootProps<"div">>,
@@ -50,12 +49,7 @@ export const CheckboxLabel: Component<CheckboxLabelProps> = (props) => {
   return (
     <KobalteCheckbox.Label
       {...others}
-      class={[
-        classes["checkbox-label"],
-        sx(fieldStyles.label),
-        sx(checkboxStyles.label),
-        props.class,
-      ]}
+      class={["wt-checkbox-label", sx(fieldStyles.label), sx(checkboxStyles.label), props.class]}
     />
   );
 };

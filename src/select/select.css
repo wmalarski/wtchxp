@@ -3,15 +3,17 @@
     Component CSS for xp-select icon
     StyleX handles the main styling; this rule sets
     the select icon URLs as CSS custom properties.
+    The `wt-` prefix keeps the class names unique
+    now that the rules live in the global stylesheet.
 \*-------------------------------------------*/
 
-.xp-select {
+.wt-xp-select {
   --xp-select-icon: url("./icons/dropdown.svg");
   --xp-select-icon-hover: url("./icons/dropdown-hover.svg");
   --xp-select-icon-active: url("./icons/dropdown-active.svg");
 }
 
-.xp-select-item-indicator {
+.wt-xp-select-item-indicator {
   background-image: url("./icons/checkmark.svg");
   background-repeat: no-repeat;
   background-position: center;

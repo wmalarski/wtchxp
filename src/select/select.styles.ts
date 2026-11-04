@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
 import type { JSX } from "@solidjs/web/jsx-runtime";
-import classes from "./select.module.css";
 import { sx } from "../sx";
 import {
   backgroundColors,
@@ -131,12 +130,12 @@ type SelectRecipeArgs = {
 
 /** The XP-styled trigger for a Kobalte select. */
 export const selectRecipe = ({ class: className }: SelectRecipeArgs): JSX.ClassValue[] => {
-  return [classes["xp-select"], sx(selectStyles.trigger), className];
+  return ["wt-xp-select", sx(selectStyles.trigger), className];
 };
 
 /** The indicator rendered next to the selected select item. */
 export const selectItemIndicatorRecipe = ({
   class: className,
 }: SelectRecipeArgs): JSX.ClassValue[] => {
-  return [classes["xp-select-item-indicator"], sx(selectStyles.itemIndicator), className];
+  return ["wt-xp-select-item-indicator", sx(selectStyles.itemIndicator), className];
 };

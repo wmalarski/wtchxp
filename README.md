@@ -4,9 +4,10 @@ Windows XP themed components for [SolidJS](https://www.solidjs.com/), built on
 [Kobalte](https://kobalte.dev/) and styled with the XP.css skin plus
 [StyleX](https://stylexjs.com/).
 
-The library recreates the XP.css skin with StyleX and scoped CSS modules.
-Component class names are hashed, so the skin cannot clash with application
-CSS; theme through the exported StyleX tokens instead.
+The library recreates the XP.css skin with StyleX and global component
+rules. Every class name those rules declare carries the `wt-` prefix, so the
+skin cannot clash with application CSS; theme through the exported StyleX
+tokens instead.
 
 > Requires Solid 2 RC (`solid-js@2.0.0-rc.16`) and its matching
 > `@solidjs/web` runtime.
@@ -19,9 +20,10 @@ pnpm add wtchxp solid-js @solidjs/web @kobalte/core @stylexjs/stylex
 
 The package imports the stylesheet for a component when that component is
 imported, so there is no global skin import to remember. The shared base
-stylesheet (font faces, StyleX tokens and the XP scrollbar skin) is emitted
-once; each component gets its own stylesheet, so an app that only uses
-`Button` does not download window, form or navigation CSS.
+stylesheet (font faces, StyleX tokens, the XP scrollbar skin and the `wt-`
+prefixed component rules) is emitted once; each component gets its own
+stylesheet for the remaining StyleX rules, so an app that only uses `Button`
+does not download window, form or navigation StyleX CSS.
 
 The scrollbar skin ships in the base stylesheet because it is part of the XP
 look. It targets global pseudo-elements (`::-webkit-scrollbar`), so every
@@ -54,15 +56,16 @@ import { Button } from "wtchxp/components/button";
 > without a CSS loader is not supported.
 
 The base stylesheet contains the Pixelated MS Sans Serif font, the StyleX
-token definitions and the scrollbar skin with its icons; native select and
-range internals live in their component stylesheets.
+token definitions, the scrollbar skin with its icons and the component
+`.css` files imported by `src/styles.css` (icon custom properties and
+selector rules StyleX cannot express).
 The font is shipped as WOFF2 only; browsers without WOFF2 support fall back to
-Arial. CSS icons are inlined as data URLs in the stylesheet of the component
+Arial. CSS icons are inlined as data URLs in the stylesheet carrying the rule
 that paints them, so the colocated `<component>/icons/*.svg` assets do not
 produce extra image requests. Title bar icons are generated as small PNGs per
 interaction state and imported by each statically typed control, so a control
 does not carry the other actions' artwork. Components define their layout and
-skin styles with StyleX, using colocated CSS modules only for rules StyleX
+skin styles with StyleX, using colocated `*.css` files only for rules StyleX
 cannot express, such as a bundler asset URL or switching image states on
 `:hover`/`:active`.
 
@@ -269,10 +272,10 @@ as the library. Pushes to `master` deploy the static Storybook build to GitHub
 Pages (`.github/workflows/deploy-storybook.yml`), published at
 <https://wmalarski.github.io/wtchxp/>. In the repository settings, set
 **Pages → Build and deployment → Source** to **GitHub Actions** once before the
-first deployment. `src/styles.css` is the base global stylesheet (fonts)
-and `@import`s `src/scrollbar/scrollbar.css` (the XP scrollbar skin),
-`src/variables/variables.stylex.ts` defines the theme tokens, and
-component-specific CSS lives next to each component as `*.module.css`.
+first deployment. `src/styles.css` is the base global stylesheet (fonts) and `@import`s
+`src/scrollbar/scrollbar.css` (the XP scrollbar skin) plus every component's
+colocated `<component>.css`, `src/variables/variables.stylex.ts` defines the
+theme tokens, and StyleX handles the rest of the component styling.
 `vp run generate:icons` regenerates the title bar PNGs and SVG-backed icon
 components with Playwright/Chromium.
 

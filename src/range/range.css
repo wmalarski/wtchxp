@@ -3,12 +3,14 @@
     Component CSS for xp-range thumb icon
     StyleX handles the main styling; this rule sets
     the range thumb URL as a CSS custom property.
+    The `wt-` prefix keeps the class names unique
+    now that the rules live in the global stylesheet.
 \*-------------------------------------------*/
 
-.xp-range {
+.wt-xp-range {
   --xp-range-thumb: url("./icons/indicator-horizontal.svg");
 }
 
-.xp-range.has-box-indicator {
+.wt-xp-range.wt-has-box-indicator {
   --xp-range-thumb: url("./icons/indicator-rectangle-horizontal.svg");
 }

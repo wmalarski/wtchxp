@@ -103,29 +103,34 @@ because asserting on a signal after `flush()` is a legitimate untracked read.
 
 ## Styling
 
-- `src/styles.css` is the base global stylesheet. It holds only rules that
-  cannot be expressed by StyleX or scoped to a component: `@font-face`. The
-  scrollbar pseudo-elements live in `src/scrollbar/scrollbar.css`, which is
-  compiled separately and is opt-in through `wtchxp/scrollbars.css`.
+- `src/styles.css` is the base global stylesheet. It holds rules that StyleX
+  cannot express: `@font-face` and the `@import`s of
+  `src/scrollbar/scrollbar.css` and of every component's colocated
+  `<component>.css`. The scrollbar pseudo-elements live in
+  `src/scrollbar/scrollbar.css`; the skin ships in the base stylesheet, so
+  it reaches every consumer.
 - Theme values live in `src/variables/variables.stylex.ts`. Use the tokens in
   `stylex.create` calls instead of hard-coded values.
 - Component styles live in the component folder. Move every `stylex.create`
   definition into a `<component>.styles.ts` file and export it as
   `<component>Styles`; the component file should only consume it.
-- Use a colocated `*.module.css` file when a rule needs a bundler asset URL
-  (for example an icon) that StyleX cannot resolve, or a selector StyleX cannot
-  express, such as switching image or inline SVG states on an ancestor's
-  `:hover`/`:active`. CSS modules keep the class names hashed and scoped to the
-  component.
+- Use a colocated `<component>.css` file when a rule needs a bundler asset
+  URL (for example an icon) that StyleX cannot resolve, or a selector StyleX
+  cannot express, such as switching image or inline SVG states on an
+  ancestor's `:hover`/`:active`. Do not import the file from the component;
+  add an `@import` to `src/styles.css` instead. Every class name it declares
+  must carry the `wt-` prefix so the global rules stay unique.
 - Shared field primitives (the wrapper, label, description and error message)
   live in `src/field/field.styles.ts` and are imported by the form controls.
 - Shared styles must only declare properties the local component styles do not
   override. When composing StyleX styles across modules, never set the same
-  property in both places: CSS module order is not the class-attribute order.
+  property in both places: stylesheet order is not the class-attribute order.
   Put spacing and other variants in local styles instead.
 - Do not import `src/styles.css` from a component. The build emits one shared
-  base stylesheet and one stylesheet per component, then injects those imports
-  into the built component modules so only used CSS reaches the consumer.
+  base stylesheet (with every component skin) and one stylesheet per
+  component (its StyleX rules), then injects those imports into the built
+  component modules so the StyleX CSS of unused components never reaches the
+  consumer.
 
 ## Icons
 

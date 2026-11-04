@@ -3,8 +3,10 @@
     Component CSS for field-row spacing
     StyleX handles the main styling; this rule adds
     margin between adjacent field rows.
+    The `wt-` prefix keeps the class name unique
+    now that the rule lives in the global stylesheet.
 \*-------------------------------------------*/
 
-.field-row + .field-row {
+.wt-field-row + .wt-field-row {
   margin-top: 6px;
 }

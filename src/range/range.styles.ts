@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
 import type { JSX } from "@solidjs/web/jsx-runtime";
-import classes from "./range.module.css";
 import { sx } from "../sx";
 import {
   backgroundColors,
@@ -87,8 +86,8 @@ export const rangeRecipe = ({
   class: className,
 }: RangeRecipeArgs): JSX.ClassValue[] => {
   return [
-    classes["xp-range"],
-    { [classes["has-box-indicator"]]: boxIndicator },
+    "wt-xp-range",
+    { "wt-has-box-indicator": boxIndicator },
     sx(rangeStyles.range),
     vertical && sx(rangeStyles.verticalRange),
     boxIndicator && sx(rangeStyles.boxIndicator as stylex.StyleXStyles),

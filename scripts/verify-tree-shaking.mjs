@@ -162,23 +162,26 @@ assertExcludes("JavaScript", js, [
   "@kobalte/core/dist/text-field",
 ]);
 
-// The app uses Button, Checkbox, GroupBox and Window. CSS from those
-// components (plus the shared skin, which now includes the scrollbar skin)
-// should be merged into the single app stylesheet, while unused component
-// CSS should be absent.
+// The app uses Button, Checkbox, GroupBox and Window. The shared base sheet
+// carries the global skin, the scrollbar skin and every `wt-` component
+// skin, so those rules reach even apps that leave some components unused;
+// what must still be tree-shaken are the StyleX rules of unused components.
 assertIncludes("CSS", css, [
   "75px",
-  "_window-control_",
-  "_checkbox-label_",
+  "wt-window-control",
+  "wt-checkbox-label",
   "--xp-checkbox-icon",
-  "_field-row_",
+  "wt-field-row",
   "::-webkit-scrollbar",
+  // Base-sheet rules for components this app does not use: the skins now
+  // ship globally, so assert they survive in the merged stylesheet.
+  "wt-radio-label",
+  "wt-xp-select",
+  "--xp-range-thumb",
 ]);
 
 assertExcludes("CSS", css, [
-  "_xp-select_",
-  "_radio-label_",
-  "--xp-range-thumb",
+  // StyleX keyframes of the unused ProgressBar component.
   "@keyframes xhtld8h-B",
 ]);
 
@@ -191,7 +194,7 @@ if (jsRaw > 260 * 1024 || jsGzip > 75 * 1024) {
   throw new Error(`Fixture JS exceeds budget: ${kib(jsRaw)} (${kib(jsGzip)} gzip)`);
 }
 
-if (cssRaw > 72 * 1024 || cssGzip > 24 * 1024) {
+if (cssRaw > 100 * 1024 || cssGzip > 28 * 1024) {
   throw new Error(`Fixture CSS exceeds budget: ${kib(cssRaw)} (${kib(cssGzip)} gzip)`);
 }
 

@@ -2,15 +2,24 @@
     Global skin
 
     Global rules live here, including the XP
-    scrollbar skin (`src/scrollbar/scrollbar.css`),
-    imported below. Theme tokens
-    live in StyleX
+    scrollbar skin (`src/scrollbar/scrollbar.css`)
+    and the component skins, imported below as
+    plain `*.css` files. Component class names
+    share the `wt-` prefix so they stay unique in
+    the global scope. Theme tokens live in StyleX
     (`src/variables/variables.stylex.ts`);
-    component-specific rules live next to
-    their components as CSS modules.
+    the rest of the component styling lives next
+    to each component in StyleX.
 \*-------------------------------------------*/
 
 @import "./scrollbar/scrollbar.css";
+
+@import "./checkbox/checkbox.css";
+@import "./group-box/group-box.css";
+@import "./radio/radio.css";
+@import "./range/range.css";
+@import "./select/select.css";
+@import "./window/window.css";
 
 @font-face {
   font-family: "Pixelated MS Sans Serif";

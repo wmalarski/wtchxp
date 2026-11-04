@@ -3,9 +3,11 @@
     Component CSS for radio-label icon
     StyleX handles the main styling; this rule sets
     the radio icon URL as a CSS custom property.
+    The `wt-` prefix keeps the class name unique
+    now that the rule lives in the global stylesheet.
 \*-------------------------------------------*/
 
-.radio-label {
+.wt-radio-label {
   --xp-radio-icon: url("./icons/radio-dot.svg");
   --xp-radio-icon-disabled: url("./icons/radio-dot-disabled.svg");
 }
