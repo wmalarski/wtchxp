@@ -21,7 +21,10 @@ await build({
   build: {
     outDir,
     emptyOutDir: true,
-    cssCodeSplit: false,
+    // A `.css` entry (the global skin) is itself a stylesheet and must be
+    // built with CSS splitting on; the merged single-asset mode below only
+    // applies to JS entries (components, tokens).
+    cssCodeSplit: entry.endsWith(".css"),
     lib: {
       entry: { [name]: entry },
       formats: ["es"],

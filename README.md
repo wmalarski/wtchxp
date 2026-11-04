@@ -19,33 +19,26 @@ pnpm add wtchxp solid-js @solidjs/web @kobalte/core @stylexjs/stylex
 
 The package imports the stylesheet for a component when that component is
 imported, so there is no global skin import to remember. The shared base
-stylesheet (font faces and StyleX tokens) is emitted once; each component gets
-its own stylesheet, so an app that only uses `Button` does not download window,
-form or navigation CSS.
+stylesheet (font faces, StyleX tokens and the XP scrollbar skin) is emitted
+once; each component gets its own stylesheet, so an app that only uses
+`Button` does not download window, form or navigation CSS.
 
-The XP scrollbar skin is opt-in because it targets global pseudo-elements:
-
-```ts
-import "wtchxp/scrollbars.css";
-```
-
-The scrollbar skin used to be part of the base stylesheet; add this import when
-upgrading if you want to keep the global scrollbar styling.
-
-If you manage stylesheets yourself (for example to control the load order or
-place the skin in a CSS layer), the base skin is also available explicitly:
+The scrollbar skin ships in the base stylesheet because it is part of the XP
+look. It targets global pseudo-elements (`::-webkit-scrollbar`), so every
+scrollbar in the page picks it up. If you manage stylesheets yourself (for
+example to control the load order or place the skin in a CSS layer), the base
+skin is also available explicitly:
 
 ```ts
-import "wtchxp/styles";
+import "wtchxp/styles.css";
 ```
 
-`import "wtchxp/styles.css"` is equivalent (add a `*.css` module declaration if
-TypeScript asks for one). Per-component styles are available under
+Add a `*.css` module declaration if TypeScript asks for one (Vite-based apps
+get it from `vite/client`). Per-component styles are available under
 `wtchxp/components/<name>.css`, for example:
 
 ```ts
 import "wtchxp/styles.css";
-import "wtchxp/scrollbars.css"; // optional
 import "wtchxp/components/button.css";
 ```
 
@@ -60,9 +53,9 @@ import { Button } from "wtchxp/components/button";
 > imports (Vite, webpack, and similar); importing the package directly in Node
 > without a CSS loader is not supported.
 
-The base stylesheet contains the Pixelated MS Sans Serif font and the StyleX
-token definitions. The optional scrollbar stylesheet contains the scrollbar
-icons; native select and range internals live in their component stylesheets.
+The base stylesheet contains the Pixelated MS Sans Serif font, the StyleX
+token definitions and the scrollbar skin with its icons; native select and
+range internals live in their component stylesheets.
 The font is shipped as WOFF2 only; browsers without WOFF2 support fall back to
 Arial. CSS icons are inlined as data URLs in the stylesheet of the component
 that paints them, so the colocated `<component>/icons/*.svg` assets do not
@@ -202,13 +195,13 @@ owns.
 
 ## Bundle size and tree shaking
 
-The published build keeps one module per source module instead of bundling
-everything into a single `index.js`. A consumer bundler can therefore drop
-unused components, their Kobalte imports and their styles. Component styles are
-emitted next to each component and imported by that component's module; the
-base skin and StyleX tokens are emitted once in `dist/styles.css`, and the
-optional scrollbar skin in `dist/scrollbars.css`. Component subpaths such as
-`wtchxp/components/button` resolve to the matching `dist/<component>/index.js`.
+The published build runs `vp pack` in unbundle mode (tsdown), so `dist/`
+mirrors `src/` instead of bundling everything into a single `index.js`. A
+consumer bundler can therefore drop unused components, their Kobalte imports
+and their styles. Component styles are emitted next to each component and
+imported by that component's module; the base skin, the scrollbar skin and the
+StyleX tokens are emitted once in `dist/styles.css`. Component subpaths such
+as `wtchxp/components/button` resolve to the matching `dist/<component>/index.js`.
 
 Title bar icons are generated as one module per action, and each statically
 typed `MinimizeControl`, `MaximizeControl`, `RestoreControl`, `HelpControl` and
@@ -249,7 +242,7 @@ vp run build-storybook
 vp run test         # browser + SSR tests
 vp run test:ssr     # server-rendering smoke test only
 vp check            # formatting, linting and type checking
-vp run build        # tree-shakeable dist modules, per-component CSS and d.ts files
+vp run build        # vp pack (JS + d.ts) and the per-component stylesheets
 vp run verify:bundle # build size budgets + tree-shaking fixtures
 vp run generate:icons # regenerate title bar icons from src/window/icons
 vp run check:icons    # verify generated title bar assets are up to date
@@ -272,8 +265,12 @@ and the other common reactivity mistakes.
 The demo lives in `tests/demo/main.tsx` and uses every component. Stories live
 next to their components as `src/**/*.stories.tsx`; the Storybook configuration
 is in `.storybook/` and uses `storybook-solidjs-vite` with the same Vite/StyleX setup
-as the library. `src/styles.css` is the base global stylesheet (fonts),
-`src/scrollbar/scrollbar.css` holds the opt-in scrollbar skin,
+as the library. Pushes to `master` deploy the static Storybook build to GitHub
+Pages (`.github/workflows/deploy-storybook.yml`), published at
+<https://wmalarski.github.io/wtchxp/>. In the repository settings, set
+**Pages → Build and deployment → Source** to **GitHub Actions** once before the
+first deployment. `src/styles.css` is the base global stylesheet (fonts)
+and `@import`s `src/scrollbar/scrollbar.css` (the XP scrollbar skin),
 `src/variables/variables.stylex.ts` defines the theme tokens, and
 component-specific CSS lives next to each component as `*.module.css`.
 `vp run generate:icons` regenerates the title bar PNGs and SVG-backed icon

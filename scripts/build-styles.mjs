@@ -123,6 +123,14 @@ const findFiles = (directory, extension) =>
         : [];
   });
 
+// `vp pack` emits a CSS asset for every module that imports a CSS module, and
+// the StyleX plugin appends its collected rules to one of them. Those
+// intermediate assets are not part of the published layout; the authoritative
+// stylesheets are written below.
+for (const file of findFiles(dist, ".css")) {
+  rmSync(file, { force: true });
+}
+
 const buildCss = (name, entry) => {
   const outDir = join(tempRoot, name);
 
@@ -164,14 +172,14 @@ const prependImport = (file, specifier) => {
 };
 
 try {
-  const baseCss = buildCss("base", "src/styles-entry.ts");
+  // The shared base stylesheet is `src/styles.css` itself; it `@import`s
+  // the scrollbar skin, so the published sheet is the global skin plus one
+  // copy of the theme tokens. Component rules are emitted next to their
+  // components.
+  const baseCss = buildCss("base", "src/styles.css");
   const tokenCss = buildCss("tokens", "src/variables/variables.stylex.ts");
-  const scrollbarCss = buildCss("scrollbars", "src/scrollbars-entry.ts");
 
-  // Replace the library-wide stylesheet with the global skin plus one copy of
-  // the theme tokens. Component rules are emitted next to their components.
   writeFileSync(join(dist, "styles.css"), `${baseCss}\n${tokenCss}\n`);
-  writeFileSync(join(dist, "scrollbars.css"), `${scrollbarCss}\n`);
 
   for (const component of components) {
     const rawCss = buildCss(component.name, component.entry);
@@ -198,14 +206,17 @@ try {
       prependImport(owner, baseSpecifier);
     }
 
-    // Separate builds must produce the same CSS module hashes as the main JS
-    // build. If they drift, the class names in JS would no longer match the
-    // emitted rules, so fail the build instead of shipping unstyled markup.
+    // The separate Vite build must produce the same CSS module class names as
+    // `vp pack`. If they drift, the class names in JS would no longer match
+    // the emitted rules, so fail the build instead of shipping unstyled markup.
     const componentDir = join(dist, component.name);
 
-    if (readdirSync(componentDir).some((file) => file.endsWith(".module.css.js"))) {
-      const moduleClasses = findFiles(componentDir, ".module.css.js").flatMap((file) =>
-        readFileSync(file, "utf8").match(/_\w[\w-]*_\w+_\w+/g),
+    if (readdirSync(componentDir).some((file) => file.endsWith(".module.js"))) {
+      const moduleClasses = findFiles(componentDir, ".module.js").flatMap((file) =>
+        // Scoped names look like `_<local>_<hash>_<line>`; the trailing line
+        // number keeps generated variable names such as
+        // `group_box_module_default` from matching.
+        readFileSync(file, "utf8").match(/_[A-Za-z0-9-]+_[a-z0-9]+_\d+/g),
       );
       const componentRules = readFileSync(join(componentDir, "styles.css"), "utf8");
 

@@ -163,14 +163,16 @@ assertExcludes("JavaScript", js, [
 ]);
 
 // The app uses Button, Checkbox, GroupBox and Window. CSS from those
-// components should be merged into the single app stylesheet, while unused
-// component CSS should be absent.
+// components (plus the shared skin, which now includes the scrollbar skin)
+// should be merged into the single app stylesheet, while unused component
+// CSS should be absent.
 assertIncludes("CSS", css, [
   "75px",
   "_window-control_",
   "_checkbox-label_",
   "--xp-checkbox-icon",
   "_field-row_",
+  "::-webkit-scrollbar",
 ]);
 
 assertExcludes("CSS", css, [
@@ -178,7 +180,6 @@ assertExcludes("CSS", css, [
   "_radio-label_",
   "--xp-range-thumb",
   "@keyframes xhtld8h-B",
-  "::-webkit-scrollbar",
 ]);
 
 const jsRaw = readFileSync(jsFiles[0]).byteLength;
@@ -190,7 +191,7 @@ if (jsRaw > 260 * 1024 || jsGzip > 75 * 1024) {
   throw new Error(`Fixture JS exceeds budget: ${kib(jsRaw)} (${kib(jsGzip)} gzip)`);
 }
 
-if (cssRaw > 48 * 1024 || cssGzip > 20 * 1024) {
+if (cssRaw > 72 * 1024 || cssGzip > 24 * 1024) {
   throw new Error(`Fixture CSS exceeds budget: ${kib(cssRaw)} (${kib(cssGzip)} gzip)`);
 }
 

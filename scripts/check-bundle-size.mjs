@@ -66,8 +66,9 @@ const cssFiles = readdirSync(dist, { recursive: true })
 
 const results = [
   checkFile("index.js", { raw: 8 * 1024, gzip: 3 * 1024 }),
-  checkFile("styles.css", { raw: 28 * 1024, gzip: 15 * 1024 }),
-  checkFile("scrollbars.css", { raw: 36 * 1024, gzip: 6 * 1024 }),
+  // The shared stylesheet: base skin, scrollbar skin and one copy of the
+  // theme tokens. Fonts and icons are inlined.
+  checkFile("styles.css", { raw: 60 * 1024, gzip: 23 * 1024 }),
 ];
 
 for (const component of componentDirs) {

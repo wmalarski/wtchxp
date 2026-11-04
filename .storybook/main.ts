@@ -10,17 +10,6 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true,
   },
-  async viteFinal(config) {
-    // The project's vite.config.ts is a library build. Storybook supplies its
-    // own bundle inputs, so drop the library-specific build options.
-    const build = config.build as Record<string, unknown> | undefined;
-    if (build) {
-      delete build.lib;
-      delete build.rolldownOptions;
-    }
-
-    return config;
-  },
 };
 
 export default config;

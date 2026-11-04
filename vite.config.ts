@@ -13,32 +13,42 @@ export default defineConfig({
     // at `/__solid/diagnostics` is enabled automatically in `vp dev`.
     solid({ diagnostics: true }),
   ],
-  build: {
-    lib: {
-      entry: {
-        index: "src/index.ts",
-        styles: "src/styles-entry.ts",
-      },
-      formats: ["es"],
-      fileName: (_format, entryName) => `${entryName}.js`,
-      cssFileName: "styles",
+  pack: {
+    // Re-export-only entries are dropped when they are not listed explicitly,
+    // which would leave `dist/<component>/index.js` missing. List every public
+    // index module so `preserveModules`-style output stays complete.
+    entry: ["src/index.ts", "src/*/index.ts"],
+    // Browser library, not Node: `neutral` resolves dependencies through
+    // `exports` only and keeps `.js` extensions (the `node` default emits
+    // `.mjs`). Not the tsdown default, so state it.
+    platform: "neutral",
+    // tsdown does not minify by default; the previous Vite build did.
+    minify: true,
+    dts: true,
+    // Keep one output module per source module. A single bundled entry makes
+    // consumers keep every external import (Kobalte, StyleX helpers) even
+    // when they only use one component. Unbundling lets the consumer's
+    // bundler drop unused components and their dependencies.
+    unbundle: true,
+    // Inline title-bar PNGs as data URLs, matching the previous Vite build.
+    loader: { ".png": "dataurl", ".woff2": "dataurl" },
+    css: {
+      // Pack's own CSS output is discarded by `scripts/build-styles.mjs`,
+      // which owns the published stylesheets: the StyleX rolldown plugin
+      // accumulates rules process-wide and flushes them in nondeterministic
+      // order, so `vp pack` cannot emit the shipped stylesheet itself. The
+      // JS here and the stylesheets there must still agree on CSS module
+      // names: PostCSS is the transformer whose default
+      // `_<local>_<hash>_<line>` scoping matches Vite's (Lightning CSS, the
+      // tsdown default, scopes classes differently).
+      transformer: "postcss",
     },
-    rolldownOptions: {
-      external: [
-        /^solid-js(\/|$)/,
-        /^@solidjs\/web(\/|$)/,
-        /^@kobalte\/core(\/|$)/,
-        /^@stylexjs\/stylex(\/|$)/,
-      ],
-      // Keep one output module per source module. A single bundled entry makes
-      // consumers keep every external import (Kobalte, StyleX helpers) even
-      // when they only use one component. Preserving modules lets the
-      // consumer's bundler drop unused components and their dependencies.
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: "src",
-      },
-    },
+    plugins: [
+      stylex.rolldown({ styleResolution: "application-order" }),
+      // tsdown runs Vite plugins at runtime, but their plugin types do not
+      // line up with Rolldown's.
+      solid() as never,
+    ],
   },
   // The demo page is collocated with its source under tests/demo instead of
   // living at the project root, so point the dev server at it.
