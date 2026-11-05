@@ -71,5 +71,11 @@ export type TabPanelProps = Omit<PolymorphicProps<"div", TabsContentProps<"div">
 export const TabPanel: Component<TabPanelProps> = (props) => {
   const others = omit(props, "class");
 
-  return <KobalteTabs.Content {...others} class={[sx(tabsStyles.panel), props.class]} />;
+  return (
+    <KobalteTabs.Content
+      {...others}
+      forceMount={props.forceMount ?? true}
+      class={[sx(tabsStyles.panel), props.class]}
+    />
+  );
 };

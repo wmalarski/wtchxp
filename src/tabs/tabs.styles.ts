@@ -13,10 +13,14 @@ import {
 
 export const tabsStyles = stylex.create({
   root: {
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1fr)",
     fontFamily: fonts.sansSerif,
     fontSize: fontSizes.base,
   },
   list: {
+    gridColumn: "1",
+    gridRow: "1",
     position: "relative",
     display: "flex",
     margin: "0 0 -2px",
@@ -86,6 +90,8 @@ export const tabsStyles = stylex.create({
     textAlign: "center",
   },
   panel: {
+    gridColumn: "1",
+    gridRow: "2",
     position: "relative",
     zIndex: 2,
     clear: "both",
@@ -94,6 +100,9 @@ export const tabsStyles = stylex.create({
     background: backgrounds.tabPanel,
     border: tabs.border,
     boxShadow: shadows.tabPanel,
+    ":not([data-selected])": {
+      visibility: "hidden",
+    },
   },
 });
 

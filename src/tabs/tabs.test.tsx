@@ -19,11 +19,18 @@ test("Tabs switch panels and use the menu tablist contract", () => {
   expect(tablist.tagName).toBe("MENU");
   expect(screen.getByRole("tab", { name: "One" })).toBeInTheDocument();
   expect(screen.getByText("First panel")).toBeInTheDocument();
+  expect(screen.getByText("Second panel")).toBeInTheDocument();
+  expect(screen.getByText("Second panel").closest('[role="tabpanel"]')).not.toHaveAttribute(
+    "data-selected",
+  );
 
   fireEvent.click(screen.getByRole("tab", { name: "Two" }));
   flush();
 
   expect(screen.getByText("Second panel")).toBeInTheDocument();
+  expect(screen.getByText("First panel").closest('[role="tabpanel"]')).not.toHaveAttribute(
+    "data-selected",
+  );
   expect(screen.getByRole("tab", { name: "Two" })).toHaveAttribute("aria-selected", "true");
 });
 
