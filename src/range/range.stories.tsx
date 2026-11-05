@@ -1,11 +1,13 @@
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
+import { withLightSurface } from "../../.storybook/decorators";
 import { Range } from "./range";
 
 const meta = {
   title: "Forms/Range",
   component: Range,
+  decorators: [withLightSurface],
   tags: ["autodocs"],
   args: {
     label: "Volume",

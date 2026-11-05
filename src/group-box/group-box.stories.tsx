@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
+import { withLightSurface } from "../../.storybook/decorators";
 import { Button } from "../button";
 import { FieldRow, FieldRowStacked, GroupBox } from "./group-box";
 import { TextField } from "../text-field";
@@ -6,6 +7,7 @@ import { TextField } from "../text-field";
 const meta = {
   title: "Layout/GroupBox",
   component: GroupBox,
+  decorators: [withLightSurface],
   tags: ["autodocs"],
   args: {
     legend: "Buttons",

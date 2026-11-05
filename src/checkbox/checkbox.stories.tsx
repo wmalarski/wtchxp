@@ -1,11 +1,13 @@
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
+import { withLightSurface } from "../../.storybook/decorators";
 import { Checkbox } from "./checkbox";
 
 const meta = {
   title: "Forms/Checkbox",
   component: Checkbox,
+  decorators: [withLightSurface],
   tags: ["autodocs"],
   args: {
     label: "Enable system sounds",

@@ -23,6 +23,12 @@ body {
   margin-top: 12px;
 }
 
+.storybook-surface {
+  padding: 16px;
+  background: #ece9d8;
+  box-sizing: border-box;
+}
+
 /* Inside the docs pages the desktop backdrop should hug the window instead
    of filling the viewport the way it does for standalone stories. The blue
    lives on the wrapper because the docs canvas paints its own background. */

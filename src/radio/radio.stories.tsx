@@ -1,11 +1,13 @@
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
+import { withLightSurface } from "../../.storybook/decorators";
 import { Radio, RadioGroup } from "./radio";
 
 const meta = {
   title: "Forms/Radio",
   component: RadioGroup,
+  decorators: [withLightSurface],
   tags: ["autodocs"],
   args: {
     label: "Assignment",

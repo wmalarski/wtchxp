@@ -1,6 +1,7 @@
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
+import { withLightSurface } from "../../.storybook/decorators";
 import { Select, type SelectOption } from "./select";
 
 const options: SelectOption[] = [
@@ -12,6 +13,7 @@ const options: SelectOption[] = [
 const meta = {
   title: "Forms/Select",
   component: Select,
+  decorators: [withLightSurface],
   tags: ["autodocs"],
   args: {
     label: "Theme",

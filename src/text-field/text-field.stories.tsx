@@ -1,11 +1,13 @@
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
+import { withLightSurface } from "../../.storybook/decorators";
 import { TextField } from "./text-field";
 
 const meta = {
   title: "Forms/TextField",
   component: TextField,
+  decorators: [withLightSurface],
   tags: ["autodocs"],
   args: {
     label: "Installation path",
