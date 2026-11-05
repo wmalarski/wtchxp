@@ -28,6 +28,12 @@ peerDependencyRules:
     vite-plus: "*"
     # Storybook's docgen dependencies still declare TypeScript <7.
     typescript: "*"
+# Link approved agent skills into .agents/skills. Naming the directory keeps
+# installs working in CI, where none of the agent skill directories exist yet
+# and pnpm cannot infer one from the environment.
+skills:
+  dirs:
+    - .agents/skills
 permissions:
   "@solidjs/diagnostics":
     skills: true
